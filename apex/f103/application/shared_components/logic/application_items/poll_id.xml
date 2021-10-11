@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog 
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:n0="http://www.oracle.com/xml/ns/dbchangelog-ext" 
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
+	http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+	<changeSet id="c5b230b7ca2deab657a094846e037775667ec357" author="(DEMO)-Generated" failOnError="false"    >
+		<n0:runOracleScript objectName="SCRIPT" objectType="APEX" ownerName="DEMO" sourceType="STRING"  >
+			<n0:source><![CDATA[prompt --application/shared_components/logic/application_items/poll_id
+begin
+--   Manifest
+--     APPLICATION ITEM: POLL_ID
+--   Manifest End
+wwv_flow_api.component_begin (
+ p_version_yyyy_mm_dd=>'2020.10.01'
+,p_release=>'20.2.0.00.20'
+,p_default_workspace_id=>9748850854216151
+,p_default_application_id=>103
+,p_default_id_offset=>0
+,p_default_owner=>'DEMO'
+);
+wwv_flow_api.create_flow_item(
+ p_id=>wwv_flow_api.id(26243738042334250)
+,p_name=>'POLL_ID'
+,p_protection_level=>'N'
+);
+wwv_flow_api.component_end;
+end;
+]]></n0:source>
+		</n0:runOracleScript>
+	</changeSet>
+</databaseChangeLog>

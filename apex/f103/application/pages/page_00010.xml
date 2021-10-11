@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog 
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:n0="http://www.oracle.com/xml/ns/dbchangelog-ext" 
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
+	http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+	<changeSet id="76252c81eac047133191305301389ae67bd4a77f" author="(DEMO)-Generated" failOnError="false"    >
+		<n0:runOracleScript objectName="SCRIPT" objectType="APEX" ownerName="DEMO" sourceType="STRING"  >
+			<n0:source><![CDATA[prompt --application/pages/page_00010
+begin
+--   Manifest
+--     PAGE: 00010
+--   Manifest End
+wwv_flow_api.component_begin (
+ p_version_yyyy_mm_dd=>'2020.10.01'
+,p_release=>'20.2.0.00.20'
+,p_default_workspace_id=>9748850854216151
+,p_default_application_id=>103
+,p_default_id_offset=>0
+,p_default_owner=>'DEMO'
+);
+wwv_flow_api.create_page(
+ p_id=>10
+,p_user_interface_id=>wwv_flow_api.id(20307810813402751)
+,p_name=>'Welcome'
+,p_alias=>'WELCOME'
+,p_step_title=>'Welcome'
+,p_autocomplete_on_off=>'OFF'
+,p_page_template_options=>'#DEFAULT#'
+,p_last_updated_by=>'DEMO'
+,p_last_upd_yyyymmddhh24miss=>'20210920143342'
+);
+wwv_flow_api.create_page_plug(
+ p_id=>wwv_flow_api.id(20437427999295178)
+,p_plug_name=>'Wizard'
+,p_region_template_options=>'#DEFAULT#:t-Wizard--hideStepsXSmall'
+,p_plug_template=>wwv_flow_api.id(20233046497402687)
+,p_plug_display_sequence=>10
+,p_plug_display_point=>'BODY'
+,p_list_id=>wwv_flow_api.id(20436902815295166)
+,p_plug_source_type=>'NATIVE_LIST'
+,p_list_template_id=>wwv_flow_api.id(20282398074402717)
+,p_plug_query_options=>'DERIVED_REPORT_COLUMNS'
+);
+wwv_flow_api.create_page_plug(
+ p_id=>wwv_flow_api.id(20437582425295178)
+,p_plug_name=>'What is APEX?'
+,p_parent_plug_id=>wwv_flow_api.id(20437427999295178)
+,p_region_template_options=>'#DEFAULT#'
+,p_plug_template=>wwv_flow_api.id(20194273734402670)
+,p_plug_display_sequence=>10
+,p_plug_display_point=>'BODY'
+,p_plug_source=>wwv_flow_string.join(wwv_flow_t_varchar2(
+'<h2>Build enterprise apps 20x faster with 100x less code.</h2>',
+'<h5>Oracle Application Express (APEX) is a low-code development platform that enables you to build scalable, secure enterprise apps, with world-class features.  It provides you with all the tools you need to build apps in a single, extensible platfor'
+||'m, which runs as a part of Oracle Database.</h5>',
+'<ul>',
+'<li>No-cost <u>fully supported</u> feature</li>',
+'<li>Any number of apps, developers & end-users</li>',
+'<li>Included by default with all editions of Oracle Database</li>',
+'</ul>',
+''))
+,p_plug_query_options=>'DERIVED_REPORT_COLUMNS'
+,p_attribute_01=>'N'
+,p_attribute_02=>'HTML'
+);
+wwv_flow_api.create_page_plug(
+ p_id=>wwv_flow_api.id(20475060672298913)
+,p_plug_name=>'Features'
+,p_region_template_options=>'#DEFAULT#'
+,p_component_template_options=>'#DEFAULT#'
+,p_plug_template=>wwv_flow_api.id(20197426261402671)
+,p_plug_display_sequence=>20
+,p_include_in_reg_disp_sel_yn=>'Y'
+,p_plug_new_grid_row=>false
+,p_plug_new_grid_column=>false
+,p_plug_display_point=>'BODY'
+,p_query_type=>'TABLE'
+,p_query_table=>'CARDS'
+,p_query_where=>'CARD_CATEGORY=''Features'''
+,p_query_order_by=>'CARD_ORDER'
+,p_include_rowid_column=>false
+,p_lazy_loading=>false
+,p_plug_source_type=>'NATIVE_CARDS'
+,p_plug_query_num_rows_type=>'SCROLL'
+,p_plug_query_options=>'DERIVED_REPORT_COLUMNS'
+,p_show_total_row_count=>false
+);
+wwv_flow_api.create_card(
+ p_id=>wwv_flow_api.id(20475102360298914)
+,p_region_id=>wwv_flow_api.id(20475060672298913)
+,p_layout_type=>'GRID'
+,p_title_adv_formatting=>true
+,p_title_html_expr=>'<img src=#APP_IMAGES#&CARD_IMAGE. width="256" height="256">'
+,p_sub_title_adv_formatting=>false
+,p_body_adv_formatting=>false
+,p_second_body_adv_formatting=>false
+,p_second_body_column_name=>'CARD_SUBTEXT'
+,p_badge_column_name=>'CARD_TEXT'
+,p_media_adv_formatting=>false
+,p_pk1_column_name=>'CARD_IMAGE'
+);
+wwv_flow_api.create_page_button(
+ p_id=>wwv_flow_api.id(20439269230295183)
+,p_button_sequence=>20
+,p_button_plug_id=>wwv_flow_api.id(20437427999295178)
+,p_button_name=>'CANCEL'
+,p_button_action=>'REDIRECT_PAGE'
+,p_button_template_options=>'#DEFAULT#'
+,p_button_template_id=>wwv_flow_api.id(20285157220402721)
+,p_button_image_alt=>'Cancel'
+,p_button_position=>'REGION_TEMPLATE_CLOSE'
+,p_button_redirect_url=>'f?p=&APP_ID.:1:&SESSION.::&DEBUG.:::'
+);
+wwv_flow_api.create_page_button(
+ p_id=>wwv_flow_api.id(20439564513295183)
+,p_button_sequence=>30
+,p_button_plug_id=>wwv_flow_api.id(20437427999295178)
+,p_button_name=>'NEXT'
+,p_button_action=>'SUBMIT'
+,p_button_template_options=>'#DEFAULT#:t-Button--iconRight'
+,p_button_template_id=>wwv_flow_api.id(20285225881402721)
+,p_button_is_hot=>'Y'
+,p_button_image_alt=>'Next'
+,p_button_position=>'REGION_TEMPLATE_NEXT'
+,p_icon_css_classes=>'fa-chevron-right'
+);
+wwv_flow_api.create_page_branch(
+ p_id=>wwv_flow_api.id(20440293112295185)
+,p_branch_action=>'f?p=&APP_ID.:12:&APP_SESSION.::&DEBUG.:::&success_msg=#SUCCESS_MSG#'
+,p_branch_point=>'AFTER_PROCESSING'
+,p_branch_type=>'REDIRECT_URL'
+,p_branch_when_button_id=>wwv_flow_api.id(20439564513295183)
+,p_branch_sequence=>20
+);
+wwv_flow_api.component_end;
+end;
+]]></n0:source>
+		</n0:runOracleScript>
+	</changeSet>
+</databaseChangeLog>

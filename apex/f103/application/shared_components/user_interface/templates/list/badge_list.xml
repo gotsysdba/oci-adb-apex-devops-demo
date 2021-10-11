@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog 
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:n0="http://www.oracle.com/xml/ns/dbchangelog-ext" 
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
+	http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+	<changeSet id="387be3831f82938e70a76ead444ae73b5d90bceb" author="(DEMO)-Generated" failOnError="false"    >
+		<n0:runOracleScript objectName="SCRIPT" objectType="APEX" ownerName="DEMO" sourceType="STRING"  >
+			<n0:source><![CDATA[prompt --application/shared_components/user_interface/templates/list/badge_list
+begin
+--   Manifest
+--     REGION TEMPLATE: BADGE_LIST
+--   Manifest End
+wwv_flow_api.component_begin (
+ p_version_yyyy_mm_dd=>'2020.10.01'
+,p_release=>'20.2.0.00.20'
+,p_default_workspace_id=>9748850854216151
+,p_default_application_id=>103
+,p_default_id_offset=>0
+,p_default_owner=>'DEMO'
+);
+wwv_flow_api.create_list_template(
+ p_id=>wwv_flow_api.id(20258303075402703)
+,p_list_template_current=>wwv_flow_string.join(wwv_flow_t_varchar2(
+'<li class="t-BadgeList-item #A02#">',
+'  <a class="t-BadgeList-wrap u-color #A04#" href="#LINK#" #A03#>',
+'  <span class="t-BadgeList-label">#TEXT#</span>',
+'  <span class="t-BadgeList-value">#A01#</span>',
+'  </a>',
+'</li>'))
+,p_list_template_noncurrent=>wwv_flow_string.join(wwv_flow_t_varchar2(
+'<li class="t-BadgeList-item #A02#">',
+'  <a class="t-BadgeList-wrap u-color #A04#" href="#LINK#" #A03#>',
+'  <span class="t-BadgeList-label">#TEXT#</span>',
+'  <span class="t-BadgeList-value">#A01#</span>',
+'  </a>',
+'</li>'))
+,p_list_template_name=>'Badge List'
+,p_internal_name=>'BADGE_LIST'
+,p_theme_id=>42
+,p_theme_class_id=>3
+,p_preset_template_options=>'t-BadgeList--large:t-BadgeList--cols t-BadgeList--3cols:t-BadgeList--circular'
+,p_list_template_before_rows=>'<ul class="t-BadgeList #COMPONENT_CSS_CLASSES#">'
+,p_list_template_after_rows=>'</ul>'
+,p_a01_label=>'Value'
+,p_a02_label=>'List item CSS Classes'
+,p_a03_label=>'Link Attributes'
+,p_a04_label=>'Link Classes'
+,p_reference_id=>2062482847268086664
+,p_list_template_comment=>wwv_flow_string.join(wwv_flow_t_varchar2(
+'A01: Large Number',
+'A02: List Item Classes',
+'A03: Link Attributes'))
+);
+wwv_flow_api.component_end;
+end;
+]]></n0:source>
+		</n0:runOracleScript>
+	</changeSet>
+</databaseChangeLog>

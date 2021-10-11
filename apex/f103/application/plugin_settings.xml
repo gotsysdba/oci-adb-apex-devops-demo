@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog 
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:n0="http://www.oracle.com/xml/ns/dbchangelog-ext" 
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
+	http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+	<changeSet id="90c96f38cefeb568581935f3922c2a410c688c19" author="(DEMO)-Generated" failOnError="false"    >
+		<n0:runOracleScript objectName="SCRIPT" objectType="APEX" ownerName="DEMO" sourceType="STRING"  >
+			<n0:source><![CDATA[prompt --application/plugin_settings
+begin
+wwv_flow_api.component_begin (
+ p_version_yyyy_mm_dd=>'2020.10.01'
+,p_release=>'20.2.0.00.20'
+,p_default_workspace_id=>9748850854216151
+,p_default_application_id=>103
+,p_default_id_offset=>0
+,p_default_owner=>'DEMO'
+);
+wwv_flow_api.create_plugin_setting(
+ p_id=>wwv_flow_api.id(20164933396402642)
+,p_plugin_type=>'REGION TYPE'
+,p_plugin=>'NATIVE_DISPLAY_SELECTOR'
+,p_attribute_01=>'Y'
+);
+wwv_flow_api.create_plugin_setting(
+ p_id=>wwv_flow_api.id(20165219663402642)
+,p_plugin_type=>'ITEM TYPE'
+,p_plugin=>'NATIVE_RICH_TEXT_EDITOR'
+,p_attribute_01=>'Y'
+);
+wwv_flow_api.create_plugin_setting(
+ p_id=>wwv_flow_api.id(20165519781402642)
+,p_plugin_type=>'ITEM TYPE'
+,p_plugin=>'NATIVE_STAR_RATING'
+,p_attribute_01=>'fa-star'
+,p_attribute_04=>'#VALUE#'
+);
+wwv_flow_api.create_plugin_setting(
+ p_id=>wwv_flow_api.id(20165816501402642)
+,p_plugin_type=>'ITEM TYPE'
+,p_plugin=>'NATIVE_SINGLE_CHECKBOX'
+,p_attribute_01=>'Y'
+,p_attribute_02=>'N'
+);
+wwv_flow_api.create_plugin_setting(
+ p_id=>wwv_flow_api.id(20166107118402642)
+,p_plugin_type=>'ITEM TYPE'
+,p_plugin=>'NATIVE_YES_NO'
+,p_attribute_01=>'Y'
+,p_attribute_03=>'N'
+,p_attribute_05=>'SWITCH_CB'
+);
+wwv_flow_api.create_plugin_setting(
+ p_id=>wwv_flow_api.id(20166483895402643)
+,p_plugin_type=>'ITEM TYPE'
+,p_plugin=>'NATIVE_COLOR_PICKER'
+,p_attribute_01=>'modern'
+);
+wwv_flow_api.create_plugin_setting(
+ p_id=>wwv_flow_api.id(20166725626402643)
+,p_plugin_type=>'REGION TYPE'
+,p_plugin=>'NATIVE_IR'
+,p_attribute_01=>'IG'
+);
+wwv_flow_api.create_plugin_setting(
+ p_id=>wwv_flow_api.id(20167040965402643)
+,p_plugin_type=>'REGION TYPE'
+,p_plugin=>'NATIVE_CSS_CALENDAR'
+);
+wwv_flow_api.component_end;
+end;
+]]></n0:source>
+		</n0:runOracleScript>
+	</changeSet>
+</databaseChangeLog>

@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog 
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:n0="http://www.oracle.com/xml/ns/dbchangelog-ext" 
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
+	http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+	<changeSet id="07c8108944082c9548cdb8887e0ce01f469453c9" author="(DEMO)-Generated" failOnError="false"    >
+		<n0:runOracleScript objectName="SCRIPT" objectType="APEX" ownerName="DEMO" sourceType="STRING"  >
+			<n0:source><![CDATA[prompt --application/shared_components/user_interface/theme_style
+begin
+--   Manifest
+--     THEME STYLE: 103
+--   Manifest End
+wwv_flow_api.component_begin (
+ p_version_yyyy_mm_dd=>'2020.10.01'
+,p_release=>'20.2.0.00.20'
+,p_default_workspace_id=>9748850854216151
+,p_default_application_id=>103
+,p_default_id_offset=>0
+,p_default_owner=>'DEMO'
+);
+wwv_flow_api.create_theme_style(
+ p_id=>wwv_flow_api.id(20286968578402736)
+,p_theme_id=>42
+,p_name=>'Redwood Light'
+,p_css_file_urls=>wwv_flow_string.join(wwv_flow_t_varchar2(
+'#IMAGE_PREFIX#libraries/oracle-fonts/oraclesans-apex#MIN#.css?v=#APEX_VERSION#',
+'#THEME_IMAGES#css/Redwood-Light#MIN#.css?v=#APEX_VERSION#'))
+,p_is_current=>true
+,p_is_public=>true
+,p_is_accessible=>false
+,p_theme_roller_read_only=>true
+,p_reference_id=>2596426436825065489
+);
+wwv_flow_api.create_theme_style(
+ p_id=>wwv_flow_api.id(20287184152402736)
+,p_theme_id=>42
+,p_name=>'Vista'
+,p_css_file_urls=>'#THEME_IMAGES#css/Vista#MIN#.css?v=#APEX_VERSION#'
+,p_is_current=>false
+,p_is_public=>false
+,p_is_accessible=>false
+,p_theme_roller_read_only=>true
+,p_reference_id=>4007676303523989775
+);
+wwv_flow_api.create_theme_style(
+ p_id=>wwv_flow_api.id(20287330725402736)
+,p_theme_id=>42
+,p_name=>'Vita'
+,p_is_current=>false
+,p_is_public=>true
+,p_is_accessible=>true
+,p_theme_roller_input_file_urls=>'#THEME_IMAGES#less/theme/Vita.less'
+,p_theme_roller_output_file_url=>'#THEME_IMAGES#css/Vita#MIN#.css?v=#APEX_VERSION#'
+,p_theme_roller_read_only=>true
+,p_reference_id=>2719875314571594493
+);
+wwv_flow_api.create_theme_style(
+ p_id=>wwv_flow_api.id(20287578230402736)
+,p_theme_id=>42
+,p_name=>'Vita - Dark'
+,p_is_current=>false
+,p_is_public=>true
+,p_is_accessible=>false
+,p_theme_roller_input_file_urls=>'#THEME_IMAGES#less/theme/Vita-Dark.less'
+,p_theme_roller_output_file_url=>'#THEME_IMAGES#css/Vita-Dark#MIN#.css?v=#APEX_VERSION#'
+,p_theme_roller_read_only=>true
+,p_reference_id=>3543348412015319650
+);
+wwv_flow_api.create_theme_style(
+ p_id=>wwv_flow_api.id(20287781360402736)
+,p_theme_id=>42
+,p_name=>'Vita - Red'
+,p_is_current=>false
+,p_is_public=>true
+,p_is_accessible=>false
+,p_theme_roller_input_file_urls=>'#THEME_IMAGES#less/theme/Vita-Red.less'
+,p_theme_roller_output_file_url=>'#THEME_IMAGES#css/Vita-Red#MIN#.css?v=#APEX_VERSION#'
+,p_theme_roller_read_only=>true
+,p_reference_id=>1938457712423918173
+);
+wwv_flow_api.create_theme_style(
+ p_id=>wwv_flow_api.id(20287966992402736)
+,p_theme_id=>42
+,p_name=>'Vita - Slate'
+,p_is_current=>false
+,p_is_public=>true
+,p_is_accessible=>false
+,p_theme_roller_input_file_urls=>'#THEME_IMAGES#less/theme/Vita-Slate.less'
+,p_theme_roller_output_file_url=>'#THEME_IMAGES#css/Vita-Slate#MIN#.css?v=#APEX_VERSION#'
+,p_theme_roller_read_only=>true
+,p_reference_id=>3291983347983194966
+);
+wwv_flow_api.create_theme_style(
+ p_id=>wwv_flow_api.id(20540675313131029)
+,p_theme_id=>42
+,p_name=>'Vita (Dark)'
+,p_is_current=>false
+,p_is_public=>true
+,p_is_accessible=>true
+,p_theme_roller_input_file_urls=>'#THEME_IMAGES#less/theme/Vita.less'
+,p_theme_roller_config=>'{"customCSS":"","vars":{"@g_Nav-Accent-BG":"rgba(248, 0, 0, 1)","@g_Nav-Badge-BG":"rgba(248, 0, 0, 1)","@g_NavBarMenu-Active-BG":"rgba(248, 0, 0, 1)","@g_Accent-BG":"rgba(30, 35, 30, 1)"}}'
+,p_theme_roller_output_file_url=>'#THEME_DB_IMAGES#20540675313131029.css'
+,p_theme_roller_read_only=>false
+);
+wwv_flow_api.component_end;
+end;
+]]></n0:source>
+		</n0:runOracleScript>
+	</changeSet>
+</databaseChangeLog>

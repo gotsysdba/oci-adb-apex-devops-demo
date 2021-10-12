@@ -5,7 +5,7 @@
 	xmlns:n0="http://www.oracle.com/xml/ns/dbchangelog-ext" 
 	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
 	http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
-	<changeSet id="09575f89a7fb9b14650a8d92bffe07573aa8ef8f" author="(DEMO)-Generated" failOnError="false"    >
+	<changeSet id="649f410208c048505e9ad99cf5ddc7d8b02ec342" author="(DEMO)-Generated" failOnError="false"    >
 		<n0:runOracleScript objectName="SCRIPT" objectType="APEX" ownerName="DEMO" sourceType="STRING"  >
 			<n0:source><![CDATA[prompt --application/pages/page_00016
 begin
@@ -29,7 +29,7 @@ wwv_flow_api.create_page(
 ,p_autocomplete_on_off=>'OFF'
 ,p_page_template_options=>'#DEFAULT#'
 ,p_last_updated_by=>'DEMO'
-,p_last_upd_yyyymmddhh24miss=>'20210924082327'
+,p_last_upd_yyyymmddhh24miss=>'20211012104323'
 );
 wwv_flow_api.create_page_plug(
  p_id=>wwv_flow_api.id(20449345505295190)
@@ -101,10 +101,18 @@ wwv_flow_api.create_page_plug(
 ,p_plug_display_sequence=>20
 ,p_include_in_reg_disp_sel_yn=>'Y'
 ,p_plug_display_point=>'BODY'
-,p_query_type=>'TABLE'
-,p_query_table=>'APPLICATION_LINKS'
-,p_query_where=>'APPLICATION_ID <> V(''APP_ID'')'
-,p_include_rowid_column=>false
+,p_query_type=>'SQL'
+,p_plug_source=>wwv_flow_string.join(wwv_flow_t_varchar2(
+'select  application_name, application_id, ',
+'        REGEXP_SUBSTR (home_link,',
+'                      ''\:{1}([^:]+)'',',
+'                      1,',
+'                      1,',
+'                      NULL,',
+'                      1) HOME_PAGE',
+'from    apex_applications ',
+'where   workspace <> ''INTERNAL''',
+'and     APPLICATION_ID <> V(''APP_ID'')'))
 ,p_lazy_loading=>false
 ,p_plug_source_type=>'NATIVE_CARDS'
 ,p_plug_query_num_rows_type=>'SCROLL'
@@ -128,7 +136,7 @@ wwv_flow_api.create_card_action(
 ,p_action_type=>'FULL_CARD'
 ,p_display_sequence=>10
 ,p_link_target_type=>'REDIRECT_APP'
-,p_link_target=>'f?p=&APPLICATION_ID.:&APPLICATION_PAGE.:&SESSION.::&DEBUG.:::'
+,p_link_target=>'f?p=&APPLICATION_ID.:&HOME_PAGE.:&SESSION.::&DEBUG.:::'
 );
 wwv_flow_api.create_page_button(
  p_id=>wwv_flow_api.id(20451148194295190)

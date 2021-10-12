@@ -5,7 +5,7 @@
 	xmlns:n0="http://www.oracle.com/xml/ns/dbchangelog-ext" 
 	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
 	http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
-	<changeSet id="4f5b60af33741154e2cd0167b253b5ec598012e6" author="(DEMO)-Generated" failOnError="false"    >
+	<changeSet id="a20166a3a5b4b2c7d3aa9c6d1d85ede8b13667a5" author="(DEMO)-Generated" failOnError="false"    >
 		<n0:runOracleScript objectName="SCRIPT" objectType="APEX" ownerName="DEMO" sourceType="STRING"  >
 			<n0:source><![CDATA[prompt --application/create_application
 begin
@@ -59,8 +59,8 @@ wwv_flow_api.create_flow(
 ,p_auto_time_zone=>'N'
 ,p_substitution_string_01=>'APP_NAME'
 ,p_substitution_value_01=>'Oracle Application Express'
-,p_last_updated_by=>'john.lathouwers@oracle.com'
-,p_last_upd_yyyymmddhh24miss=>'20210927091746'
+,p_last_updated_by=>'DEMO'
+,p_last_upd_yyyymmddhh24miss=>'20211012142721'
 ,p_file_prefix => nvl(wwv_flow_application_install.get_static_app_file_prefix,'')
 ,p_files_version=>117
 ,p_ui_type_name => null

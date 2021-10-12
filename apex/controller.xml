@@ -144,6 +144,9 @@
   <include file="f103/application/pages/page_09999.xml"/> 
   <include file="f103/application/pages/page_10010.xml"/> 
   <include file="f103/application/pages/page_10011.xml"/> 
+  <include file="f103/application/deployment/definition.xml"/> 
+  <include file="f103/application/deployment/checks.xml"/> 
+  <include file="f103/application/deployment/buildoptions.xml"/> 
   <include file="f103/application/end_environment.xml"/> 
   <include file="f103/install.xml"/> 
 </databaseChangeLog> 

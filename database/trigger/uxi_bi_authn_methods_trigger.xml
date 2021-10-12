@@ -5,11 +5,11 @@
 	xmlns:n0="http://www.oracle.com/xml/ns/dbchangelog-ext" 
 	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
 	http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
-	<changeSet id="75aab742931523b7556653ad346ec81d9c3a6014" author="(DEMO)-Generated" failOnError="false"    >
-		<n0:createOracleTrigger objectName="BI_AUTHN_METHODS" objectType="TRIGGER" ownerName="DEMO"   >
+	<changeSet id="5bd9915f8c20227a07c4834dc991e0af85fdce50" author="(DEMO)-Generated" failOnError="false"    >
+		<n0:createOracleTrigger objectName="UXI_BI_AUTHN_METHODS" objectType="TRIGGER" ownerName="DEMO"   >
 			<n0:source><![CDATA[
-  CREATE OR REPLACE EDITIONABLE TRIGGER "DEMO"."BI_AUTHN_METHODS" 
-  before insert on "AUTHN_METHODS"               
+  CREATE OR REPLACE EDITIONABLE TRIGGER "DEMO"."UXI_BI_AUTHN_METHODS" 
+  before insert on "UXI_AUTHN_METHODS"               
   for each row  
 begin   
   if :NEW."ID" is null then 
@@ -19,7 +19,7 @@ end;
 
 /
 /
-ALTER TRIGGER "DEMO"."BI_AUTHN_METHODS" ENABLE;]]></n0:source>
+ALTER TRIGGER "DEMO"."UXI_BI_AUTHN_METHODS" ENABLE;]]></n0:source>
 		</n0:createOracleTrigger>
 	</changeSet>
 </databaseChangeLog>

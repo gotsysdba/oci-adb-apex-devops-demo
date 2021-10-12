@@ -5,12 +5,12 @@
 	xmlns:n0="http://www.oracle.com/xml/ns/dbchangelog-ext" 
 	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
 	http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
-	<changeSet id="36cf6b349ba22be560f98417f7a9af92419f9dce" author="(DEMO)-Generated" failOnError="false"    >
-		<n0:createSxmlObject objectName="DATA_SOURCES" objectType="TABLE" ownerName="DEMO"   >
+	<changeSet id="7b714dfe63f8569498305cc3da6565526022dca8" author="(DEMO)-Generated" failOnError="false"    >
+		<n0:createSxmlObject objectName="UXI_DATA_SOURCES" objectType="TABLE" ownerName="DEMO"   >
 			<n0:source><![CDATA[
   <TABLE xmlns="http://xmlns.oracle.com/ku" version="1.0">
    <SCHEMA>DEMO</SCHEMA>
-   <NAME>DATA_SOURCES</NAME>
+   <NAME>UXI_DATA_SOURCES</NAME>
    <RELATIONAL_TABLE>
       <COL_LIST>
          <COL_LIST_ITEM>

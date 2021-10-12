@@ -4,11 +4,12 @@
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
-  <include file="authn_methods_seq_sequence.xml"/> 
-  <include file="data_sources_table.xml"/> 
-  <include file="cards_table.xml"/> 
-  <include file="authn_methods_table.xml"/> 
-  <include file="application_links_table.xml"/> 
-  <include file="data_sources_t1_trigger.xml"/> 
-  <include file="bi_authn_methods_trigger.xml"/> 
+  <include file="sequence/uxi_authn_methods_seq_sequence.xml"/> 
+  <include file="table/uxi_application_links_table.xml"/> 
+  <include file="table/uxi_feature_cards_table.xml"/> 
+  <include file="table/uxi_data_sources_table.xml"/> 
+  <include file="table/uxi_authn_methods_table.xml"/> 
+  <include file="table/uxi_orders_table.xml"/> 
+  <include file="trigger/uxi_data_sources_t1_trigger.xml"/> 
+  <include file="trigger/uxi_bi_authn_methods_trigger.xml"/> 
 </databaseChangeLog> 

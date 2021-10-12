@@ -5,26 +5,40 @@
 	xmlns:n0="http://www.oracle.com/xml/ns/dbchangelog-ext" 
 	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
 	http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
-	<changeSet id="b08902b236163e1e02e3bd126b9968d3ad53ffbb" author="(DEMO)-Generated" failOnError="false"    >
-		<n0:createSxmlObject objectName="APPLICATION_LINKS" objectType="TABLE" ownerName="DEMO"   >
+	<changeSet id="b0685c6f72838e5e59f887a8bd9db7b60a2f9f93" author="(DEMO)-Generated" failOnError="false"    >
+		<n0:createSxmlObject objectName="UXI_FEATURE_CARDS" objectType="TABLE" ownerName="DEMO"   >
 			<n0:source><![CDATA[
   <TABLE xmlns="http://xmlns.oracle.com/ku" version="1.0">
    <SCHEMA>DEMO</SCHEMA>
-   <NAME>APPLICATION_LINKS</NAME>
+   <NAME>UXI_FEATURE_CARDS</NAME>
    <RELATIONAL_TABLE>
       <COL_LIST>
          <COL_LIST_ITEM>
-            <NAME>APPLICATION_NAME</NAME>
+            <NAME>CARD_TEXT</NAME>
             <DATATYPE>VARCHAR2</DATATYPE>
             <LENGTH>255</LENGTH>
             <COLLATE_NAME>USING_NLS_COMP</COLLATE_NAME>
          </COL_LIST_ITEM>
          <COL_LIST_ITEM>
-            <NAME>APPLICATION_ID</NAME>
-            <DATATYPE>NUMBER</DATATYPE>
+            <NAME>CARD_IMAGE</NAME>
+            <DATATYPE>VARCHAR2</DATATYPE>
+            <LENGTH>255</LENGTH>
+            <COLLATE_NAME>USING_NLS_COMP</COLLATE_NAME>
          </COL_LIST_ITEM>
          <COL_LIST_ITEM>
-            <NAME>APPLICATION_PAGE</NAME>
+            <NAME>CARD_CATEGORY</NAME>
+            <DATATYPE>VARCHAR2</DATATYPE>
+            <LENGTH>255</LENGTH>
+            <COLLATE_NAME>USING_NLS_COMP</COLLATE_NAME>
+         </COL_LIST_ITEM>
+         <COL_LIST_ITEM>
+            <NAME>CARD_SUBTEXT</NAME>
+            <DATATYPE>VARCHAR2</DATATYPE>
+            <LENGTH>255</LENGTH>
+            <COLLATE_NAME>USING_NLS_COMP</COLLATE_NAME>
+         </COL_LIST_ITEM>
+         <COL_LIST_ITEM>
+            <NAME>CARD_ORDER</NAME>
             <DATATYPE>NUMBER</DATATYPE>
          </COL_LIST_ITEM>
       </COL_LIST>

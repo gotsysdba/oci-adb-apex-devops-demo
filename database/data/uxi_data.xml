@@ -1,126 +1,126 @@
 <?xml version="1.1" encoding="UTF-8" standalone="no"?>
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd">
     <changeSet author="john (generated)" id="1633970421074-1">
-        <insert tableName="DEMO_DATA_SOURCES">
+        <insert tableName="UXI_DATA_SOURCES">
             <column name="POSSIBLE" value="Y"/>
             <column name="TYPE" value="Database Links (SQL*Net)"/>
-            <column name="ID" valueComputed="UNSUPPORTED FOR DIFF: BINARY DATA"/>
+            <column name="ID" valueComputed="SYS_GUID()"/>
         </insert>
-        <insert tableName="DEMO_DATA_SOURCES">
+        <insert tableName="UXI_DATA_SOURCES">
             <column name="POSSIBLE" value="Y"/>
             <column name="TYPE" value="User Input"/>
-            <column name="ID" valueComputed="UNSUPPORTED FOR DIFF: BINARY DATA"/>
+            <column name="ID" valueComputed="SYS_GUID()"/>
         </insert>
-        <insert tableName="DEMO_DATA_SOURCES">
+        <insert tableName="UXI_DATA_SOURCES">
             <column name="POSSIBLE" value="Y"/>
             <column name="TYPE" value="Space Satallites"/>
-            <column name="ID" valueComputed="UNSUPPORTED FOR DIFF: BINARY DATA"/>
+            <column name="ID" valueComputed="SYS_GUID()"/>
         </insert>
-        <insert tableName="DEMO_DATA_SOURCES">
+        <insert tableName="UXI_DATA_SOURCES">
             <column name="POSSIBLE" value="Y"/>
             <column name="TYPE" value="Local Data Sources (SQL, PL/SQL)"/>
-            <column name="ID" valueComputed="UNSUPPORTED FOR DIFF: BINARY DATA"/>
+            <column name="ID" valueComputed="SYS_GUID()"/>
         </insert>
-        <insert tableName="DEMO_DATA_SOURCES">
+        <insert tableName="UXI_DATA_SOURCES">
             <column name="POSSIBLE" value="Y"/>
             <column name="TYPE" value="REST Enabled Databases"/>
-            <column name="ID" valueComputed="UNSUPPORTED FOR DIFF: BINARY DATA"/>
+            <column name="ID" valueComputed="SYS_GUID()"/>
         </insert>
-        <insert tableName="DEMO_DATA_SOURCES">
+        <insert tableName="UXI_DATA_SOURCES">
             <column name="POSSIBLE" value="Y"/>
             <column name="TYPE" value="External REST API's"/>
-            <column name="ID" valueComputed="UNSUPPORTED FOR DIFF: BINARY DATA"/>
+            <column name="ID" valueComputed="SYS_GUID()"/>
         </insert>
-        <insert tableName="DEMO_DATA_SOURCES">
+        <insert tableName="UXI_DATA_SOURCES">
             <column name="POSSIBLE" value="Y"/>
             <column name="TYPE" value="Desktop Files (CSV, XML, XLS)"/>
-            <column name="ID" valueComputed="UNSUPPORTED FOR DIFF: BINARY DATA"/>
+            <column name="ID" valueComputed="SYS_GUID()"/>
         </insert>
     </changeSet>
     <changeSet author="john (generated)" id="1633970421074-2">
-        <insert tableName="DEMO_AUTHN_METHODS">
+        <insert tableName="UXI_AUTHN_METHODS">
             <column name="ID" valueNumeric="1"/>
             <column name="METHOD" value="Application Express Accounts"/>
             <column name="DESCRIPTION" value="Application Express Accounts are user accounts that are created within and managed in the Oracle Application Express user repository. When you use this method, your application is authenticated against these accounts. "/>
         </insert>
-        <insert tableName="DEMO_AUTHN_METHODS">
+        <insert tableName="UXI_AUTHN_METHODS">
             <column name="ID" valueNumeric="2"/>
             <column name="METHOD" value="Custom Authentication"/>
             <column name="DESCRIPTION" value="Creating a Custom Authentication scheme from scratch to have complete control over your authentication interface. "/>
         </insert>
-        <insert tableName="DEMO_AUTHN_METHODS">
+        <insert tableName="UXI_AUTHN_METHODS">
             <column name="ID" valueNumeric="3"/>
             <column name="METHOD" value="Database Accounts"/>
             <column name="DESCRIPTION" value="Database Account Credentials authentication utilizes database schema accounts to authenticate users. "/>
         </insert>
-        <insert tableName="DEMO_AUTHN_METHODS">
+        <insert tableName="UXI_AUTHN_METHODS">
             <column name="ID" valueNumeric="6"/>
             <column name="METHOD" value="No Authentication"/>
             <column name="DESCRIPTION" value="Adopts the current database user. "/>
         </insert>
-        <insert tableName="DEMO_AUTHN_METHODS">
+        <insert tableName="UXI_AUTHN_METHODS">
             <column name="ID" valueNumeric="8"/>
             <column name="METHOD" value="Oracle Application Server Single Sign-On Server"/>
             <column name="DESCRIPTION" value="Delegates authentication to the Oracle AS Single Sign-On (SSO) Server. To use this authentication scheme, your site must have been registered as a partner application with the SSO server. "/>
         </insert>
-        <insert tableName="DEMO_AUTHN_METHODS">
+        <insert tableName="UXI_AUTHN_METHODS">
             <column name="ID" valueNumeric="4"/>
             <column name="METHOD" value="HTTP Header Variable"/>
             <column name="DESCRIPTION" value="Authenticate users externally by storing the username in a HTTP Header variable set by the web server. "/>
         </insert>
-        <insert tableName="DEMO_AUTHN_METHODS">
+        <insert tableName="UXI_AUTHN_METHODS">
             <column name="ID" valueNumeric="5"/>
             <column name="METHOD" value="LDAP Directory"/>
             <column name="DESCRIPTION" value="Authenticate a user and password with an authentication request to a LDAP server. "/>
         </insert>
-        <insert tableName="DEMO_AUTHN_METHODS">
+        <insert tableName="UXI_AUTHN_METHODS">
             <column name="ID" valueNumeric="7"/>
             <column name="METHOD" value="Open Door Credentials"/>
             <column name="DESCRIPTION" value="Enable anyone to access your application using a built-in login page that captures a user name. "/>
         </insert>
-        <insert tableName="DEMO_AUTHN_METHODS">
+        <insert tableName="UXI_AUTHN_METHODS">
             <column name="ID" valueNumeric="9"/>
             <column name="METHOD" value="Social Sign-In"/>
             <column name="DESCRIPTION" value="Supports authentication with Google, Facebook, and other social network that supports OpenID Connect or OAuth2 standards. "/>
         </insert>
     </changeSet>
     <changeSet author="john (generated)" id="1633970421074-3">
-        <insert tableName="DEMO_FEATURE_CARDS">
+        <insert tableName="UXI_FEATURE_CARDS">
             <column name="CARD_TEXT" value="App definitions are stored in the database as meta data."/>
             <column name="CARD_IMAGE" value="appdef.png"/>
             <column name="CARD_CATEGORY" value="Features"/>
             <column name="CARD_SUBTEXT" value="Declarative - No code generation"/>
             <column name="CARD_ORDER" valueNumeric="5"/>
         </insert>
-        <insert tableName="DEMO_FEATURE_CARDS">
+        <insert tableName="UXI_FEATURE_CARDS">
             <column name="CARD_TEXT" value="Develop desktop and mobile web apps"/>
             <column name="CARD_IMAGE" value="develop.png"/>
             <column name="CARD_CATEGORY" value="Features"/>
             <column name="CARD_SUBTEXT"/>
             <column name="CARD_ORDER" valueNumeric="1"/>
         </insert>
-        <insert tableName="DEMO_FEATURE_CARDS">
+        <insert tableName="UXI_FEATURE_CARDS">
             <column name="CARD_TEXT" value="Leverage SQL Skills and database capabilities"/>
             <column name="CARD_IMAGE" value="leverage.png"/>
             <column name="CARD_CATEGORY" value="Features"/>
             <column name="CARD_SUBTEXT"/>
             <column name="CARD_ORDER" valueNumeric="2"/>
         </insert>
-        <insert tableName="DEMO_FEATURE_CARDS">
+        <insert tableName="UXI_FEATURE_CARDS">
             <column name="CARD_TEXT" value="App Development IDE is a web browser"/>
             <column name="CARD_IMAGE" value="appdev.png"/>
             <column name="CARD_CATEGORY" value="Features"/>
             <column name="CARD_SUBTEXT" value="No client software needed"/>
             <column name="CARD_ORDER" valueNumeric="4"/>
         </insert>
-        <insert tableName="DEMO_FEATURE_CARDS">
+        <insert tableName="UXI_FEATURE_CARDS">
             <column name="CARD_TEXT" value="Page generation is efficient with only one request and one response."/>
             <column name="CARD_IMAGE" value="pagegen.png"/>
             <column name="CARD_CATEGORY" value="Features"/>
             <column name="CARD_SUBTEXT" value="Data processing done in the Database"/>
             <column name="CARD_ORDER" valueNumeric="6"/>
         </insert>
-        <insert tableName="DEMO_FEATURE_CARDS">
+        <insert tableName="UXI_FEATURE_CARDS">
             <column name="CARD_TEXT" value="Visualise and maintain database data"/>
             <column name="CARD_IMAGE" value="visualise.png"/>
             <column name="CARD_CATEGORY" value="Features"/>

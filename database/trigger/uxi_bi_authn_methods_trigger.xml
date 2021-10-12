@@ -13,7 +13,7 @@
   for each row  
 begin   
   if :NEW."ID" is null then 
-    select "AUTHN_METHODS_SEQ".nextval into :NEW."ID" from sys.dual; 
+    select "UXI_AUTHN_METHODS_SEQ".nextval into :NEW."ID" from sys.dual; 
   end if; 
 end; 
 

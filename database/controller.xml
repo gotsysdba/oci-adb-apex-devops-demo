@@ -12,4 +12,5 @@
   <include file="table/uxi_orders_table.xml"/> 
   <include file="trigger/uxi_data_sources_t1_trigger.xml"/> 
   <include file="trigger/uxi_bi_authn_methods_trigger.xml"/> 
+  <include file="data/uxi_data.xml"/> 
 </databaseChangeLog> 

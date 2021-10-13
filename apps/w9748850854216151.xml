@@ -1,0 +1,4195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog 
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:n0="http://www.oracle.com/xml/ns/dbchangelog-ext" 
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
+	http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+	<changeSet id="b313e84a049a5bde972d425e80de84e62eafee56" author="(DEMO)-Generated" failOnError="false"    >
+		<n0:runOracleScript objectName="SCRIPT" objectType="APEX" ownerName="DEMO" sourceType="STRING"  >
+			<n0:source><![CDATA[prompt --application/set_environment
+set define off verify off feedback off
+whenever sqlerror exit sql.sqlcode rollback
+--------------------------------------------------------------------------------
+--
+-- ORACLE Application Express (APEX) export file
+--
+-- You should run the script connected to SQL*Plus as the Oracle user
+-- APEX_200200 or as the owner (parsing schema) of the application.
+--
+-- NOTE: Calls to apex_application_install override the defaults below.
+--
+--------------------------------------------------------------------------------
+begin
+wwv_flow_api.import_begin (
+ p_version_yyyy_mm_dd=>'2020.10.01'
+,p_default_workspace_id=>9748850854216151
+);
+end;
+/
+prompt  WORKSPACE 9748850854216151
+--
+-- Workspace, User Group, User, and Team Development Export:
+--   Exported By:     DEMO
+--   Export Type:     Workspace Export
+--   Version:         20.2.0.00.20
+--   Instance ID:     9748674294424595
+--
+-- Import:
+--   Using Instance Administration / Manage Workspaces
+--   or
+--   Using SQL*Plus as the Oracle user APEX_200200
+ 
+begin
+    wwv_flow_api.set_security_group_id(p_security_group_id=>9748850854216151);
+end;
+/
+----------------
+-- W O R K S P A C E
+-- Creating a workspace will not create database schemas or objects.
+-- This API creates only the meta data for this APEX workspace
+prompt  Creating workspace DEMO...
+begin
+wwv_flow_fnd_user_api.create_company (
+  p_id => 9749244723216326
+ ,p_provisioning_company_id => 9748850854216151
+ ,p_short_name => 'DEMO'
+ ,p_display_name => 'DEMO'
+ ,p_first_schema_provisioned => 'DEMO'
+ ,p_company_schemas => 'DEMO'
+ ,p_account_status => 'ASSIGNED'
+ ,p_allow_plsql_editing => 'Y'
+ ,p_allow_app_building_yn => 'Y'
+ ,p_allow_packaged_app_ins_yn => 'Y'
+ ,p_allow_sql_workshop_yn => 'Y'
+ ,p_allow_websheet_dev_yn => 'Y'
+ ,p_allow_team_development_yn => 'Y'
+ ,p_allow_to_be_purged_yn => 'Y'
+ ,p_allow_restful_services_yn => 'Y'
+ ,p_source_identifier => 'DEMO'
+ ,p_webservice_logging_yn => 'Y'
+ ,p_path_prefix => 'DEMO'
+ ,p_files_version => 1
+);
+end;
+/
+----------------
+-- G R O U P S
+--
+prompt  Creating Groups...
+begin
+wwv_flow_fnd_user_api.create_user_group (
+  p_id => 1201750192909879,
+  p_GROUP_NAME => 'OAuth2 Client Developer',
+  p_SECURITY_GROUP_ID => 10,
+  p_GROUP_DESC => 'Users authorized to register OAuth2 Client Applications');
+end;
+/
+begin
+wwv_flow_fnd_user_api.create_user_group (
+  p_id => 1201644762909879,
+  p_GROUP_NAME => 'RESTful Services',
+  p_SECURITY_GROUP_ID => 10,
+  p_GROUP_DESC => 'Users authorized to use RESTful Services with this workspace');
+end;
+/
+begin
+wwv_flow_fnd_user_api.create_user_group (
+  p_id => 1201561897909877,
+  p_GROUP_NAME => 'SQL Developer',
+  p_SECURITY_GROUP_ID => 10,
+  p_GROUP_DESC => 'Users authorized to use SQL Developer with this workspace');
+end;
+/
+prompt  Creating group grants...
+----------------
+-- U S E R S
+-- User repository for use with APEX cookie-based authentication.
+--
+prompt  Creating Users...
+begin
+wwv_flow_fnd_user_api.create_fnd_user (
+  p_user_id                      => '9749018406216152',
+  p_user_name                    => 'DEMO',
+  p_first_name                   => '',
+  p_last_name                    => '',
+  p_description                  => '',
+  p_email_address                => '',
+  p_web_password                 => 'F8DD5FCE932CACC68A5AFB765680FD4CA387AAD491F29A09CB2D0FD770D1EF0E05E0C78C3702E824FA4A9483CDCF3499791B6E7B9446D09979ECD40E017E1497',
+  p_web_password_format          => '5;5;10000',
+  p_group_ids                    => '',
+  p_developer_privs              => 'ADMIN:CREATE:DATA_LOADER:EDIT:HELP:MONITOR:SQL',
+  p_default_schema               => 'DEMO',
+  p_account_locked               => 'N',
+  p_account_expiry               => to_date('202109171255','YYYYMMDDHH24MI'),
+  p_failed_access_attempts       => 0,
+  p_change_password_on_first_use => 'N',
+  p_first_password_use_occurred  => 'Y',
+  p_allow_app_building_yn        => 'Y',
+  p_allow_sql_workshop_yn        => 'Y',
+  p_allow_websheet_dev_yn        => 'Y',
+  p_allow_team_development_yn    => 'Y',
+  p_allow_access_to_schemas      => '');
+end;
+/
+----------------
+--App Builder Preferences
+--
+begin
+  wwv_flow_api.create_app_build_pref (
+    p_id => 54389747661153390,
+    p_default_parsing_schema => '',
+    p_default_auth_scheme => 'Application Express',
+    p_default_app_theme => 42,
+    p_default_tabs => 'SINGLE_LEVEL_TABS',
+    p_default_proxy_server => '',
+    p_default_language => '',
+    p_default_language_derived => '',
+    p_date_format => '',
+    p_date_time_format => '',
+    p_timestamp_format => '',
+    p_timestamp_tz_format => '',
+    p_created_on => to_date('202110121046','YYYYMMDDHH24MI'),
+    p_created_by => 'DEMO',
+    p_updated_on => to_date('','YYYYMMDDHH24MI'),
+    p_updated_by => '');
+end;
+/
+----------------
+--Click Count Logs
+--
+----------------
+--mail
+--
+begin
+  wwv_flow_api.create_mail_queue (
+    p_id => 35873887134464588
+    ,p_mail_to => 'john.lathouwers@oracle.com'
+    ,p_mail_from => 'john.lathouwers@oracle.com'
+    ,p_mail_replyto => ''
+    ,p_mail_subj => 'Please take the Toaster-2000 survey'
+    ,p_mail_cc => ''
+    ,p_mail_bcc => ''
+ ,p_mail_body => 
+'Thanks for registering your Toaster-2000 product. Please take a moment to fill out our '||wwv_flow.LF||
+'        product satisfaction survey using the following link.'||wwv_flow.LF||
+''||wwv_flow.LF||
+'Toaster-2000 Survey'||wwv_flow.LF||
+''||wwv_flow.LF||
+'If the link doesn''t work you can paste the following URL into your browser address bar.'||wwv_flow.LF||
+''||wwv_flow.LF||
+'https://qb5wrbyjdyqb7xa-db202109171351.adb.eu-frankfurt-1.oraclecloudapps.com/ords/f?p=106:Q::AAAE:::code:CZAQDTXLGUWXWZZN'||wwv_flow.LF||
+''||wwv_flow.LF||
+'Thank you in ad'||
+'vance!'||wwv_flow.LF||
+'Sincerely, ACME Appliance'
+ ,p_mail_body_html => 
+'<html><head></head><body>Thanks for registering your Toaster-2000 product. Please take a moment to fill out our '||wwv_flow.LF||
+'        product satisfaction survey using the following link.<br />'||wwv_flow.LF||
+'<a href="https://qb5wrbyjdyqb7xa-db202109171351.adb.eu-frankfurt-1.oraclecloudapps.com/ords/f?p=106:Q::AAAE:::code:CZAQDTXLGUWXWZZN">Toaster-2000 Survey</a><br />'||wwv_flow.LF||
+'If the link doesn''t work you can paste the following URL'||
+' into your browser address bar.<br />'||wwv_flow.LF||
+'https://qb5wrbyjdyqb7xa-db202109171351.adb.eu-frankfurt-1.oraclecloudapps.com/ords/f?p=106:Q::AAAE:::code:CZAQDTXLGUWXWZZN<br />'||wwv_flow.LF||
+'Thank you in advance!<br />Sincerely, ACME Appliance</body></html>'
+    ,p_mail_send_count => 0
+    ,p_mail_send_error => ''
+    ,p_includes_html => 1
+    ,p_last_updated_by => 'john.lathouwers@oracle.com'
+    ,p_last_updated_on => to_date('202109211203','YYYYMMDDHH24MI'));
+end;
+/
+begin
+  wwv_flow_api.create_mail_queue (
+    p_id => 35875443480498182
+    ,p_mail_to => 'john.lathouwers@oracle.com'
+    ,p_mail_from => 'john.lathouwers@oracle.com'
+    ,p_mail_replyto => ''
+    ,p_mail_subj => 'Please take the Toaster-2000 survey'
+    ,p_mail_cc => ''
+    ,p_mail_bcc => ''
+ ,p_mail_body => 
+'Thanks for registering your Toaster-2000 product. Please take a moment to fill out our '||wwv_flow.LF||
+'        product satisfaction survey using the following link.'||wwv_flow.LF||
+''||wwv_flow.LF||
+'Toaster-2000 Survey'||wwv_flow.LF||
+''||wwv_flow.LF||
+'If the link doesn''t work you can paste the following URL into your browser address bar.'||wwv_flow.LF||
+''||wwv_flow.LF||
+'https://qb5wrbyjdyqb7xa-db202109171351.adb.eu-frankfurt-1.oraclecloudapps.com/ords/f?p=106:Q::AAAE:::code:IAJKZEAQGUPCLBSU'||wwv_flow.LF||
+''||wwv_flow.LF||
+'Thank you in ad'||
+'vance!'||wwv_flow.LF||
+'Sincerely, ACME Appliance'
+ ,p_mail_body_html => 
+'<html><head></head><body>Thanks for registering your Toaster-2000 product. Please take a moment to fill out our '||wwv_flow.LF||
+'        product satisfaction survey using the following link.<br />'||wwv_flow.LF||
+'<a href="https://qb5wrbyjdyqb7xa-db202109171351.adb.eu-frankfurt-1.oraclecloudapps.com/ords/f?p=106:Q::AAAE:::code:IAJKZEAQGUPCLBSU">Toaster-2000 Survey</a><br />'||wwv_flow.LF||
+'If the link doesn''t work you can paste the following URL'||
+' into your browser address bar.<br />'||wwv_flow.LF||
+'https://qb5wrbyjdyqb7xa-db202109171351.adb.eu-frankfurt-1.oraclecloudapps.com/ords/f?p=106:Q::AAAE:::code:IAJKZEAQGUPCLBSU<br />'||wwv_flow.LF||
+'Thank you in advance!<br />Sincerely, ACME Appliance</body></html>'
+    ,p_mail_send_count => 0
+    ,p_mail_send_error => ''
+    ,p_includes_html => 1
+    ,p_last_updated_by => 'john.lathouwers@oracle.com'
+    ,p_last_updated_on => to_date('202109211209','YYYYMMDDHH24MI'));
+end;
+/
+----------------
+--mail log
+--
+----------------
+--app models
+--
+----------------
+--password history
+--
+begin
+  wwv_flow_api.create_password_history (
+    p_id => 9749481443216340,
+    p_user_id => 9749018406216152,
+    p_password => 'F8DD5FCE932CACC68A5AFB765680FD4CA387AAD491F29A09CB2D0FD770D1EF0E05E0C78C3702E824FA4A9483CDCF3499791B6E7B9446D09979ECD40E017E1497');
+end;
+/
+----------------
+--preferences
+--
+begin
+  wwv_flow_api.create_preferences$ (
+    p_id => 20324612055403469,
+    p_user_id => 'DEMO',
+    p_preference_name => 'FSP_IR_4000_P801_W47918412797645641',
+    p_attribute_value => '47921608032702994____',
+    p_tenant_id => '');
+end;
+/
+begin
+  wwv_flow_api.create_preferences$ (
+    p_id => 20434468797066392,
+    p_user_id => 'DEMO',
+    p_preference_name => 'FSP_IR_4000_P4050_W10642116325440827',
+    p_attribute_value => '10643624462441172____',
+    p_tenant_id => '');
+end;
+/
+begin
+  wwv_flow_api.create_preferences$ (
+    p_id => 37329745794729963,
+    p_user_id => 'john.lathouwers@oracle.com',
+    p_preference_name => 'APEX_IG_74646186924442141_CURRENT_REPORT',
+    p_attribute_value => '112207974668750930:GRID',
+    p_tenant_id => '');
+end;
+/
+begin
+  wwv_flow_api.create_preferences$ (
+    p_id => 20160507683316113,
+    p_user_id => 'john.lathouwers@oracle.com',
+    p_preference_name => 'FSP101_P31_R401684196591309445_SORT',
+    p_attribute_value => 'sort_1_asc',
+    p_tenant_id => '');
+end;
+/
+begin
+  wwv_flow_api.create_preferences$ (
+    p_id => 20160783128316157,
+    p_user_id => 'john.lathouwers@oracle.com',
+    p_preference_name => 'FSP101_P31_R224799093220208156_SORT',
+    p_attribute_value => 'sort_1_asc',
+    p_tenant_id => '');
+end;
+/
+begin
+  wwv_flow_api.create_preferences$ (
+    p_id => 20324430588402895,
+    p_user_id => 'DEMO',
+    p_preference_name => 'FSP_IR_4000_P1_W3326806401130228',
+    p_attribute_value => '3328003692130542____',
+    p_tenant_id => '');
+end;
+/
+begin
+  wwv_flow_api.create_preferences$ (
+    p_id => 37336777155064630,
+    p_user_id => 'DEMO',
+    p_preference_name => 'FSP4000_P796_R185991323167292111_SORT',
+    p_attribute_value => 'sort_1_asc',
+    p_tenant_id => '');
+end;
+/
+begin
+  wwv_flow_api.create_preferences$ (
+    p_id => 37484238967632500,
+    p_user_id => 'john.lathouwers@oracle.com',
+    p_preference_name => 'FSP103_P30_R37464660364631860_SORT',
+    p_attribute_value => 'sort_1_asc',
+    p_tenant_id => '');
+end;
+/
+begin
+  wwv_flow_api.create_preferences$ (
+    p_id => 44593592056369854,
+    p_user_id => 'DEMO',
+    p_preference_name => 'FSP_IR_109_P18_W2599593291965299168',
+    p_attribute_value => '2599595185770299173____',
+    p_tenant_id => '');
+end;
+/
+begin
+  wwv_flow_api.create_preferences$ (
+    p_id => 14208102260240424,
+    p_user_id => 'DEMO',
+    p_preference_name => 'APEX_IG_2651122229810207600_CURRENT_REPORT',
+    p_attribute_value => '2651127208535207610:GRID',
+    p_tenant_id => '');
+end;
+/
+begin
+  wwv_flow_api.create_preferences$ (
+    p_id => 14208380121249147,
+    p_user_id => 'DEMO',
+    p_preference_name => 'APEX_IG_3302909076344136724_CURRENT_REPORT',
+    p_attribute_value => '3302914055069136734:GRID',
+    p_tenant_id => '');
+end;
+/
+begin
+  wwv_flow_api.create_preferences$ (
+    p_id => 14208647919251010,
+    p_user_id => 'DEMO',
+    p_preference_name => 'APEX_IG_4701035750032219110_CURRENT_REPORT',
+    p_attribute_value => '4701040728757219120:GRID',
+    p_tenant_id => '');
+end;
+/
+begin
+  wwv_flow_api.create_preferences$ (
+    p_id => 20540463782105346,
+    p_user_id => 'DEMO',
+    p_preference_name => 'FSP4000_P4655_R620324697529117358_SORT',
+    p_attribute_value => 'sort_4_asc',
+    p_tenant_id => '');
+end;
+/
+begin
+  wwv_flow_api.create_preferences$ (
+    p_id => 14211627643699317,
+    p_user_id => 'DEMO',
+    p_preference_name => 'PD_ENABLE_COMPONENT_VIEW',
+    p_attribute_value => 'N',
+    p_tenant_id => '');
+end;
+/
+begin
+  wwv_flow_api.create_preferences$ (
+    p_id => 20539855716103089,
+    p_user_id => 'DEMO',
+    p_preference_name => 'FSP_IR_4000_P260_W40585608941890825',
+    p_attribute_value => '40587517034894377____',
+    p_tenant_id => '');
+end;
+/
+begin
+  wwv_flow_api.create_preferences$ (
+    p_id => 20540584105105348,
+    p_user_id => 'DEMO',
+    p_preference_name => 'FSP4000_P4655_R688592842784673826_SORT',
+    p_attribute_value => 'sort_3_asc',
+    p_tenant_id => '');
+end;
+/
+begin
+  wwv_flow_api.create_preferences$ (
+    p_id => 44592741312362858,
+    p_user_id => 'DEMO',
+    p_preference_name => 'FSP_IR_109_P8_W2656940294318605761',
+    p_attribute_value => '2656948603363606046____',
+    p_tenant_id => '');
+end;
+/
+begin
+  wwv_flow_api.create_preferences$ (
+    p_id => 54316302891114627,
+    p_user_id => 'DEMO',
+    p_preference_name => 'FSP_IR_4750_P30_W818309872448781737',
+    p_attribute_value => '818312778817798812____',
+    p_tenant_id => '');
+end;
+/
+begin
+  wwv_flow_api.create_preferences$ (
+    p_id => 54389971156156541,
+    p_user_id => 'DEMO',
+    p_preference_name => 'FSP_IR_4000_P763_W480600211834691519',
+    p_attribute_value => '480602703192699428____',
+    p_tenant_id => '');
+end;
+/
+begin
+  wwv_flow_api.create_preferences$ (
+    p_id => 54390275315167253,
+    p_user_id => 'DEMO',
+    p_preference_name => 'FSP_IR_4000_P9015_W1305831271713900',
+    p_attribute_value => '1307412228717448____',
+    p_tenant_id => '');
+end;
+/
+begin
+  wwv_flow_api.create_preferences$ (
+    p_id => 54393839658673586,
+    p_user_id => 'DEMO',
+    p_preference_name => 'FSP4000_P4911_R52412001060114527_SORT',
+    p_attribute_value => 'sort_1_asc',
+    p_tenant_id => '');
+end;
+/
+begin
+  wwv_flow_api.create_preferences$ (
+    p_id => 14211795387699394,
+    p_user_id => 'DEMO',
+    p_preference_name => 'PD_TAB_LAYOUT_3',
+    p_attribute_value => '0:renderTree_container,0:dynActTree_container,0:procTree_container,0:sharedComp_container,1:grid_layout,1:search,1:help,2:peComponentProperties,2:peAttributesTabPanel,2:pePrintingTabPanel',
+    p_tenant_id => '');
+end;
+/
+begin
+  wwv_flow_api.create_preferences$ (
+    p_id => 26275323967986162,
+    p_user_id => 'john.lathouwers@oracle.com',
+    p_preference_name => 'FSP_IR_100_P12_W1316466497448084815',
+    p_attribute_value => '1316467612489084818____',
+    p_tenant_id => '');
+end;
+/
+begin
+  wwv_flow_api.create_preferences$ (
+    p_id => 26277034297014390,
+    p_user_id => 'DEMO',
+    p_preference_name => 'APEX_IG_9499495849275742_CURRENT_REPORT',
+    p_attribute_value => '23204494782337413:GRID',
+    p_tenant_id => '');
+end;
+/
+begin
+  wwv_flow_api.create_preferences$ (
+    p_id => 18539846844042827,
+    p_user_id => 'john.lathouwers@oracle.com',
+    p_preference_name => 'FSP_IR_101_P1_W2661777935080388719',
+    p_attribute_value => '2661902449415422980____',
+    p_tenant_id => '');
+end;
+/
+begin
+  wwv_flow_api.create_preferences$ (
+    p_id => 26260588950364920,
+    p_user_id => 'DEMO',
+    p_preference_name => 'FSP_IR_4000_P34_W243294104975845793',
+    p_attribute_value => '243322903983850177____',
+    p_tenant_id => '');
+end;
+/
+begin
+  wwv_flow_api.create_preferences$ (
+    p_id => 29266123062032376,
+    p_user_id => 'DEMO',
+    p_preference_name => 'FSP_IR_105_P3_W7372870061901872907',
+    p_attribute_value => '7372871366384873662____',
+    p_tenant_id => '');
+end;
+/
+begin
+  wwv_flow_api.create_preferences$ (
+    p_id => 35867415348090918,
+    p_user_id => 'DEMO',
+    p_preference_name => 'FSP_IR_106_P20_W1165105257979798288',
+    p_attribute_value => '1165108165377852215____',
+    p_tenant_id => '');
+end;
+/
+begin
+  wwv_flow_api.create_preferences$ (
+    p_id => 37305140402671638,
+    p_user_id => 'DEMO',
+    p_preference_name => 'FSP4500_P2102_R5737432600960966_SORT',
+    p_attribute_value => 'sort_2_asc',
+    p_tenant_id => '');
+end;
+/
+begin
+  wwv_flow_api.create_preferences$ (
+    p_id => 37326089563713465,
+    p_user_id => 'john.lathouwers@oracle.com',
+    p_preference_name => 'APEX_IG_37319464732712893_CURRENT_REPORT',
+    p_attribute_value => '37320361730712895:GRID',
+    p_tenant_id => '');
+end;
+/
+begin
+  wwv_flow_api.create_preferences$ (
+    p_id => 41271266483397673,
+    p_user_id => 'DEMO',
+    p_preference_name => 'FSP107_P6_R2164213141611217093_SORT',
+    p_attribute_value => 'sort_1_asc',
+    p_tenant_id => '');
+end;
+/
+begin
+  wwv_flow_api.create_preferences$ (
+    p_id => 44593216123364685,
+    p_user_id => 'DEMO',
+    p_preference_name => 'FSP109_P31_R78900091551296277_SORT',
+    p_attribute_value => 'sort_1_asc',
+    p_tenant_id => '');
+end;
+/
+begin
+  wwv_flow_api.create_preferences$ (
+    p_id => 14208712910252069,
+    p_user_id => 'DEMO',
+    p_preference_name => 'APEX_IG_5397503277335908245_CURRENT_REPORT',
+    p_attribute_value => '5397508256060908255:GRID',
+    p_tenant_id => '');
+end;
+/
+begin
+  wwv_flow_api.create_preferences$ (
+    p_id => 26273865447841335,
+    p_user_id => 'john.lathouwers@oracle.com',
+    p_preference_name => 'APEX_IG_4508128129424979033_CURRENT_REPORT',
+    p_attribute_value => '1959242220012177948:GRID',
+    p_tenant_id => '');
+end;
+/
+begin
+  wwv_flow_api.create_preferences$ (
+    p_id => 37336884149065387,
+    p_user_id => 'DEMO',
+    p_preference_name => 'FSP4000_P797_R186034418786574670_SORT',
+    p_attribute_value => 'sort_1_asc',
+    p_tenant_id => '');
+end;
+/
+begin
+  wwv_flow_api.create_preferences$ (
+    p_id => 20570972071799502,
+    p_user_id => 'DEMO',
+    p_preference_name => 'F4000_203906404237009921_SPLITTER_STATE',
+    p_attribute_value => '410:false',
+    p_tenant_id => '');
+end;
+/
+begin
+  wwv_flow_api.create_preferences$ (
+    p_id => 37532673758227323,
+    p_user_id => 'john.lathouwers@oracle.com',
+    p_preference_name => 'FSP_IR_106_P32_W1318787453284401036',
+    p_attribute_value => '1318788053823401281____',
+    p_tenant_id => '');
+end;
+/
+begin
+  wwv_flow_api.create_preferences$ (
+    p_id => 37565372953385172,
+    p_user_id => 'john.lathouwers@oracle.com',
+    p_preference_name => 'APEX_IG_3714511320546314387_CURRENT_REPORT',
+    p_attribute_value => '1048328232526359677:GRID',
+    p_tenant_id => '');
+end;
+/
+begin
+  wwv_flow_api.create_preferences$ (
+    p_id => 54306682610098685,
+    p_user_id => 'DEMO',
+    p_preference_name => 'FSP_IR_4350_P78_W169333814048245920',
+    p_attribute_value => '169335112738260044____',
+    p_tenant_id => '');
+end;
+/
+begin
+  wwv_flow_api.create_preferences$ (
+    p_id => 54315979938113409,
+    p_user_id => 'DEMO',
+    p_preference_name => 'FSP_IR_4750_P17_W805210444454829545',
+    p_attribute_value => '805212513761829550____',
+    p_tenant_id => '');
+end;
+/
+begin
+  wwv_flow_api.create_preferences$ (
+    p_id => 26260974358385649,
+    p_user_id => 'DEMO',
+    p_preference_name => 'FSP4000_P194_R224505023496694888_SORT',
+    p_attribute_value => 'sort_1_asc',
+    p_tenant_id => '');
+end;
+/
+begin
+  wwv_flow_api.create_preferences$ (
+    p_id => 29266449252034098,
+    p_user_id => 'DEMO',
+    p_preference_name => 'APEX_IG_7352601986239516580_CURRENT_REPORT',
+    p_attribute_value => '649707149376532989:GRID',
+    p_tenant_id => '');
+end;
+/
+begin
+  wwv_flow_api.create_preferences$ (
+    p_id => 35872514198453295,
+    p_user_id => 'john.lathouwers@oracle.com',
+    p_preference_name => 'FSP_IR_106_P20_W1165105257979798288',
+    p_attribute_value => '1165108165377852215____',
+    p_tenant_id => '');
+end;
+/
+begin
+  wwv_flow_api.create_preferences$ (
+    p_id => 35873743953462204,
+    p_user_id => 'john.lathouwers@oracle.com',
+    p_preference_name => 'FSP_IR_106_P50_W1610791652727352616',
+    p_attribute_value => '1610792838696352851____',
+    p_tenant_id => '');
+end;
+/
+begin
+  wwv_flow_api.create_preferences$ (
+    p_id => 37304535355658180,
+    p_user_id => 'DEMO',
+    p_preference_name => 'F4500_1157686386582338224_SPLITTER_STATE',
+    p_attribute_value => '459:false',
+    p_tenant_id => '');
+end;
+/
+begin
+  wwv_flow_api.create_preferences$ (
+    p_id => 37533183055228787,
+    p_user_id => 'john.lathouwers@oracle.com',
+    p_preference_name => 'SHOW_QUESTIONNAIRE_NUMBERS',
+    p_attribute_value => '0',
+    p_tenant_id => '');
+end;
+/
+begin
+  wwv_flow_api.create_preferences$ (
+    p_id => 29265931334031725,
+    p_user_id => 'DEMO',
+    p_preference_name => 'APEX_IG_1851913860190456762_CURRENT_REPORT',
+    p_attribute_value => '2007464007548810129:GRID',
+    p_tenant_id => '');
+end;
+/
+begin
+  wwv_flow_api.create_preferences$ (
+    p_id => 35871089988442686,
+    p_user_id => 'DEMO',
+    p_preference_name => 'FSP_IR_4000_P1620_W312277037396040233',
+    p_attribute_value => '312279461465115193____',
+    p_tenant_id => '');
+end;
+/
+begin
+  wwv_flow_api.create_preferences$ (
+    p_id => 35872184045450457,
+    p_user_id => 'john.lathouwers@oracle.com',
+    p_preference_name => 'FSP_IR_106_P51_W1616102638737830056',
+    p_attribute_value => '1616103667470830064____',
+    p_tenant_id => '');
+end;
+/
+begin
+  wwv_flow_api.create_preferences$ (
+    p_id => 35872945048459502,
+    p_user_id => 'john.lathouwers@oracle.com',
+    p_preference_name => 'PERSISTENT_ITEM_P7_DECODE_ANSWERS',
+    p_attribute_value => '',
+    p_tenant_id => '');
+end;
+/
+begin
+  wwv_flow_api.create_preferences$ (
+    p_id => 35873091511459502,
+    p_user_id => 'john.lathouwers@oracle.com',
+    p_preference_name => 'PERSISTENT_ITEM_P7_LONG_ANSWERS',
+    p_attribute_value => '',
+    p_tenant_id => '');
+end;
+/
+begin
+  wwv_flow_api.create_preferences$ (
+    p_id => 35873229997459505,
+    p_user_id => 'john.lathouwers@oracle.com',
+    p_preference_name => 'FSP_IR_106_P7_W1265059339796689351',
+    p_attribute_value => '1265066564369693180____',
+    p_tenant_id => '');
+end;
+/
+begin
+  wwv_flow_api.create_preferences$ (
+    p_id => 35874081312466746,
+    p_user_id => 'john.lathouwers@oracle.com',
+    p_preference_name => 'FSP_IR_106_P67_W1610992756446802534',
+    p_attribute_value => '1610993662295802536____',
+    p_tenant_id => '');
+end;
+/
+begin
+  wwv_flow_api.create_preferences$ (
+    p_id => 35902316575514565,
+    p_user_id => 'DEMO',
+    p_preference_name => 'FSP_IR_4000_P4070_W47949429235486335',
+    p_attribute_value => '47951124794493113____',
+    p_tenant_id => '');
+end;
+/
+begin
+  wwv_flow_api.create_preferences$ (
+    p_id => 35904277212533921,
+    p_user_id => 'john.lathouwers@oracle.com',
+    p_preference_name => 'FSP_IR_106_P16_W1174406350861601405',
+    p_attribute_value => '1174407353797602611____',
+    p_tenant_id => '');
+end;
+/
+begin
+  wwv_flow_api.create_preferences$ (
+    p_id => 54306404061096995,
+    p_user_id => 'DEMO',
+    p_preference_name => 'FSP4350_P33_R47031617128214415_SORT',
+    p_attribute_value => 'sort_1_asc',
+    p_tenant_id => '');
+end;
+/
+begin
+  wwv_flow_api.create_preferences$ (
+    p_id => 54390900479177651,
+    p_user_id => 'DEMO',
+    p_preference_name => 'FSP_IR_4000_P722_W445610507272601726',
+    p_attribute_value => '445612301870609108____',
+    p_tenant_id => '');
+end;
+/
+begin
+  wwv_flow_api.create_preferences$ (
+    p_id => 14205579225232947,
+    p_user_id => 'DEMO',
+    p_preference_name => 'APEX_IG_1348980826908069388_CURRENT_REPORT',
+    p_attribute_value => '1348985805633069398:GRID',
+    p_tenant_id => '');
+end;
+/
+begin
+  wwv_flow_api.create_preferences$ (
+    p_id => 14208085098239663,
+    p_user_id => 'DEMO',
+    p_preference_name => 'APEX_IG_1999997746662786001_CURRENT_REPORT',
+    p_attribute_value => '2000002725387786011:GRID',
+    p_tenant_id => '');
+end;
+/
+begin
+  wwv_flow_api.create_preferences$ (
+    p_id => 18550812311087317,
+    p_user_id => 'DEMO',
+    p_preference_name => 'CODE_LANGUAGE',
+    p_attribute_value => 'PLSQL',
+    p_tenant_id => '');
+end;
+/
+begin
+  wwv_flow_api.create_preferences$ (
+    p_id => 37565260810382605,
+    p_user_id => 'john.lathouwers@oracle.com',
+    p_preference_name => 'FSP_IR_100_P6_W2683089810122850335',
+    p_attribute_value => '2683098520796850609____',
+    p_tenant_id => '');
+end;
+/
+begin
+  wwv_flow_api.create_preferences$ (
+    p_id => 44592119645361484,
+    p_user_id => 'DEMO',
+    p_preference_name => 'FSP_IR_109_P3_W2520218297043209392',
+    p_attribute_value => '2520227176529209548____',
+    p_tenant_id => '');
+end;
+/
+begin
+  wwv_flow_api.create_preferences$ (
+    p_id => 44592462451362256,
+    p_user_id => 'DEMO',
+    p_preference_name => 'FSP_IR_109_P7_W2532763378085704143',
+    p_attribute_value => '2532821991847713517____',
+    p_tenant_id => '');
+end;
+/
+begin
+  wwv_flow_api.create_preferences$ (
+    p_id => 44592949940363081,
+    p_user_id => 'DEMO',
+    p_preference_name => 'FSP_IR_109_P4_W2522260894848498839',
+    p_attribute_value => '2522261578355498846____',
+    p_tenant_id => '');
+end;
+/
+begin
+  wwv_flow_api.create_preferences$ (
+    p_id => 14208874597288021,
+    p_user_id => 'DEMO',
+    p_preference_name => 'PERSISTENT_ITEM_P1_DISPLAY_MODE',
+    p_attribute_value => 'ICONS',
+    p_tenant_id => '');
+end;
+/
+begin
+  wwv_flow_api.create_preferences$ (
+    p_id => 20526660102767795,
+    p_user_id => 'DEMO',
+    p_preference_name => 'FSP_IR_4000_P546_W30205316146531602',
+    p_attribute_value => '30206031208532453____',
+    p_tenant_id => '');
+end;
+/
+begin
+  wwv_flow_api.create_preferences$ (
+    p_id => 14209189614288124,
+    p_user_id => 'DEMO',
+    p_preference_name => 'FB_FLOW_ID',
+    p_attribute_value => '100',
+    p_tenant_id => '');
+end;
+/
+begin
+  wwv_flow_api.create_preferences$ (
+    p_id => 18550752413082563,
+    p_user_id => 'john.lathouwers@oracle.com',
+    p_preference_name => 'FSP101_P32_R401686932970309472_SORT',
+    p_attribute_value => 'sort_1_desc',
+    p_tenant_id => '');
+end;
+/
+begin
+  wwv_flow_api.create_preferences$ (
+    p_id => 20161441933337396,
+    p_user_id => 'DEMO',
+    p_preference_name => 'F4000_203904827661009901_SPLITTER_STATE',
+    p_attribute_value => '280:false',
+    p_tenant_id => '');
+end;
+/
+begin
+  wwv_flow_api.create_preferences$ (
+    p_id => 20540081222103361,
+    p_user_id => 'DEMO',
+    p_preference_name => 'FSP_IR_4000_P267_W925260893554540223',
+    p_attribute_value => '941041546743949140____',
+    p_tenant_id => '');
+end;
+/
+begin
+  wwv_flow_api.create_preferences$ (
+    p_id => 20540188480103371,
+    p_user_id => 'DEMO',
+    p_preference_name => 'FSP4000_P267_R22486830752876187_SORT',
+    p_attribute_value => 'sort_2_asc',
+    p_tenant_id => '');
+end;
+/
+begin
+  wwv_flow_api.create_preferences$ (
+    p_id => 26242634702267488,
+    p_user_id => 'DEMO',
+    p_preference_name => 'FSP_IR_4000_P939_W451352700445603348',
+    p_attribute_value => '451353909559603360____',
+    p_tenant_id => '');
+end;
+/
+begin
+  wwv_flow_api.create_preferences$ (
+    p_id => 35868715036145920,
+    p_user_id => 'DEMO',
+    p_preference_name => 'FSP_IR_106_P57_W1610857153000083686',
+    p_attribute_value => '1610858452922083689____',
+    p_tenant_id => '');
+end;
+/
+begin
+  wwv_flow_api.create_preferences$ (
+    p_id => 26225238585228464,
+    p_user_id => 'DEMO',
+    p_preference_name => 'FSP4000_P627_R201375019615619697_SORT',
+    p_attribute_value => 'sort_1_asc',
+    p_tenant_id => '');
+end;
+/
+begin
+  wwv_flow_api.create_preferences$ (
+    p_id => 26242023281267176,
+    p_user_id => 'DEMO',
+    p_preference_name => 'FSP_IR_4000_P19_W451745617575288584',
+    p_attribute_value => '451746507039288843____',
+    p_tenant_id => '');
+end;
+/
+begin
+  wwv_flow_api.create_preferences$ (
+    p_id => 20434048428066200,
+    p_user_id => 'DEMO',
+    p_preference_name => 'FSP_IR_4000_P405_W3852329031687921',
+    p_attribute_value => '3853503855690337____',
+    p_tenant_id => '');
+end;
+/
+begin
+  wwv_flow_api.create_preferences$ (
+    p_id => 26243508743332418,
+    p_user_id => 'DEMO',
+    p_preference_name => 'FSP_IR_4000_P4100_W3727618522871356',
+    p_attribute_value => '3728530690872449____',
+    p_tenant_id => '');
+end;
+/
+begin
+  wwv_flow_api.create_preferences$ (
+    p_id => 26243973156335410,
+    p_user_id => 'DEMO',
+    p_preference_name => 'FSP_IR_4000_P4101_W47836204953827708',
+    p_attribute_value => '47837809399835130____',
+    p_tenant_id => '');
+end;
+/
+begin
+  wwv_flow_api.create_preferences$ (
+    p_id => 26260207179363250,
+    p_user_id => 'DEMO',
+    p_preference_name => 'PERSISTENT_ITEM_P34_ROWS',
+    p_attribute_value => '50',
+    p_tenant_id => '');
+end;
+/
+begin
+  wwv_flow_api.create_preferences$ (
+    p_id => 26260363819363258,
+    p_user_id => 'DEMO',
+    p_preference_name => 'FSP4000_P34_R77549119545304597_SORT',
+    p_attribute_value => 'sort_1_asc',
+    p_tenant_id => '');
+end;
+/
+begin
+  wwv_flow_api.create_preferences$ (
+    p_id => 35868248581142893,
+    p_user_id => 'DEMO',
+    p_preference_name => 'FSP_IR_106_P55_W1610852540322061610',
+    p_attribute_value => '1610853339323061628____',
+    p_tenant_id => '');
+end;
+/
+begin
+  wwv_flow_api.create_preferences$ (
+    p_id => 35868941792149261,
+    p_user_id => 'DEMO',
+    p_preference_name => 'FSP_IR_106_P67_W1610992756446802534',
+    p_attribute_value => '1610993662295802536____',
+    p_tenant_id => '');
+end;
+/
+begin
+  wwv_flow_api.create_preferences$ (
+    p_id => 35869005633150335,
+    p_user_id => 'DEMO',
+    p_preference_name => 'FSP106_P2_R327548903919365054_SORT',
+    p_attribute_value => 'sort_1_asc',
+    p_tenant_id => '');
+end;
+/
+begin
+  wwv_flow_api.create_preferences$ (
+    p_id => 35904469256534319,
+    p_user_id => 'john.lathouwers@oracle.com',
+    p_preference_name => 'FSP_IR_106_P20_W1165140165840225215',
+    p_attribute_value => '1165143073238279142____',
+    p_tenant_id => '');
+end;
+/
+begin
+  wwv_flow_api.create_preferences$ (
+    p_id => 37502341647954393,
+    p_user_id => 'john.lathouwers@oracle.com',
+    p_preference_name => 'FSP103_P30_R37484749104663402_SORT',
+    p_attribute_value => 'sort_1_asc',
+    p_tenant_id => '');
+end;
+/
+begin
+  wwv_flow_api.create_preferences$ (
+    p_id => 37564899132366055,
+    p_user_id => 'john.lathouwers@oracle.com',
+    p_preference_name => 'FSP100_P42_R619762458066152312_SORT',
+    p_attribute_value => 'sort_4_asc',
+    p_tenant_id => '');
+end;
+/
+begin
+  wwv_flow_api.create_preferences$ (
+    p_id => 14208207263243154,
+    p_user_id => 'DEMO',
+    p_preference_name => 'APEX_IG_2651443349961909622_CURRENT_REPORT',
+    p_attribute_value => '2651448328686909632:GRID',
+    p_tenant_id => '');
+end;
+/
+begin
+  wwv_flow_api.create_preferences$ (
+    p_id => 14208458116249338,
+    p_user_id => 'DEMO',
+    p_preference_name => 'APEX_IG_3954390995471523829_CURRENT_REPORT',
+    p_attribute_value => '3954395974196523839:GRID',
+    p_tenant_id => '');
+end;
+/
+begin
+  wwv_flow_api.create_preferences$ (
+    p_id => 14208546655250233,
+    p_user_id => 'DEMO',
+    p_preference_name => 'APEX_IG_4004578472599652684_CURRENT_REPORT',
+    p_attribute_value => '4004583451324652694:GRID',
+    p_tenant_id => '');
+end;
+/
+begin
+  wwv_flow_api.create_preferences$ (
+    p_id => 20622112762980235,
+    p_user_id => 'DEMO',
+    p_preference_name => 'FSP_IR_4350_P55_W10236304983033455',
+    p_attribute_value => '10238325656034902____',
+    p_tenant_id => '');
+end;
+/
+begin
+  wwv_flow_api.create_preferences$ (
+    p_id => 35871925888448894,
+    p_user_id => 'john.lathouwers@oracle.com',
+    p_preference_name => 'FSP_IR_106_P55_W1610852540322061610',
+    p_attribute_value => '1610853339323061628____',
+    p_tenant_id => '');
+end;
+/
+begin
+  wwv_flow_api.create_preferences$ (
+    p_id => 16901182200994123,
+    p_user_id => 'john.lathouwers@oracle.com',
+    p_preference_name => 'FSP_IR_100_P1_W2568301297760371107',
+    p_attribute_value => '2568463711188395696____',
+    p_tenant_id => '');
+end;
+/
+begin
+  wwv_flow_api.create_preferences$ (
+    p_id => 35874254777477896,
+    p_user_id => 'john.lathouwers@oracle.com',
+    p_preference_name => 'FSP_IR_106_P57_W1610857153000083686',
+    p_attribute_value => '1610858452922083689____',
+    p_tenant_id => '');
+end;
+/
+begin
+  wwv_flow_api.create_preferences$ (
+    p_id => 20435442104154725,
+    p_user_id => 'DEMO',
+    p_preference_name => 'FSP_IR_4000_P40_W48117227188266087',
+    p_attribute_value => '48118623144274016____',
+    p_tenant_id => '');
+end;
+/
+begin
+  wwv_flow_api.create_preferences$ (
+    p_id => 35904732359537440,
+    p_user_id => 'john.lathouwers@oracle.com',
+    p_preference_name => 'FSP_IR_106_P55_W1610887448182488537',
+    p_attribute_value => '1610888247183488555____',
+    p_tenant_id => '');
+end;
+/
+begin
+  wwv_flow_api.create_preferences$ (
+    p_id => 37565089125379425,
+    p_user_id => 'john.lathouwers@oracle.com',
+    p_preference_name => 'FSP_IR_100_P24_W1316619909740380184',
+    p_attribute_value => '1316620926452380185____',
+    p_tenant_id => '');
+end;
+/
+begin
+  wwv_flow_api.create_preferences$ (
+    p_id => 20483559025454961,
+    p_user_id => 'DEMO',
+    p_preference_name => 'APEX_IG_660073452414686901_CURRENT_REPORT',
+    p_attribute_value => '660079397159689022:GRID',
+    p_tenant_id => '');
+end;
+/
+begin
+  wwv_flow_api.create_preferences$ (
+    p_id => 20427206737053092,
+    p_user_id => 'DEMO',
+    p_preference_name => 'FSP4000_P197_R935666971301945228_SORT',
+    p_attribute_value => 'sort_2_asc',
+    p_tenant_id => '');
+end;
+/
+begin
+  wwv_flow_api.create_preferences$ (
+    p_id => 37499718169948377,
+    p_user_id => 'john.lathouwers@oracle.com',
+    p_preference_name => 'FSP103_P30_R37490540873946459_SORT',
+    p_attribute_value => 'sort_1_asc',
+    p_tenant_id => '');
+end;
+/
+begin
+  wwv_flow_api.create_preferences$ (
+    p_id => 54300536060090487,
+    p_user_id => 'DEMO',
+    p_preference_name => 'FSP_IR_4350_P800_W562149154323879326',
+    p_attribute_value => '563508467581277904____',
+    p_tenant_id => '');
+end;
+/
+begin
+  wwv_flow_api.create_preferences$ (
+    p_id => 54306313971094678,
+    p_user_id => 'DEMO',
+    p_preference_name => 'FSP_IR_4350_P41_W452282915693712315',
+    p_attribute_value => '452284900793728689____',
+    p_tenant_id => '');
+end;
+/
+begin
+  wwv_flow_api.create_preferences$ (
+    p_id => 26276679029005779,
+    p_user_id => 'DEMO',
+    p_preference_name => 'FSP_IR_4000_P4110_W1548412223182178',
+    p_attribute_value => '1550029190194632____',
+    p_tenant_id => '');
+end;
+/
+begin
+  wwv_flow_api.create_preferences$ (
+    p_id => 37312052167711668,
+    p_user_id => 'DEMO',
+    p_preference_name => 'WIZARD_SQL_SOURCE_TYPE',
+    p_attribute_value => 'TABLE',
+    p_tenant_id => '');
+end;
+/
+begin
+  wwv_flow_api.create_preferences$ (
+    p_id => 41306410789284697,
+    p_user_id => 'DEMO',
+    p_preference_name => 'FSP_IR_4000_P971_W9832206744401027',
+    p_attribute_value => '15125345793568912____',
+    p_tenant_id => '');
+end;
+/
+begin
+  wwv_flow_api.create_preferences$ (
+    p_id => 20599108125695282,
+    p_user_id => 'DEMO',
+    p_preference_name => 'FSP4000_P195_R225787614827384691_SORT',
+    p_attribute_value => 'sort_2_asc',
+    p_tenant_id => '');
+end;
+/
+begin
+  wwv_flow_api.create_preferences$ (
+    p_id => 44594265520436145,
+    p_user_id => 'DEMO',
+    p_preference_name => 'FSP4000_P73_R78240013758270704_SORT',
+    p_attribute_value => 'sort_2_asc',
+    p_tenant_id => '');
+end;
+/
+begin
+  wwv_flow_api.create_preferences$ (
+    p_id => 20113654650156361,
+    p_user_id => 'john.lathouwers@oracle.com',
+    p_preference_name => 'FSP102_P1_R3261373488070088432_SORT',
+    p_attribute_value => 'sort_1_asc',
+    p_tenant_id => '');
+end;
+/
+begin
+  wwv_flow_api.create_preferences$ (
+    p_id => 20426807270049388,
+    p_user_id => 'DEMO',
+    p_preference_name => 'FSP_IR_4000_P1500_W3519715528105919',
+    p_attribute_value => '3521529006112497____',
+    p_tenant_id => '');
+end;
+/
+begin
+  wwv_flow_api.create_preferences$ (
+    p_id => 20540397412104715,
+    p_user_id => 'DEMO',
+    p_preference_name => 'FSP_IR_4000_P4003_W632908938554265910',
+    p_attribute_value => '632910390117265918____',
+    p_tenant_id => '');
+end;
+/
+begin
+  wwv_flow_api.create_preferences$ (
+    p_id => 20556484317313065,
+    p_user_id => 'DEMO',
+    p_preference_name => 'FSP4000_P204_R615788632607651459_SORT',
+    p_attribute_value => 'sort_3_asc',
+    p_tenant_id => '');
+end;
+/
+begin
+  wwv_flow_api.create_preferences$ (
+    p_id => 20556502961313067,
+    p_user_id => 'DEMO',
+    p_preference_name => 'FSP4000_P204_R688605826047856548_SORT',
+    p_attribute_value => 'sort_2_asc',
+    p_tenant_id => '');
+end;
+/
+begin
+  wwv_flow_api.create_preferences$ (
+    p_id => 20556614986313717,
+    p_user_id => 'DEMO',
+    p_preference_name => 'PD_GAL_CUR_TAB',
+    p_attribute_value => '1',
+    p_tenant_id => '');
+end;
+/
+begin
+  wwv_flow_api.create_preferences$ (
+    p_id => 20569426282686060,
+    p_user_id => 'DEMO',
+    p_preference_name => 'F4000_1157687726908338238_SPLITTER_STATE',
+    p_attribute_value => '345:true',
+    p_tenant_id => '');
+end;
+/
+begin
+  wwv_flow_api.create_preferences$ (
+    p_id => 29265737921031215,
+    p_user_id => 'DEMO',
+    p_preference_name => 'FSP_IR_105_P4_W7530920254516097784',
+    p_attribute_value => '7530921160605098334____',
+    p_tenant_id => '');
+end;
+/
+begin
+  wwv_flow_api.create_preferences$ (
+    p_id => 35867897636093134,
+    p_user_id => 'DEMO',
+    p_preference_name => 'FSP_IR_106_P16_W1174371443001174478',
+    p_attribute_value => '1174372445937175684____',
+    p_tenant_id => '');
+end;
+/
+begin
+  wwv_flow_api.create_preferences$ (
+    p_id => 35872309839453005,
+    p_user_id => 'john.lathouwers@oracle.com',
+    p_preference_name => 'FSP_IR_106_P16_W1174371443001174478',
+    p_attribute_value => '1174372445937175684____',
+    p_tenant_id => '');
+end;
+/
+begin
+  wwv_flow_api.create_preferences$ (
+    p_id => 37565738271386012,
+    p_user_id => 'john.lathouwers@oracle.com',
+    p_preference_name => 'FSP_IR_100_P7_W2683340326687957869',
+    p_attribute_value => '2683341621635957873____',
+    p_tenant_id => '');
+end;
+/
+begin
+  wwv_flow_api.create_preferences$ (
+    p_id => 54306107752093467,
+    p_user_id => 'DEMO',
+    p_preference_name => 'FSP_IR_4350_P85_W452551212367691311',
+    p_attribute_value => '452551720296692674____',
+    p_tenant_id => '');
+end;
+/
+begin
+  wwv_flow_api.create_preferences$ (
+    p_id => 54306808126101293,
+    p_user_id => 'DEMO',
+    p_preference_name => 'FSP_IR_4350_P150_W168470000722916319',
+    p_attribute_value => '168471214372916491____',
+    p_tenant_id => '');
+end;
+/
+begin
+  wwv_flow_api.create_preferences$ (
+    p_id => 54315787115112955,
+    p_user_id => 'DEMO',
+    p_preference_name => 'FSP_IR_4750_P13_W802126998751115520',
+    p_attribute_value => '802128196428115534____',
+    p_tenant_id => '');
+end;
+/
+begin
+  wwv_flow_api.create_preferences$ (
+    p_id => 54316133585114286,
+    p_user_id => 'DEMO',
+    p_preference_name => 'FSP_IR_4750_P29_W818291210293192122',
+    p_attribute_value => '818294290518218468____',
+    p_tenant_id => '');
+end;
+/
+----------------
+--query builder
+--
+----------------
+--sql scripts
+--
+----------------
+--sql commands
+--
+begin
+  wwv_flow_api.create_sw_sql_cmds (
+    p_id => 20139172389234689
+ ,p_command => 
+'alter table "APPLICATION_LINKS" rename column'||wwv_flow.LF||
+'"APP_PAGE" to "APPLICATION_PAGE"'||wwv_flow.LF||
+'/   '||wwv_flow.LF||
+''
+    ,p_created_by => 'DEMO'
+    ,p_created_on => to_date('202109171545','YYYYMMDDHH24MI')
+    ,p_parsed_schema => 'DEMO');
+end;
+/
+begin
+  wwv_flow_api.create_sw_sql_cmds (
+    p_id => 20139268710235453
+ ,p_command => 
+'drop TABLE "SAMPLE_APPS"'||wwv_flow.LF||
+'cascade constraints'||wwv_flow.LF||
+'/   '||wwv_flow.LF||
+''
+    ,p_created_by => 'DEMO'
+    ,p_created_on => to_date('202109171545','YYYYMMDDHH24MI')
+    ,p_parsed_schema => 'DEMO');
+end;
+/
+begin
+  wwv_flow_api.create_sw_sql_cmds (
+    p_id => 20589112659385923
+ ,p_command => 
+'alter table "CARDS" add'||wwv_flow.LF||
+'("CARD_ORDER" NUMBER)'||wwv_flow.LF||
+'/   '||wwv_flow.LF||
+''
+    ,p_created_by => 'DEMO'
+    ,p_created_on => to_date('202109201425','YYYYMMDDHH24MI')
+    ,p_parsed_schema => 'DEMO');
+end;
+/
+begin
+  wwv_flow_api.create_sw_sql_cmds (
+    p_id => 37305311544686423
+ ,p_command => 
+'alter table data_sources modify( id raw(16) default sys_guid() );'
+    ,p_created_by => 'DEMO'
+    ,p_created_on => to_date('202109221054','YYYYMMDDHH24MI')
+    ,p_parsed_schema => 'DEMO');
+end;
+/
+begin
+  wwv_flow_api.create_sw_sql_cmds (
+    p_id => 54333917920144667
+ ,p_command => 
+'drop TABLE "DEMO_AUTHN_METHODS"'||wwv_flow.LF||
+'cascade constraints'||wwv_flow.LF||
+'/   '||wwv_flow.LF||
+''
+    ,p_created_by => 'DEMO'
+    ,p_created_on => to_date('202110120758','YYYYMMDDHH24MI')
+    ,p_parsed_schema => 'DEMO');
+end;
+/
+begin
+  wwv_flow_api.create_sw_sql_cmds (
+    p_id => 54334219326152809
+ ,p_command => 
+'drop SEQUENCE "DEMO_AUTHN_METHODS_SEQ"'||wwv_flow.LF||
+'/   '||wwv_flow.LF||
+''
+    ,p_created_by => 'DEMO'
+    ,p_created_on => to_date('202110120800','YYYYMMDDHH24MI')
+    ,p_parsed_schema => 'DEMO');
+end;
+/
+begin
+  wwv_flow_api.create_sw_sql_cmds (
+    p_id => 54343364257425281
+ ,p_command => 
+'drop TABLE "UXI_APPLICATION_LINKS"'||wwv_flow.LF||
+'cascade constraints'||wwv_flow.LF||
+'/   '||wwv_flow.LF||
+''
+    ,p_created_by => 'DEMO'
+    ,p_created_on => to_date('202110120845','YYYYMMDDHH24MI')
+    ,p_parsed_schema => 'DEMO');
+end;
+/
+begin
+  wwv_flow_api.create_sw_sql_cmds (
+    p_id => 54343551551426577
+ ,p_command => 
+'drop TABLE "UXI_DATA_SOURCES"'||wwv_flow.LF||
+'cascade constraints'||wwv_flow.LF||
+'/   '||wwv_flow.LF||
+''
+    ,p_created_by => 'DEMO'
+    ,p_created_on => to_date('202110120845','YYYYMMDDHH24MI')
+    ,p_parsed_schema => 'DEMO');
+end;
+/
+begin
+  wwv_flow_api.create_sw_sql_cmds (
+    p_id => 54343627390427140
+ ,p_command => 
+'drop TABLE "UXI_FEATURE_CARDS"'||wwv_flow.LF||
+'cascade constraints'||wwv_flow.LF||
+'/   '||wwv_flow.LF||
+''
+    ,p_created_by => 'DEMO'
+    ,p_created_on => to_date('202110120845','YYYYMMDDHH24MI')
+    ,p_parsed_schema => 'DEMO');
+end;
+/
+begin
+  wwv_flow_api.create_sw_sql_cmds (
+    p_id => 54343723228427852
+ ,p_command => 
+'drop TABLE "UXI_ORDERS"'||wwv_flow.LF||
+'cascade constraints'||wwv_flow.LF||
+'/   '||wwv_flow.LF||
+''
+    ,p_created_by => 'DEMO'
+    ,p_created_on => to_date('202110120845','YYYYMMDDHH24MI')
+    ,p_parsed_schema => 'DEMO');
+end;
+/
+begin
+  wwv_flow_api.create_sw_sql_cmds (
+    p_id => 54343857873454720
+ ,p_command => 
+'drop TABLE "DATABASECHANGELOG"'||wwv_flow.LF||
+'cascade constraints'||wwv_flow.LF||
+'/   '||wwv_flow.LF||
+''
+    ,p_created_by => 'DEMO'
+    ,p_created_on => to_date('202110120850','YYYYMMDDHH24MI')
+    ,p_parsed_schema => 'DEMO');
+end;
+/
+begin
+  wwv_flow_api.create_sw_sql_cmds (
+    p_id => 54344027679455890
+ ,p_command => 
+'drop TABLE "DATABASECHANGELOG_ACTIONS"'||wwv_flow.LF||
+'cascade constraints'||wwv_flow.LF||
+'/   '||wwv_flow.LF||
+''
+    ,p_created_by => 'DEMO'
+    ,p_created_on => to_date('202110120850','YYYYMMDDHH24MI')
+    ,p_parsed_schema => 'DEMO');
+end;
+/
+begin
+  wwv_flow_api.create_sw_sql_cmds (
+    p_id => 20138917065231451
+ ,p_command => 
+'alter table "APPLICATION_LINKS" rename column'||wwv_flow.LF||
+'"APP_NAME" to "APPLICATION_NAME"'||wwv_flow.LF||
+'/   '||wwv_flow.LF||
+''
+    ,p_created_by => 'DEMO'
+    ,p_created_on => to_date('202109171544','YYYYMMDDHH24MI')
+    ,p_parsed_schema => 'DEMO');
+end;
+/
+begin
+  wwv_flow_api.create_sw_sql_cmds (
+    p_id => 20139093302232675
+ ,p_command => 
+'alter table "APPLICATION_LINKS" rename column'||wwv_flow.LF||
+'"APP_ID" to "APPLICATION_ID"'||wwv_flow.LF||
+'/   '||wwv_flow.LF||
+''
+    ,p_created_by => 'DEMO'
+    ,p_created_on => to_date('202109171545','YYYYMMDDHH24MI')
+    ,p_parsed_schema => 'DEMO');
+end;
+/
+begin
+  wwv_flow_api.create_sw_sql_cmds (
+    p_id => 37304164110647869
+ ,p_command => 
+'alter table "DATA_SOURCES" add'||wwv_flow.LF||
+'("ID" RAW(16))'||wwv_flow.LF||
+'/   '||wwv_flow.LF||
+''
+    ,p_created_by => 'DEMO'
+    ,p_created_on => to_date('202109221047','YYYYMMDDHH24MI')
+    ,p_parsed_schema => 'DEMO');
+end;
+/
+begin
+  wwv_flow_api.create_sw_sql_cmds (
+    p_id => 54325108701140998
+ ,p_command => 
+'drop TABLE "APPLICATION_LINKS"'||wwv_flow.LF||
+'cascade constraints'||wwv_flow.LF||
+'/   '||wwv_flow.LF||
+''
+    ,p_created_by => 'DEMO'
+    ,p_created_on => to_date('202110120758','YYYYMMDDHH24MI')
+    ,p_parsed_schema => 'DEMO');
+end;
+/
+begin
+  wwv_flow_api.create_sw_sql_cmds (
+    p_id => 54334089515145138
+ ,p_command => 
+'drop TABLE "DEMO_DATA_SOURCES"'||wwv_flow.LF||
+'/   '||wwv_flow.LF||
+''
+    ,p_created_by => 'DEMO'
+    ,p_created_on => to_date('202110120758','YYYYMMDDHH24MI')
+    ,p_parsed_schema => 'DEMO');
+end;
+/
+begin
+  wwv_flow_api.create_sw_sql_cmds (
+    p_id => 54343434198425863
+ ,p_command => 
+'drop TABLE "UXI_AUTHN_METHODS"'||wwv_flow.LF||
+'cascade constraints'||wwv_flow.LF||
+'/   '||wwv_flow.LF||
+''
+    ,p_created_by => 'DEMO'
+    ,p_created_on => to_date('202110120845','YYYYMMDDHH24MI')
+    ,p_parsed_schema => 'DEMO');
+end;
+/
+begin
+  wwv_flow_api.create_sw_sql_cmds (
+    p_id => 20138898226230028
+ ,p_command => 
+'create table "APPLICATION_LINKS" as'||wwv_flow.LF||
+'select *'||wwv_flow.LF||
+'from "SAMPLE_APPS"'||wwv_flow.LF||
+'/   '||wwv_flow.LF||
+''
+    ,p_created_by => 'DEMO'
+    ,p_created_on => to_date('202109171544','YYYYMMDDHH24MI')
+    ,p_parsed_schema => 'DEMO');
+end;
+/
+begin
+  wwv_flow_api.create_sw_sql_cmds (
+    p_id => 37304061866641109
+ ,p_command => 
+'alter table "DATA_SOURCES" add'||wwv_flow.LF||
+'("ID" NUMBER NOT NULL)'||wwv_flow.LF||
+'/   '||wwv_flow.LF||
+''
+    ,p_created_by => 'DEMO'
+    ,p_created_on => to_date('202109221046','YYYYMMDDHH24MI')
+    ,p_parsed_schema => 'DEMO');
+end;
+/
+begin
+  wwv_flow_api.create_sw_sql_cmds (
+    p_id => 44617631757458499
+ ,p_command => 
+'alter table "DATA_SOURCES" rename'||wwv_flow.LF||
+'to "DEMO_DATA_SOURCES"'||wwv_flow.LF||
+'/   '||wwv_flow.LF||
+''
+    ,p_created_by => 'DEMO'
+    ,p_created_on => to_date('202110111611','YYYYMMDDHH24MI')
+    ,p_parsed_schema => 'DEMO');
+end;
+/
+begin
+  wwv_flow_api.create_sw_sql_cmds (
+    p_id => 44617923522505625
+ ,p_command => 
+'drop TRIGGER "DATA_SOURCES_T1"'||wwv_flow.LF||
+'/   '||wwv_flow.LF||
+''
+    ,p_created_by => 'DEMO'
+    ,p_created_on => to_date('202110111618','YYYYMMDDHH24MI')
+    ,p_parsed_schema => 'DEMO');
+end;
+/
+begin
+  wwv_flow_api.create_sw_sql_cmds (
+    p_id => 44618022955524480
+ ,p_command => 
+'alter table "AUTHN_METHODS" rename'||wwv_flow.LF||
+'to "DEMO_AUTHN_METHODS"'||wwv_flow.LF||
+'/   '||wwv_flow.LF||
+''
+    ,p_created_by => 'DEMO'
+    ,p_created_on => to_date('202110111622','YYYYMMDDHH24MI')
+    ,p_parsed_schema => 'DEMO');
+end;
+/
+begin
+  wwv_flow_api.create_sw_sql_cmds (
+    p_id => 44618132632538192
+ ,p_command => 
+'drop SEQUENCE "AUTHN_METHODS_SEQ"'||wwv_flow.LF||
+'/   '||wwv_flow.LF||
+''
+    ,p_created_by => 'DEMO'
+    ,p_created_on => to_date('202110111624','YYYYMMDDHH24MI')
+    ,p_parsed_schema => 'DEMO');
+end;
+/
+begin
+  wwv_flow_api.create_sw_sql_cmds (
+    p_id => 20588965050361546
+ ,p_command => 
+'alter table "CARDS" add'||wwv_flow.LF||
+'("CARD_SUBTEXT" VARCHAR2(255))'||wwv_flow.LF||
+'/   '||wwv_flow.LF||
+''
+    ,p_created_by => 'DEMO'
+    ,p_created_on => to_date('202109201421','YYYYMMDDHH24MI')
+    ,p_parsed_schema => 'DEMO');
+end;
+/
+begin
+  wwv_flow_api.create_sw_sql_cmds (
+    p_id => 37304606814659192
+ ,p_command => 
+'INSERT INTO DATA_SOURCES (ID) VALUES (SYS_GUID()) WHERE ID IS NULL;'||wwv_flow.LF||
+''
+    ,p_created_by => 'DEMO'
+    ,p_created_on => to_date('202109221049','YYYYMMDDHH24MI')
+    ,p_parsed_schema => 'DEMO');
+end;
+/
+begin
+  wwv_flow_api.create_sw_sql_cmds (
+    p_id => 37305273402680515
+ ,p_command => 
+'alter table data_sources ADD CONSTRAINT data_sources_pk PRIMARY KEY (id);'
+    ,p_created_by => 'DEMO'
+    ,p_created_on => to_date('202109221053','YYYYMMDDHH24MI')
+    ,p_parsed_schema => 'DEMO');
+end;
+/
+begin
+  wwv_flow_api.create_sw_sql_cmds (
+    p_id => 37304378083656381
+ ,p_command => 
+'INSERT INTO DATA_SOURCES (ID) VALUES (SYS_GUID());'
+    ,p_created_by => 'DEMO'
+    ,p_created_on => to_date('202109221049','YYYYMMDDHH24MI')
+    ,p_parsed_schema => 'DEMO');
+end;
+/
+begin
+  wwv_flow_api.create_sw_sql_cmds (
+    p_id => 37304495504657860
+ ,p_command => 
+'SELECT * FROM DATA_SOURCES;'
+    ,p_created_by => 'DEMO'
+    ,p_created_on => to_date('202109221049','YYYYMMDDHH24MI')
+    ,p_parsed_schema => 'DEMO');
+end;
+/
+begin
+  wwv_flow_api.create_sw_sql_cmds (
+    p_id => 37304752542660646
+ ,p_command => 
+'SELECT * FROM DATA_SOURCES;'
+    ,p_created_by => 'DEMO'
+    ,p_created_on => to_date('202109221049','YYYYMMDDHH24MI')
+    ,p_parsed_schema => 'DEMO');
+end;
+/
+begin
+  wwv_flow_api.create_sw_sql_cmds (
+    p_id => 37304809621662692
+ ,p_command => 
+'INSERT INTO DATA_SOURCES (ID) VALUES (SYS_GUID()) WHERE TYPE=''Database Links (SQL*Net)'';'||wwv_flow.LF||
+''
+    ,p_created_by => 'DEMO'
+    ,p_created_on => to_date('202109221050','YYYYMMDDHH24MI')
+    ,p_parsed_schema => 'DEMO');
+end;
+/
+begin
+  wwv_flow_api.create_sw_sql_cmds (
+    p_id => 37304969290669544
+ ,p_command => 
+'UPDATE DATA_SOURCES SET ID=SYS_GUID() WHERE ID IS NULL;'||wwv_flow.LF||
+''
+    ,p_created_by => 'DEMO'
+    ,p_created_on => to_date('202109221051','YYYYMMDDHH24MI')
+    ,p_parsed_schema => 'DEMO');
+end;
+/
+begin
+  wwv_flow_api.create_sw_sql_cmds (
+    p_id => 37305071793670129
+ ,p_command => 
+'SELECT * FROM DATA_SOURCES;'
+    ,p_created_by => 'DEMO'
+    ,p_created_on => to_date('202109221051','YYYYMMDDHH24MI')
+    ,p_parsed_schema => 'DEMO');
+end;
+/
+begin
+  wwv_flow_api.create_sw_sql_cmds (
+    p_id => 54343245072421457
+ ,p_command => 
+'drop SEQUENCE "UXI_AUTHN_METHODS_SEQ"'||wwv_flow.LF||
+'/   '||wwv_flow.LF||
+''
+    ,p_created_by => 'DEMO'
+    ,p_created_on => to_date('202110120844','YYYYMMDDHH24MI')
+    ,p_parsed_schema => 'DEMO');
+end;
+/
+begin
+  wwv_flow_api.create_sw_sql_cmds (
+    p_id => 54343983767455356
+ ,p_command => 
+'drop TABLE "DATABASECHANGELOGLOCK"'||wwv_flow.LF||
+'cascade constraints'||wwv_flow.LF||
+'/   '||wwv_flow.LF||
+''
+    ,p_created_by => 'DEMO'
+    ,p_created_on => to_date('202110120850','YYYYMMDDHH24MI')
+    ,p_parsed_schema => 'DEMO');
+end;
+/
+begin
+  wwv_flow_api.create_sw_sql_cmds (
+    p_id => 37347098452258664
+ ,p_command => 
+'create or replace trigger "DATA_SOURCES_T1"'||wwv_flow.LF||
+'BEFORE'||wwv_flow.LF||
+'insert on "DATA_SOURCES"'||wwv_flow.LF||
+'for each row'||wwv_flow.LF||
+'begin'||wwv_flow.LF||
+'IF :new.id IS NULL THEN'||wwv_flow.LF||
+'    :new.id := sys_guid();'||wwv_flow.LF||
+'END IF;'||wwv_flow.LF||
+'end;'||wwv_flow.LF||
+'/   '||wwv_flow.LF||
+''
+    ,p_created_by => 'DEMO'
+    ,p_created_on => to_date('202109221229','YYYYMMDDHH24MI')
+    ,p_parsed_schema => 'DEMO');
+end;
+/
+begin
+  wwv_flow_api.create_sw_sql_cmds (
+    p_id => 54334172131146106
+ ,p_command => 
+'drop TABLE "DEMO_FEATURE_CARDS"'||wwv_flow.LF||
+'cascade constraints'||wwv_flow.LF||
+'/   '||wwv_flow.LF||
+''
+    ,p_created_by => 'DEMO'
+    ,p_created_on => to_date('202110120758','YYYYMMDDHH24MI')
+    ,p_parsed_schema => 'DEMO');
+end;
+/
+----------------
+--Quick SQL saved models
+--
+----------------
+--user access log
+--
+begin
+  wwv_flow_api.create_user_access_log1$ (
+    p_login_name => 'john.lathouwers@oracle.com',
+    p_auth_method => 'IDCS Authentication Scheme',
+    p_app => 103,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202110111507','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log1$ (
+    p_login_name => 'john.lathouwers@oracle.com',
+    p_auth_method => 'IDCS Authentication Scheme',
+    p_app => 103,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202110121109','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log1$ (
+    p_login_name => 'DEMO',
+    p_auth_method => 'Internal Authentication',
+    p_app => 4500,
+    p_owner => 'APEX_200200',
+    p_access_date => to_date('202110120727','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log1$ (
+    p_login_name => 'DEMO',
+    p_auth_method => 'Application Express Accounts',
+    p_app => 100,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202110121041','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log1$ (
+    p_login_name => 'john.lathouwers@oracle.com',
+    p_auth_method => 'Copy of IDCS Authentication Scheme',
+    p_app => 100,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202110121110','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log1$ (
+    p_login_name => 'john.lathouwers@oracle.com',
+    p_auth_method => 'IDCS Authentication Scheme',
+    p_app => 103,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202110120727','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log1$ (
+    p_login_name => 'john.lathouwers@oracle.com',
+    p_auth_method => 'IDCS Authentication Scheme',
+    p_app => 103,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202110120852','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log1$ (
+    p_login_name => 'DEMO',
+    p_auth_method => 'Internal Authentication',
+    p_app => 4500,
+    p_owner => 'APEX_200200',
+    p_access_date => to_date('202110111508','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log1$ (
+    p_login_name => 'john.lathouwers@oracle.com',
+    p_auth_method => 'IDCS Authentication Scheme',
+    p_app => 103,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202110121428','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log1$ (
+    p_login_name => 'DEMO',
+    p_auth_method => 'Internal Authentication',
+    p_app => 4500,
+    p_owner => 'APEX_200200',
+    p_access_date => to_date('202110121426','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log1$ (
+    p_login_name => 'john.lathouwers@oracle.com',
+    p_auth_method => 'IDCS Authentication Scheme',
+    p_app => 103,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202110121609','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log1$ (
+    p_login_name => 'DEMO',
+    p_auth_method => 'Internal Authentication',
+    p_app => 4500,
+    p_owner => 'APEX_200200',
+    p_access_date => to_date('202110131254','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'DEMO',
+    p_auth_method => 'Internal Authentication',
+    p_app => 4500,
+    p_owner => 'APEX_200200',
+    p_access_date => to_date('202109171256','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'DEMO',
+    p_auth_method => 'Application Express Accounts',
+    p_app => 100,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202109171416','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => ' ',
+    p_auth_method => 'SOCIAL',
+    p_app => 100,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202109171422','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 7,
+    p_custom_status_text => 'invalid_client Client authentication failed.');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => ' ',
+    p_auth_method => 'SOCIAL',
+    p_app => 100,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202109171428','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 7,
+    p_custom_status_text => 'invalid_client Client authentication failed.');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'john.lathouwers@oracle.com',
+    p_auth_method => 'IDCS Authentication Scheme',
+    p_app => 100,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202109171505','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'john.lathouwers@oracle.com',
+    p_auth_method => 'IDCS Authentication Scheme',
+    p_app => 101,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202109171515','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'john.lathouwers@oracle.com',
+    p_auth_method => 'IDCS Authentication Scheme',
+    p_app => 101,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202109171516','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'john.lathouwers@oracle.com',
+    p_auth_method => 'IDCS Authentication Scheme',
+    p_app => 100,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202109171548','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'john.lathouwers@oracle.com',
+    p_auth_method => 'IDCS Authentication Scheme',
+    p_app => 101,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202109171550','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'john.lathouwers@oracle.com',
+    p_auth_method => 'IDCS Authentication Scheme',
+    p_app => 100,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202109171550','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'john.lathouwers@oracle.com',
+    p_auth_method => 'IDCS Authentication Scheme',
+    p_app => 100,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202109171556','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'DEMO',
+    p_auth_method => 'Internal Authentication',
+    p_app => 4500,
+    p_owner => 'APEX_200200',
+    p_access_date => to_date('202109171556','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'john.lathouwers@oracle.com',
+    p_auth_method => 'IDCS Authentication Scheme',
+    p_app => 100,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202109171556','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'john.lathouwers@oracle.com',
+    p_auth_method => 'IDCS Authentication Scheme',
+    p_app => 101,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202109171557','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'john.lathouwers@oracle.com',
+    p_auth_method => 'IDCS Authentication Scheme',
+    p_app => 103,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202109200753','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'john.lathouwers@oracle.com',
+    p_auth_method => 'IDCS Authentication Scheme',
+    p_app => 103,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202109201521','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'john.lathouwers@oracle.com',
+    p_auth_method => 'IDCS Authentication Scheme',
+    p_app => 103,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202109210726','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'john.lathouwers@oracle.com',
+    p_auth_method => 'IDCS Authentication Scheme',
+    p_app => 106,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202109211200','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'john.lathouwers@oracle.com',
+    p_auth_method => 'IDCS Authentication Scheme',
+    p_app => 103,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202109220730','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'john.lathouwers@oracle.com',
+    p_auth_method => 'IDCS Authentication Scheme',
+    p_app => 103,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202109221017','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'john.lathouwers@oracle.com',
+    p_auth_method => 'IDCS Authentication Scheme',
+    p_app => 103,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202109230720','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'john.lathouwers@oracle.com',
+    p_auth_method => 'IDCS Authentication Scheme',
+    p_app => 103,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202109240703','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'DEMO',
+    p_auth_method => 'Internal Authentication',
+    p_app => 4500,
+    p_owner => 'APEX_200200',
+    p_access_date => to_date('202109241108','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'john.lathouwers@oracle.com',
+    p_auth_method => 'IDCS Authentication Scheme',
+    p_app => 103,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202109270921','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'john.lathouwers@oracle.com',
+    p_auth_method => 'IDCS Authentication Scheme',
+    p_app => 103,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202109270936','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'john.lathouwers@oracle.com',
+    p_auth_method => 'IDCS Authentication Scheme',
+    p_app => 102,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202109270936','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'john.lathouwers@oracle.com',
+    p_auth_method => 'IDCS Authentication Scheme',
+    p_app => 103,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202109270936','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'john.lathouwers@oracle.com',
+    p_auth_method => 'IDCS Authentication Scheme',
+    p_app => 102,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202109271140','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'DEMO',
+    p_auth_method => 'Application Express Accounts',
+    p_app => 109,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202109281311','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => ' ',
+    p_auth_method => 'SOCIAL',
+    p_app => 100,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202109171317','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 7,
+    p_custom_status_text => 'invalid_client Client authentication failed.');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'JOHN.LATHOUWERS@ORACLE.COM',
+    p_auth_method => 'IDCS Authentication Scheme',
+    p_app => 100,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202109171318','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 1,
+    p_custom_status_text => 'Invalid Login Credentials');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'JOHN.LATHOUWERS@ORACLE.COM',
+    p_auth_method => 'IDCS Authentication Scheme',
+    p_app => 100,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202109171318','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 1,
+    p_custom_status_text => 'Invalid Login Credentials');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'DEMO',
+    p_auth_method => 'IDCS Authentication Scheme',
+    p_app => 100,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202109171319','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 1,
+    p_custom_status_text => 'Invalid Login Credentials');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => ' ',
+    p_auth_method => 'SOCIAL',
+    p_app => 100,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202109171320','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 7,
+    p_custom_status_text => 'invalid_client Client authentication failed.');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => ' ',
+    p_auth_method => 'SOCIAL',
+    p_app => 100,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202109171326','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 7,
+    p_custom_status_text => 'invalid_client Client authentication failed.');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'john.lathouwers@oracle.com',
+    p_auth_method => 'IDCS Authentication Scheme',
+    p_app => 101,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202109171513','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'john.lathouwers@oracle.com',
+    p_auth_method => 'IDCS Authentication Scheme',
+    p_app => 102,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202109171532','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'john.lathouwers@oracle.com',
+    p_auth_method => 'IDCS Authentication Scheme',
+    p_app => 102,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202109171553','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'john.lathouwers@oracle.com',
+    p_auth_method => 'IDCS Authentication Scheme',
+    p_app => 102,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202109171557','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'DEMO',
+    p_auth_method => 'Internal Authentication',
+    p_app => 4500,
+    p_owner => 'APEX_200200',
+    p_access_date => to_date('202109200756','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'john.lathouwers@oracle.com',
+    p_auth_method => 'IDCS Authentication Scheme',
+    p_app => 103,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202109200815','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'john.lathouwers@oracle.com',
+    p_auth_method => 'IDCS Authentication Scheme',
+    p_app => 100,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202109201059','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'john.lathouwers@oracle.com',
+    p_auth_method => 'IDCS Authentication Scheme',
+    p_app => 102,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202109201101','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'john.lathouwers@oracle.com',
+    p_auth_method => 'IDCS Authentication Scheme',
+    p_app => 101,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202109201101','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'john.lathouwers@oracle.com',
+    p_auth_method => 'IDCS Authentication Scheme',
+    p_app => 103,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202109201546','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'DEMO',
+    p_auth_method => 'Internal Authentication',
+    p_app => 4500,
+    p_owner => 'APEX_200200',
+    p_access_date => to_date('202109201607','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'DEMO',
+    p_auth_method => 'Internal Authentication',
+    p_app => 4500,
+    p_owner => 'APEX_200200',
+    p_access_date => to_date('202109201608','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'DEMO',
+    p_auth_method => 'Internal Authentication',
+    p_app => 4500,
+    p_owner => 'APEX_200200',
+    p_access_date => to_date('202109201610','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'DEMO',
+    p_auth_method => 'Internal Authentication',
+    p_app => 4500,
+    p_owner => 'APEX_200200',
+    p_access_date => to_date('202109210725','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'john.lathouwers@oracle.com',
+    p_auth_method => 'IDCS Authentication Scheme',
+    p_app => 103,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202109210936','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'john.lathouwers@oracle.com',
+    p_auth_method => 'IDCS Authentication Scheme',
+    p_app => 103,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202109211018','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'john.lathouwers@oracle.com',
+    p_auth_method => 'IDCS Authentication Scheme',
+    p_app => 103,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202109211019','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'john.lathouwers@oracle.com',
+    p_auth_method => 'IDCS Authentication Scheme',
+    p_app => 100,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202109211019','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'john.lathouwers@oracle.com',
+    p_auth_method => 'IDCS Authentication Scheme',
+    p_app => 100,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202109211043','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'DEMO',
+    p_auth_method => 'Application Express Accounts',
+    p_app => 105,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202109211051','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'DEMO',
+    p_auth_method => 'Internal Authentication',
+    p_app => 4500,
+    p_owner => 'APEX_200200',
+    p_access_date => to_date('202109211208','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'john.lathouwers@oracle.com',
+    p_auth_method => 'IDCS Authentication Scheme',
+    p_app => 106,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202109211208','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'DEMO',
+    p_auth_method => 'Internal Authentication',
+    p_app => 4500,
+    p_owner => 'APEX_200200',
+    p_access_date => to_date('202109220741','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'john.lathouwers@oracle.com',
+    p_auth_method => 'IDCS Authentication Scheme',
+    p_app => 103,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202109241107','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'john.lathouwers@oracle.com',
+    p_auth_method => 'IDCS Authentication Scheme',
+    p_app => 101,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202109241140','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'john.lathouwers@oracle.com',
+    p_auth_method => 'IDCS Authentication Scheme',
+    p_app => 106,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202109241141','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'john.lathouwers@oracle.com',
+    p_auth_method => 'IDCS Authentication Scheme',
+    p_app => 103,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202109241142','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'john.lathouwers@oracle.com',
+    p_auth_method => 'IDCS Authentication Scheme',
+    p_app => 103,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202109270910','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'john.lathouwers@oracle.com',
+    p_auth_method => 'IDCS Authentication Scheme',
+    p_app => 100,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202109270920','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'john.lathouwers@oracle.com',
+    p_auth_method => 'IDCS Authentication Scheme',
+    p_app => 100,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202109270926','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'DEMO',
+    p_auth_method => 'Application Express Accounts',
+    p_app => 107,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202109270932','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'john.lathouwers@oracle.com',
+    p_auth_method => 'IDCS Authentication Scheme',
+    p_app => 100,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202109270936','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'john.lathouwers@oracle.com',
+    p_auth_method => 'IDCS Authentication Scheme',
+    p_app => 103,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202109270937','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'john.lathouwers@oracle.com',
+    p_auth_method => 'IDCS Authentication Scheme',
+    p_app => 103,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202109271103','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'john.lathouwers@oracle.com',
+    p_auth_method => 'IDCS Authentication Scheme',
+    p_app => 100,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202109271140','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'john.lathouwers@oracle.com',
+    p_auth_method => 'IDCS Authentication Scheme',
+    p_app => 103,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202109271140','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => ' ',
+    p_auth_method => 'SOCIAL',
+    p_app => 100,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202109171424','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 7,
+    p_custom_status_text => 'invalid_client Client authentication failed.');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'DEMO',
+    p_auth_method => 'Internal Authentication',
+    p_app => 4500,
+    p_owner => 'APEX_200200',
+    p_access_date => to_date('202109171428','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => ' ',
+    p_auth_method => 'SOCIAL',
+    p_app => 100,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202109171428','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 7,
+    p_custom_status_text => 'invalid_client Client authentication failed.');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => ' ',
+    p_auth_method => 'SOCIAL',
+    p_app => 100,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202109171429','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 7,
+    p_custom_status_text => 'invalid_client Client authentication failed.');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => ' ',
+    p_auth_method => 'SOCIAL',
+    p_app => 100,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202109171435','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 7,
+    p_custom_status_text => 'invalid_client Client authentication failed.');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'DEMO',
+    p_auth_method => 'Internal Authentication',
+    p_app => 4500,
+    p_owner => 'APEX_200200',
+    p_access_date => to_date('202109171531','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'john.lathouwers@oracle.com',
+    p_auth_method => 'IDCS Authentication Scheme',
+    p_app => 102,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202109171546','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'john.lathouwers@oracle.com',
+    p_auth_method => 'IDCS Authentication Scheme',
+    p_app => 100,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202109171606','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'john.lathouwers@oracle.com',
+    p_auth_method => 'IDCS Authentication Scheme',
+    p_app => 100,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202109171608','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'DEMO',
+    p_auth_method => 'Internal Authentication',
+    p_app => 4500,
+    p_owner => 'APEX_200200',
+    p_access_date => to_date('202109171611','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'john.lathouwers@oracle.com',
+    p_auth_method => 'IDCS Authentication Scheme',
+    p_app => 103,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202109171614','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'john.lathouwers@oracle.com',
+    p_auth_method => 'IDCS Authentication Scheme',
+    p_app => 103,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202109171614','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'john.lathouwers@oracle.com',
+    p_auth_method => 'IDCS Authentication Scheme',
+    p_app => 103,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202109171616','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'DEMO',
+    p_auth_method => 'Internal Authentication',
+    p_app => 4500,
+    p_owner => 'APEX_200200',
+    p_access_date => to_date('202109200811','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'john.lathouwers@oracle.com',
+    p_auth_method => 'IDCS Authentication Scheme',
+    p_app => 101,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202109201100','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'john.lathouwers@oracle.com',
+    p_auth_method => 'IDCS Authentication Scheme',
+    p_app => 102,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202109201102','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'john.lathouwers@oracle.com',
+    p_auth_method => 'IDCS Authentication Scheme',
+    p_app => 100,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202109201522','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'john.lathouwers@oracle.com',
+    p_auth_method => 'IDCS Authentication Scheme',
+    p_app => 103,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202109201522','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'john.lathouwers@oracle.com',
+    p_auth_method => 'IDCS Authentication Scheme',
+    p_app => 103,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202109201525','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'john.lathouwers@oracle.com',
+    p_auth_method => 'IDCS Authentication Scheme',
+    p_app => 103,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202109201533','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'john.lathouwers@oracle.com',
+    p_auth_method => 'IDCS Authentication Scheme',
+    p_app => 100,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202109210940','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'john.lathouwers@oracle.com',
+    p_auth_method => 'IDCS Authentication Scheme',
+    p_app => 101,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202109211018','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'john.lathouwers@oracle.com',
+    p_auth_method => 'IDCS Authentication Scheme',
+    p_app => 106,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202109211212','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'john.lathouwers@oracle.com',
+    p_auth_method => 'IDCS Authentication Scheme',
+    p_app => 103,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202109220741','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'john.lathouwers@oracle.com',
+    p_auth_method => 'IDCS Authentication Scheme',
+    p_app => 103,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202109221411','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'john.lathouwers@oracle.com',
+    p_auth_method => 'IDCS Authentication Scheme',
+    p_app => 106,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202109241125','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'john.lathouwers@oracle.com',
+    p_auth_method => 'IDCS Authentication Scheme',
+    p_app => 103,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202109241141','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'john.lathouwers@oracle.com',
+    p_auth_method => 'IDCS Authentication Scheme',
+    p_app => 103,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202109270904','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'john.lathouwers@oracle.com',
+    p_auth_method => 'IDCS Authentication Scheme',
+    p_app => 103,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202109271140','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'john.lathouwers@oracle.com',
+    p_auth_method => 'IDCS Authentication Scheme',
+    p_app => 103,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202109271140','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'DEMO',
+    p_auth_method => 'Internal Authentication',
+    p_app => 4500,
+    p_owner => 'APEX_200200',
+    p_access_date => to_date('202109281300','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'DEMO',
+    p_auth_method => 'Internal Authentication',
+    p_app => 4500,
+    p_owner => 'APEX_200200',
+    p_access_date => to_date('202109281310','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'DEMO',
+    p_auth_method => 'Application Express Accounts',
+    p_app => 100,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202109171258','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => ' ',
+    p_auth_method => 'SOCIAL',
+    p_app => 100,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202109171435','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 7,
+    p_custom_status_text => 'invalid_client Client authentication failed.');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => ' ',
+    p_auth_method => 'SOCIAL',
+    p_app => 100,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202109171436','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 7,
+    p_custom_status_text => 'invalid_client Client authentication failed.');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => ' ',
+    p_auth_method => 'SOCIAL',
+    p_app => 100,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202109171437','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 7,
+    p_custom_status_text => 'invalid_client Client authentication failed.');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => ' ',
+    p_auth_method => 'SOCIAL',
+    p_app => 100,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202109171438','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 7,
+    p_custom_status_text => 'invalid_client Client authentication failed.');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => ' ',
+    p_auth_method => 'SOCIAL',
+    p_app => 100,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202109171439','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 7,
+    p_custom_status_text => 'invalid_client Client authentication failed.');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => ' ',
+    p_auth_method => 'SOCIAL',
+    p_app => 100,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202109171440','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 7,
+    p_custom_status_text => 'invalid_client Client authentication failed.');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => ' ',
+    p_auth_method => 'SOCIAL',
+    p_app => 100,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202109171443','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 7,
+    p_custom_status_text => 'invalid_client Client authentication failed.');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => ' ',
+    p_auth_method => 'SOCIAL',
+    p_app => 100,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202109171446','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 7,
+    p_custom_status_text => 'invalid_client Client authentication failed.');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'DEMO',
+    p_auth_method => 'Application Express Accounts',
+    p_app => 100,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202109171448','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => ' ',
+    p_auth_method => 'SOCIAL',
+    p_app => 100,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202109171500','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 7,
+    p_custom_status_text => 'invalid_client Client authentication failed.');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'john.lathouwers@oracle.com',
+    p_auth_method => 'IDCS Authentication Scheme',
+    p_app => 102,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202109171548','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'john.lathouwers@oracle.com',
+    p_auth_method => 'IDCS Authentication Scheme',
+    p_app => 101,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202109171548','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'john.lathouwers@oracle.com',
+    p_auth_method => 'IDCS Authentication Scheme',
+    p_app => 100,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202109171548','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'john.lathouwers@oracle.com',
+    p_auth_method => 'IDCS Authentication Scheme',
+    p_app => 102,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202109171549','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'john.lathouwers@oracle.com',
+    p_auth_method => 'IDCS Authentication Scheme',
+    p_app => 101,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202109171550','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'john.lathouwers@oracle.com',
+    p_auth_method => 'IDCS Authentication Scheme',
+    p_app => 100,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202109171604','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'john.lathouwers@oracle.com',
+    p_auth_method => 'IDCS Authentication Scheme',
+    p_app => 102,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202109201059','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'john.lathouwers@oracle.com',
+    p_auth_method => 'IDCS Authentication Scheme',
+    p_app => 100,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202109201101','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'john.lathouwers@oracle.com',
+    p_auth_method => 'IDCS Authentication Scheme',
+    p_app => 100,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202109201102','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'john.lathouwers@oracle.com',
+    p_auth_method => 'IDCS Authentication Scheme',
+    p_app => 100,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202109201522','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'DEMO',
+    p_auth_method => 'Application Express Accounts',
+    p_app => 104,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202109210828','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'john.lathouwers@oracle.com',
+    p_auth_method => 'IDCS Authentication Scheme',
+    p_app => 101,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202109210936','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'john.lathouwers@oracle.com',
+    p_auth_method => 'IDCS Authentication Scheme',
+    p_app => 102,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202109210939','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'john.lathouwers@oracle.com',
+    p_auth_method => 'IDCS Authentication Scheme',
+    p_app => 103,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202109210940','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'john.lathouwers@oracle.com',
+    p_auth_method => 'IDCS Authentication Scheme',
+    p_app => 103,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202109211050','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'john.lathouwers@oracle.com',
+    p_auth_method => 'IDCS Authentication Scheme',
+    p_app => 103,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202109211208','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'DEMO',
+    p_auth_method => 'Internal Authentication',
+    p_app => 4500,
+    p_owner => 'APEX_200200',
+    p_access_date => to_date('202109221438','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'DEMO',
+    p_auth_method => 'Internal Authentication',
+    p_app => 4500,
+    p_owner => 'APEX_200200',
+    p_access_date => to_date('202109240706','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'john.lathouwers@oracle.com',
+    p_auth_method => 'IDCS Authentication Scheme',
+    p_app => 106,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202109241134','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'DEMO',
+    p_auth_method => 'Internal Authentication',
+    p_app => 4500,
+    p_owner => 'APEX_200200',
+    p_access_date => to_date('202109270931','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'john.lathouwers@oracle.com',
+    p_auth_method => 'IDCS Authentication Scheme',
+    p_app => 100,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202109270936','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'john.lathouwers@oracle.com',
+    p_auth_method => 'IDCS Authentication Scheme',
+    p_app => 103,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202109270936','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'john.lathouwers@oracle.com',
+    p_auth_method => 'IDCS Authentication Scheme',
+    p_app => 101,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202109270936','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'john.lathouwers@oracle.com',
+    p_auth_method => 'IDCS Authentication Scheme',
+    p_app => 100,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202109270937','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'DEMO',
+    p_auth_method => 'Internal Authentication',
+    p_app => 4500,
+    p_owner => 'APEX_200200',
+    p_access_date => to_date('202109271123','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'DEMO',
+    p_auth_method => 'Internal Authentication',
+    p_app => 4500,
+    p_owner => 'APEX_200200',
+    p_access_date => to_date('202109281259','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'JOHN.LATHOUWERS@ORACLE.COM',
+    p_auth_method => 'IDCS Authentication Scheme',
+    p_app => 100,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202109171321','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 1,
+    p_custom_status_text => 'Invalid Login Credentials');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'JOHN.LATHOUWERS@ORACLE.COM',
+    p_auth_method => 'IDCS Authentication Scheme',
+    p_app => 100,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202109171413','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 1,
+    p_custom_status_text => 'Invalid Login Credentials');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'JOHN.LATHOUWERS@ORACLE.COM',
+    p_auth_method => 'IDCS Authentication Scheme',
+    p_app => 100,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202109171413','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 1,
+    p_custom_status_text => 'Invalid Login Credentials');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'JOHN.LATHOUWERS@ORACLE.COM',
+    p_auth_method => 'IDCS Authentication Scheme',
+    p_app => 100,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202109171413','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 1,
+    p_custom_status_text => 'Invalid Login Credentials');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => ' ',
+    p_auth_method => 'SOCIAL',
+    p_app => 100,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202109171418','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 7,
+    p_custom_status_text => 'invalid_client Client authentication failed.');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => ' ',
+    p_auth_method => 'SOCIAL',
+    p_app => 100,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202109171440','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 7,
+    p_custom_status_text => 'invalid_client Client authentication failed.');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'john.lathouwers@oracle.com',
+    p_auth_method => 'IDCS Authentication Scheme',
+    p_app => 100,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202109201227','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'john.lathouwers@oracle.com',
+    p_auth_method => 'IDCS Authentication Scheme',
+    p_app => 103,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202109201458','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'john.lathouwers@oracle.com',
+    p_auth_method => 'IDCS Authentication Scheme',
+    p_app => 102,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202109201518','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'john.lathouwers@oracle.com',
+    p_auth_method => 'IDCS Authentication Scheme',
+    p_app => 103,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202109201522','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'john.lathouwers@oracle.com',
+    p_auth_method => 'IDCS Authentication Scheme',
+    p_app => 102,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202109201522','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'john.lathouwers@oracle.com',
+    p_auth_method => 'IDCS Authentication Scheme',
+    p_app => 103,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202109201523','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'john.lathouwers@oracle.com',
+    p_auth_method => 'IDCS Authentication Scheme',
+    p_app => 101,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202109201523','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'john.lathouwers@oracle.com',
+    p_auth_method => 'IDCS Authentication Scheme',
+    p_app => 100,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202109211018','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'john.lathouwers@oracle.com',
+    p_auth_method => 'IDCS Authentication Scheme',
+    p_app => 103,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202109211020','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'john.lathouwers@oracle.com',
+    p_auth_method => 'IDCS Authentication Scheme',
+    p_app => 100,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202109211158','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'john.lathouwers@oracle.com',
+    p_auth_method => 'IDCS Authentication Scheme',
+    p_app => 103,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202109211158','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'DEMO',
+    p_auth_method => 'Internal Authentication',
+    p_app => 4500,
+    p_owner => 'APEX_200200',
+    p_access_date => to_date('202109221016','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'john.lathouwers@oracle.com',
+    p_auth_method => 'IDCS Authentication Scheme',
+    p_app => 106,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202109241127','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'john.lathouwers@oracle.com',
+    p_auth_method => 'IDCS Authentication Scheme',
+    p_app => 102,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202109270923','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'john.lathouwers@oracle.com',
+    p_auth_method => 'IDCS Authentication Scheme',
+    p_app => 103,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202109270936','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'john.lathouwers@oracle.com',
+    p_auth_method => 'IDCS Authentication Scheme',
+    p_app => 100,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202109271121','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'john.lathouwers@oracle.com',
+    p_auth_method => 'IDCS Authentication Scheme',
+    p_app => 103,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202109271123','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'john.lathouwers@oracle.com',
+    p_auth_method => 'IDCS Authentication Scheme',
+    p_app => 106,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202109271123','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'john.lathouwers@oracle.com',
+    p_auth_method => 'IDCS Authentication Scheme',
+    p_app => 103,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202109271123','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'john.lathouwers@oracle.com',
+    p_auth_method => 'IDCS Authentication Scheme',
+    p_app => 106,
+    p_owner => 'DEMO',
+    p_access_date => to_date('202109271123','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+begin
+  wwv_flow_api.create_user_access_log2$ (
+    p_login_name => 'DEMO',
+    p_auth_method => 'Internal Authentication',
+    p_app => 4500,
+    p_owner => 'APEX_200200',
+    p_access_date => to_date('202109281214','YYYYMMDDHH24MI'),
+    p_ip_address => '94.14.103.46',
+    p_remote_user => 'ORDS_PLSQL_GATEWAY',
+    p_auth_result => 0,
+    p_custom_status_text => '');
+end;
+/
+ 
+prompt ...RESTful Services
+ 
+-- SET SCHEMA
+ 
+begin
+ 
+   wwv_flow_api.g_id_offset := 0;
+   wwv_flow_hint.g_schema   := 'DEMO';
+   wwv_flow_hint.check_schema_privs;
+ 
+end;
+/
+
+ 
+--------------------------------------------------------------------
+prompt  SCHEMA DEMO - User Interface Defaults, Table Defaults
+--
+-- Import using sqlplus as the Oracle user: APEX_200200
+-- Exported 13:01 Wednesday October 13, 2021 by: 
+--
+ 
+--------------------------------------------------------------------
+prompt User Interface Defaults, Attribute Dictionary
+--
+-- Exported 13:01 Wednesday October 13, 2021 by: 
+--
+-- SHOW EXPORTING WORKSPACE
+ 
+begin
+ 
+   wwv_flow_api.g_id_offset := 0;
+   wwv_flow_hint.g_exp_workspace := 'DEMO';
+ 
+end;
+/
+
+begin
+wwv_flow_api.import_end(p_auto_install_sup_obj => nvl(wwv_flow_application_install.get_auto_install_sup_obj, false));
+commit;
+end;
+/
+set verify on feedback on define on
+prompt  ...done
+]]></n0:source>
+		</n0:runOracleScript>
+	</changeSet>
+</databaseChangeLog>

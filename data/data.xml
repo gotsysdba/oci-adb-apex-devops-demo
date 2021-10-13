@@ -1,43 +1,43 @@
 <?xml version="1.1" encoding="UTF-8" standalone="no"?>
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd">
-    <changeSet author="john (generated)" id="1633970421074-1">
+    <changeSet author="john (generated)" id="1634131769694-1">
         <insert tableName="UXI_DATA_SOURCES">
             <column name="POSSIBLE" value="Y"/>
             <column name="TYPE" value="Database Links (SQL*Net)"/>
-            <column name="ID" valueComputed="SYS_GUID()"/>
-        </insert>
-        <insert tableName="UXI_DATA_SOURCES">
-            <column name="POSSIBLE" value="Y"/>
-            <column name="TYPE" value="User Input"/>
-            <column name="ID" valueComputed="SYS_GUID()"/>
+            <column name="ID" valueComputed="UNSUPPORTED FOR DIFF: BINARY DATA"/>
         </insert>
         <insert tableName="UXI_DATA_SOURCES">
             <column name="POSSIBLE" value="Y"/>
             <column name="TYPE" value="Space Satallites"/>
-            <column name="ID" valueComputed="SYS_GUID()"/>
+            <column name="ID" valueComputed="UNSUPPORTED FOR DIFF: BINARY DATA"/>
         </insert>
         <insert tableName="UXI_DATA_SOURCES">
             <column name="POSSIBLE" value="Y"/>
             <column name="TYPE" value="Local Data Sources (SQL, PL/SQL)"/>
-            <column name="ID" valueComputed="SYS_GUID()"/>
+            <column name="ID" valueComputed="UNSUPPORTED FOR DIFF: BINARY DATA"/>
         </insert>
         <insert tableName="UXI_DATA_SOURCES">
             <column name="POSSIBLE" value="Y"/>
             <column name="TYPE" value="REST Enabled Databases"/>
-            <column name="ID" valueComputed="SYS_GUID()"/>
+            <column name="ID" valueComputed="UNSUPPORTED FOR DIFF: BINARY DATA"/>
         </insert>
         <insert tableName="UXI_DATA_SOURCES">
             <column name="POSSIBLE" value="Y"/>
             <column name="TYPE" value="External REST API's"/>
-            <column name="ID" valueComputed="SYS_GUID()"/>
+            <column name="ID" valueComputed="UNSUPPORTED FOR DIFF: BINARY DATA"/>
         </insert>
         <insert tableName="UXI_DATA_SOURCES">
             <column name="POSSIBLE" value="Y"/>
             <column name="TYPE" value="Desktop Files (CSV, XML, XLS)"/>
-            <column name="ID" valueComputed="SYS_GUID()"/>
+            <column name="ID" valueComputed="UNSUPPORTED FOR DIFF: BINARY DATA"/>
+        </insert>
+        <insert tableName="UXI_DATA_SOURCES">
+            <column name="POSSIBLE" value="Y"/>
+            <column name="TYPE" value="User Input"/>
+            <column name="ID" valueComputed="UNSUPPORTED FOR DIFF: BINARY DATA"/>
         </insert>
     </changeSet>
-    <changeSet author="john (generated)" id="1633970421074-2">
+    <changeSet author="john (generated)" id="1634131769694-2">
         <insert tableName="UXI_AUTHN_METHODS">
             <column name="ID" valueNumeric="1"/>
             <column name="METHOD" value="Application Express Accounts"/>
@@ -84,7 +84,7 @@
             <column name="DESCRIPTION" value="Supports authentication with Google, Facebook, and other social network that supports OpenID Connect or OAuth2 standards. "/>
         </insert>
     </changeSet>
-    <changeSet author="john (generated)" id="1633970421074-3">
+    <changeSet author="john (generated)" id="1634131769694-3">
         <insert tableName="UXI_FEATURE_CARDS">
             <column name="CARD_TEXT" value="App definitions are stored in the database as meta data."/>
             <column name="CARD_IMAGE" value="appdef.png"/>
@@ -126,6 +126,80 @@
             <column name="CARD_CATEGORY" value="Features"/>
             <column name="CARD_SUBTEXT"/>
             <column name="CARD_ORDER" valueNumeric="3"/>
+        </insert>
+    </changeSet>
+    <changeSet author="john (generated)" id="1634131769694-4">
+        <insert tableName="UXI_ORDERS">
+            <column name="ORDER_ID" valueNumeric="1"/>
+            <column name="CUSTOMER_ID" valueNumeric="1"/>
+            <column name="ORDER_TOTAL" valueNumeric="5120.1"/>
+            <column name="ORDER_TIMESTAMP" valueDate="2021-10-02T10:42:01"/>
+            <column name="USER_NAME" value="john.lathouwers@oracle.com"/>
+            <column name="TAGS" value="Backorder"/>
+        </insert>
+        <insert tableName="UXI_ORDERS">
+            <column name="ORDER_ID" valueNumeric="2"/>
+            <column name="CUSTOMER_ID" valueNumeric="1"/>
+            <column name="ORDER_TOTAL" valueNumeric="248.22"/>
+            <column name="ORDER_TIMESTAMP" valueDate="2021-10-02T10:42:01"/>
+            <column name="USER_NAME" value="sonic@oracle.com"/>
+            <column name="TAGS"/>
+        </insert>
+        <insert tableName="UXI_ORDERS">
+            <column name="ORDER_ID" valueNumeric="3"/>
+            <column name="CUSTOMER_ID" valueNumeric="1"/>
+            <column name="ORDER_TOTAL" valueNumeric="696.46"/>
+            <column name="ORDER_TIMESTAMP" valueDate="2021-10-05T10:42:01"/>
+            <column name="USER_NAME" value="shadow@oracle.com"/>
+            <column name="TAGS"/>
+        </insert>
+        <insert tableName="UXI_ORDERS">
+            <column name="ORDER_ID" valueNumeric="4"/>
+            <column name="CUSTOMER_ID" valueNumeric="1"/>
+            <column name="ORDER_TOTAL" valueNumeric="1001.01"/>
+            <column name="ORDER_TIMESTAMP" valueDate="2021-10-05T10:42:01"/>
+            <column name="USER_NAME" value="john.lathouwers@oracle.com"/>
+            <column name="TAGS"/>
+        </insert>
+        <insert tableName="UXI_ORDERS">
+            <column name="ORDER_ID" valueNumeric="5"/>
+            <column name="CUSTOMER_ID" valueNumeric="1"/>
+            <column name="ORDER_TOTAL" valueNumeric="8192.11"/>
+            <column name="ORDER_TIMESTAMP" valueDate="2021-10-09T10:42:01"/>
+            <column name="USER_NAME" value="blaze@oracle.com"/>
+            <column name="TAGS"/>
+        </insert>
+        <insert tableName="UXI_ORDERS">
+            <column name="ORDER_ID" valueNumeric="6"/>
+            <column name="CUSTOMER_ID" valueNumeric="1"/>
+            <column name="ORDER_TOTAL" valueNumeric="2012.96"/>
+            <column name="ORDER_TIMESTAMP" valueDate="2021-10-09T10:42:01"/>
+            <column name="USER_NAME" value="sonic@oracle.com"/>
+            <column name="TAGS"/>
+        </insert>
+        <insert tableName="UXI_ORDERS">
+            <column name="ORDER_ID" valueNumeric="7"/>
+            <column name="CUSTOMER_ID" valueNumeric="1"/>
+            <column name="ORDER_TOTAL" valueNumeric="655.5"/>
+            <column name="ORDER_TIMESTAMP" valueDate="2021-10-10T10:42:01"/>
+            <column name="USER_NAME" value="shadow@oracle.com"/>
+            <column name="TAGS" value="First Order"/>
+        </insert>
+        <insert tableName="UXI_ORDERS">
+            <column name="ORDER_ID" valueNumeric="8"/>
+            <column name="CUSTOMER_ID" valueNumeric="1"/>
+            <column name="ORDER_TOTAL" valueNumeric="453.1"/>
+            <column name="ORDER_TIMESTAMP" valueDate="2021-10-12T10:42:01"/>
+            <column name="USER_NAME" value="john.lathouwers@oracle.com"/>
+            <column name="TAGS"/>
+        </insert>
+        <insert tableName="UXI_ORDERS">
+            <column name="ORDER_ID" valueNumeric="9"/>
+            <column name="CUSTOMER_ID" valueNumeric="1"/>
+            <column name="ORDER_TOTAL" valueNumeric="10220"/>
+            <column name="ORDER_TIMESTAMP" valueDate="2021-10-12T10:42:01"/>
+            <column name="USER_NAME" value="sonic@oracle.com"/>
+            <column name="TAGS" value="VIP"/>
         </insert>
     </changeSet>
 </databaseChangeLog>

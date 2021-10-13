@@ -5,7 +5,7 @@
 	xmlns:n0="http://www.oracle.com/xml/ns/dbchangelog-ext" 
 	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
 	http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
-	<changeSet id="b0685c6f72838e5e59f887a8bd9db7b60a2f9f93" author="(DEMO)-Generated" failOnError="false"    >
+	<changeSet id="ec2dcf709b2b219d73fce3ceb02bbaf1a9fe74cd" author="(DEMO)-Generated" failOnError="false"    >
 		<n0:createSxmlObject objectName="UXI_FEATURE_CARDS" objectType="TABLE" ownerName="DEMO"   >
 			<n0:source><![CDATA[
   <TABLE xmlns="http://xmlns.oracle.com/ku" version="1.0">

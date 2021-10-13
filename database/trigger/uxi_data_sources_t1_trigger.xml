@@ -5,7 +5,7 @@
 	xmlns:n0="http://www.oracle.com/xml/ns/dbchangelog-ext" 
 	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
 	http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
-	<changeSet id="c4eb50798b81ca33b61a17da7137fda5533777ba" author="(DEMO)-Generated" failOnError="false"    >
+	<changeSet id="11e7e3c3470ba63d47f240b44b16a53bdf1653ee" author="(DEMO)-Generated" failOnError="false"    >
 		<n0:createOracleTrigger objectName="UXI_DATA_SOURCES_T1" objectType="TRIGGER" ownerName="DEMO"   >
 			<n0:source><![CDATA[
   CREATE OR REPLACE EDITIONABLE TRIGGER "DEMO"."UXI_DATA_SOURCES_T1" 
@@ -19,8 +19,7 @@ END IF;
 end;
 
 /
-/
-ALTER TRIGGER "DEMO"."UXI_DATA_SOURCES_T1" ENABLE;]]></n0:source>
+ALTER TRIGGER "DEMO"."UXI_DATA_SOURCES_T1" ENABLE]]></n0:source>
 		</n0:createOracleTrigger>
 	</changeSet>
 </databaseChangeLog>

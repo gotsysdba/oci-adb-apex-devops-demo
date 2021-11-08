@@ -57,7 +57,7 @@ source .venv/bin/activate
 ```
 
 # API Access
-You will need to generate an API Signing Key as documemented (here)[https://docs.oracle.com/en-us/iaas/Content/API/Concepts/apisigningkey.htm#apisigningkey_topic_How_to_Generate_an_API_Signing_Key_Console].
+You will need to generate an API Signing Key as documemented [here](https://docs.oracle.com/en-us/iaas/Content/API/Concepts/apisigningkey.htm#apisigningkey_topic_How_to_Generate_an_API_Signing_Key_Console).
 
 The config file should be stored in your home directory's .oci directory (~/.oci/config) and the profile should be called [DEMO]; below is an example:
 ```
@@ -73,7 +73,7 @@ key_file=~/.oci/key.pem
 If you would like the ATP to be placed into a specific compartment, add `compartment=<compartment OCID>` into the ~/.oci/config file; If compartment is not specified, resources will be provisioned in the tenancies root compartment.
 
 # Create the ATP
-Run the [oci_atp_api.py] script, as follows:
+Run the [oci_atp_api.py](oci_atp_api.py) script, as follows:
 `./oci_atp_api.py create -e DEV`
 
 The above will create an Autonomous Database called DEMODEV with an ADMIN password stored in the `.secret` file, and download the wallet.
@@ -152,36 +152,35 @@ PDB:  `./oci_terraform.py delete -t pdb  -e 1234_PDB1`
 
 
 ## Clone DBCS PDBs
-| Step | Description                                    | Script Call                                                 |   |
-| ---- | -----------------------------------------------| ------------------------------------------------------------| - |
-| 1.   | Create an intital DBCS called DEV with PDB1    | `./oci_terraform.py create -t dbcs -e DEV -p PDB1`          |   |
-| 2.   | Create an intital DBCS called 123 with PDB1    | `./oci_terraform.py create -t dbcs -e 123 -p PDB1`          |   |
-| 3.   | Clone PDB1 from the DEV CDB to the 123 CDB     | `./oci_terraform.py clone  -t pdb  -e 123 -s DEV -p PDB1`   |   |
-| 4.   | Re-Clone PDB1 from the DEV CDB to the 123 CDB  | `./oci_terraform.py clone  -t pdb  -e 123 -s DEV -p PDB1`   |   |
-| 5.   | Create PDB2 in the DEV CDB                     | `./oci_terraform.py create -t pdb  -e DEV -p PDB2`          |   |
-| 6.   | Clone PDB2 from the DEV CDB to the 123 CDB     | `./oci_terraform.py clone  -t pdb  -e 123 -s DEV -p PDB2`   |   |
-| 7.   | Drop PDB2 from the DEV CDB                     | `./oci_terraform.py delete -t pdb  -e DEV -p PDB2`          |   |
-| 8.   | Create PDB3 in the 123 CDB                     | `./oci_terraform.py create -t pdb  -e 123 -p PDB3`          |   |
-| 9.   | Clone PDB3 from the 123 CDB to the DEV CDB     | `./oci_terraform.py clone  -t pdb  -e DEV -s 123 -p PDB3`   |   |
-| 10.  | Drop PDB3 from the 123 CDB                     | `./oci_terraform.py delete -t pdb  -e 123 -p PDB3`          |   |
-| 11.  | Clean-Up 123 DBCS                              | `./oci_terraform.py delete -t dbcs -e 123`                  | 10:33 |
-| 12.  | Clean-Up DEV DBCS                              | `./oci_terraform.py delete -t dbcs -e DEV`                  | 12:45 |
+| Step | Description                                    | Script Call                                               |       |
+| ---- | -----------------------------------------------| ----------------------------------------------------------| ----- |
+| 1.   | Create an intital DBCS called DEV with PDB1    | `./oci_terraform.py create -t dbcs -e DEV -p PDB1`        | 17:05 |
+| 2.   | Create an intital DBCS called 123 with PDB1    | `./oci_terraform.py create -t dbcs -e 123 -p PDB1`        | 15:31 |
+| 3.   | Delete PDB1 from the 123 CDB (Optional)        | `./oci_terraform.py delete -t pdb  -e 123 -p PDB1`        | 02:52 |
+| 3.   | Clone PDB1 from the DEV CDB to the 123 CDB     | `./oci_terraform.py clone  -t pdb  -e 123 -s DEV -p PDB1` | 03:19 |
+| 4.   | Re-Clone PDB1 from the DEV CDB to the 123 CDB  | `./oci_terraform.py clone  -t pdb  -e 123 -s DEV -p PDB1` | 05:41 |
+| 5.   | Create PDB2 in the 123 CDB                     | `./oci_terraform.py create -t pdb  -e 123 -p PDB2`        | 02:52 |
+| 6.   | Clone PDB2 from the 123 CDB to the DEV CDB     | `./oci_terraform.py clone  -t pdb  -e DEV -s 123 -p PDB2` |   |
+| 7.   | Clone PDB2 from the DEV CDB to the 123 CDB     | `./oci_terraform.py clone  -t pdb  -e 123 -s DEV -p PDB2` |   |
+| 8.   | Drop PDB2 from the DEV CDB                     | `./oci_terraform.py delete -t pdb  -e DEV -p PDB2`        |   |
+| 9.   | Clean-Up 123 DBCS                              | `./oci_terraform.py delete -t dbcs -e 123`                | 10:14 |
+| 10.  | Clean-Up DEV DBCS                              | `./oci_terraform.py delete -t dbcs -e DEV`                | 12:45 |
+
 
 ## Clone DBCS to DBCS
 > **_NOTE:_** This is more applicable to non-CDB databases; for CDBs; use Clone DBCS PDBs
 
-| Step | Description                                    | Script Call                                                 |       |
-| ---- | -----------------------------------------------| ------------------------------------------------------------| ----- |
-| 1.   | Create an intital DBCS called DEV              | `./oci_terraform.py create -t dbcs -e DEV -p PDB1`          | 17:27 |
-| 4.   | Clone the DEV DBCS to 123 DBCS                 | `./oci_terraform.py clone  -t dbcs -e 123 -s DEV`           | 25:51 |
-| 5.   | Re-Clone the DEV DBCS to 123 DBCS              | `./oci_terraform.py clone  -t dbcs -e 123 -s DEV`           | 02:57 |
-| 3.   | Create PDB2 in the DEV CDB                     | `./oci_terraform.py create -t pdb  -e DEV -p PDB2`          | 03:30 |
-| 6.   | Clone PDB2 from the DEV CDB to the 123 CDB**   | `./oci_terraform.py clone  -t pdb  -e 123 -s DEV -p PDB2`   | 04:00 |
-| 7.   | Clean-Up DEV DBCS                              | `./oci_terraform.py delete -t dbcs -e DEV`                  |       |
-| 6.   | Clean-Up 123 DBCS                              | `./oci_terraform.py delete -t dbcs -e 123`                  |       |
+| Step | Description                                    | Script Call                                               |       |
+| ---- | -----------------------------------------------| ----------------------------------------------------------| ----- |
+| 1.   | Create an intital DBCS called DEV              | `./oci_terraform.py create -t dbcs -e NONDEV`             |       |
+| 2.   | Clone the DEV DBCS to 123 DBCS                 | `./oci_terraform.py clone  -t dbcs -e NON123`             |       |
+| 3.   | Re-Clone the DEV DBCS to 123 DBCS              | `./oci_terraform.py clone  -t dbcs -e NON123`             |       |
+| 4.   | Clean-Up DEV DBCS                              | `./oci_terraform.py delete -t dbcs -e NONDEV`             |       |
+| 5.   | Clean-Up 123 DBCS                              | `./oci_terraform.py delete -t dbcs -e NON123`             |       |
+
 
 ## Observations
-* 11g/12.1 is only supported on GI Installations (not LVM)
+* 11g/12.1 is only supported on GI Installations (not LVM) - Use Clone DBCS to DBCS
 * You cannot create a DBCS with a pluggable called DEFAULT
-* You cannot clone a DBCS (DB_SYSTEM) when it has 0 PDBs
-* You cannot delete a PDB in a DBCS that was created via a clone
+* You cannot clone a full DBCS (DB_SYSTEM) when it has 0 PDBs - Use Clone DBCS PDBs
+* You cannot delete a PDB in a DBCS that was created via a clone - Use Clone DBCS PDBs

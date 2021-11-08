@@ -39,7 +39,7 @@ resource "oci_database_db_system" "db_system" {
   license_model   = var.license_model
   node_count      = "1"
   ssh_public_keys = [
-    "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDjU7+4WGZmQ91z8v40NInc0S6MQY+K4ntoBqJb3gtdPOkkBC4U4LFByCARr72THlWrPr4mKU8IWsPlHbF0HAuJRRWeYmAvXrKGGIB+36+d3dvPT9u18q/CgfnKeeTk5aErL8D9zCzH3h0AUAzVSQdczADX8fTnbmuWIPVdTXdIcswf3NMRjViF9C1U3YYfAvQ3AWsilhuExcJlpfEchM6AxpGCRK5f/kXiAyqLh7v4X2xXrCaEkvt9w9rMBGMHSEAWHdZhPoTFEExkRKVJG+IE4QOkTdwC2/XHvpdI72PDt3LWiQPGmIz9BpViEe4U2ohHZpSTAKlpRCj40yiJYRJz john@develophub",
+    "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDs5K35h1DAxzjdgXuBCctUor/kHq7FajPOFVH4emopPNnfodFy+kgkENQRG1ef/vfPVk90NsFCamdNUHabdGQpzGg9CPDSlVaC783xSQ9pEoXgbqu6sL6KJ15Sj89+xPxKYoAr6kBBQshqAxs+FqimItKb0+gAwAWClhPgAI7OKFQf7yrx8F9Ot4I/eRFqZislj9rbEqLohk6h+CqTy5YxdolV3vT4nb30jxNNO9Lr7Wm9fr9kW9Gv3lkns2qYXF/Rqkq9bJ4+y5YzYtS1h5kFma0es9KyoIuCsY9qBf+e9nCU7ASzUDB+VZ+IV7lIAWPssgcXMRfWYrkJ/+zwYE00FkIMFnDQk3zb4xU1kesOXpmTTYhXwyWWh+p6SuzWnwcp5rmxVCCzAITxVIwOnFkWmfzCiBq83ZeDA/rcf4KSxSgvHM9cN5GCngaBb1AGbDcrzJgU0nrnU2/ighMp9WW0Mqub9Xs28De4Tfwl7tb+iMxdUa/oX8iyD6DeLBS2HIU=",
   ]
   subnet_id           = var.subnet_id
   nsg_ids             = [ var.subnet_nsg ]

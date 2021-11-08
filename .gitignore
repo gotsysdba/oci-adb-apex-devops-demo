@@ -7,6 +7,7 @@ terraform/pdb_*.tf
 terraform/atp_*.tf
 .secret
 controller.xml-ERRORS*.log
+env.sh
 
 ##############################################################################
 # Python Specific

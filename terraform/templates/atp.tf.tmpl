@@ -1,0 +1,25 @@
+module "atp_<ENVIRONMENT>" {  
+    source       = "./modules/atp/"
+
+    // Carry these through from root vars.tf
+    tenancy_ocid        = "${var.tenancy_ocid}"
+    compartment_ocid    = "${var.compartment_ocid}"
+    cpu_core_count      = "${var.cpu_core_count}"
+    storage_size_in_tbs = "${var.storage_size_in_tbs}"
+    db_version          = "${var.db_version}"
+    environment         = "${var.environment}"
+    is_always_free      = "${var.is_always_free}"
+
+    // Specific
+    license_model    = <LICENSE>
+    db_name          = "<DBPREFIX><ENVIRONMENT>"
+    display_name     = "<DBPREFIX>-<ENVIRONMENT>"
+    db_source        = "<NONE|DATABASE>"
+    db_source_id     = <DB_SOURCE_ID>
+    adb_clone_type   = "<FULL|METADATA>"
+}
+
+output "atp_<ENVIRONMENT>_db_ocid" {  
+    description = "OCID for ATP used in cloning"  
+    value       = module.atp_<ENVIRONMENT>.atp_ocid
+}

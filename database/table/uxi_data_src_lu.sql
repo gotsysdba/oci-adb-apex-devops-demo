@@ -1,0 +1,9 @@
+-- liquibase formatted sql
+
+-- changeset john:Initial context:demo
+CREATE TABLE UXI_DATA_SRC_LU (
+    ID NUMBER NOT NULL
+   ,SOURCE VARCHAR2(255 BYTE) NOT NULL
+   ,POSSIBLE CHAR(1 BYTE) DEFAULT 'Y' NOT NULL
+   ,CONSTRAINT UXI_DATA_SRC_LU_PK PRIMARY KEY (ID)
+);

@@ -1,0 +1,8 @@
+resource "oci_database_pluggable_databases_remote_clone" "<DB_NAME>_<PDB_NAME>" {
+    cloned_pdb_name                    = "<PDB_NAME>"
+    pdb_admin_password                 = module.dbcs_<DB_NAME>.db_admin_password
+    pluggable_database_id              = oci_database_pluggable_database.<NONE|DATABASE|CDB>_<PDB_NAME>.id
+    source_container_db_admin_password = module.dbcs_<NONE|DATABASE|CDB>.db_admin_password
+    target_container_database_id       = module.dbcs_<DB_NAME>.db_ocid
+    target_tde_wallet_password         = module.dbcs_<DB_NAME>.db_tde_wallet_password
+}

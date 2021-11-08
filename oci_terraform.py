@@ -30,6 +30,8 @@ os.environ['TF_VAR_private_key_path'] = config["key_file"]
 """
 # Terraform Output (separated from terraform_run to capture output)
 def terraform_output():
+    # Ensure our state is up-to-date
+    terraform_run(['apply', '-auto-approve', '-refresh-only'])
     cmd = ['terraform', 'output', '-json' ]
     result = subprocess.run(cmd, cwd=f'{working_dir}', universal_newlines=True,
                             stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
@@ -66,6 +68,7 @@ def get_db_file(db_type, db_name, pdb_name=None):
 
 # Write out Terraform resource files
 def write_tf(output_file, license, pdbName=None, clone=None, dbSource="NONE", dbSourceId=None, sysSourceId=None):
+    log.info(f'Writing File: {output_file}')
     db_details = re.split('\/|_|\.',output_file)
     log.debug(db_details)
     if clone == "PDB":
@@ -102,14 +105,21 @@ def remove_tf(output_file):
 
 # Get PDBs in a CDB
 def get_pdbs(cdb, pdb=None):
+    log.info(f'Retrieving PDBs in {cdb}')
     pdbs = {}
     output = terraform_output()
     for indy_pdb in output[f"dbcs_{cdb}_pdbs"]["value"]["pluggable_databases"]:
-        if pdb and pdbs[indy_pdb["pdb_name"]] != pdb:
+        log.debug(f'Found PDB: {indy_pdb["pdb_name"]}: {indy_pdb["id"]} ({indy_pdb["state"]})')
+        try:
+            if pdb and indy_pdb["pdb_name"] != pdb:
+                continue
+            if indy_pdb["state"] != 'TERMINATED':
+                log.debug(f'Adding {indy_pdb["pdb_name"]} to dictionary')
+                pdbs[indy_pdb["pdb_name"]] = indy_pdb["id"]
+        except KeyError:
             continue
-        if indy_pdb["state"] != 'TERMINATED':
-            pdbs[indy_pdb["pdb_name"]] = indy_pdb["id"]
 
+    log.debug(f'Dictionary: {pdbs}')
     return pdbs
 
 # Detele Terraform Resource
@@ -190,7 +200,7 @@ if __name__ == "__main__":
             # Once the DBCS has been created, register its PDBs with the state
             for indy_pdb in cdb_pdbs:
                 log.info(f'Verifying {indy_pdb} in {db_name} is registered in state.')
-                db_file = get_db_file(args.dbType, db_name=db_name, pdb_name=indy_pdb)
+                db_file = get_db_file('pdb', db_name=db_name, pdb_name=indy_pdb)
                 if not os.path.isfile(db_file):
                     write_tf(db_file, args.license, pdbName=indy_pdb, clone=None, dbSource="NONE", dbSourceId=None, sysSourceId=None)
                     terraform_run(['import', f'oci_database_pluggable_database.{db_name}_{indy_pdb}', cdb_pdbs[indy_pdb]])                    
@@ -210,10 +220,11 @@ if __name__ == "__main__":
             write_tf(db_file, args.license, pdbName=None, clone="FULL", dbSource="DB_SYSTEM", dbSourceId=db_ocid, sysSourceId=sys_ocid)
         elif args.dbType == 'pdb':
             source_cdb = f'{res_prefix}{args.source}'
-            sleep_time = 120
+            sleep_time = 60
             write_tf(db_file, args.license, pdbName=pdb_name, clone="PDB", dbSource=source_cdb)
 
         terraform_run(['apply', '-auto-approve', '-input=false'])
+        log.info(f'Sleeping for {sleep_time}... please be patient.')
         time.sleep(sleep_time)    
 
         # Import the PDB resources (remote PDB clones are not importable as is, update the tf file.)
@@ -221,7 +232,7 @@ if __name__ == "__main__":
         for indy_pdb in cdb_pdbs:
             log.info(f'Verifying {indy_pdb} in {db_name} is registered in state.')
             db_file = os.path.join(working_dir,f'pdb_{db_name}_{indy_pdb}.tf')
-            if not os.path.isfile(db_file):
+            if not os.path.isfile(db_file) or args.dbType == 'pdb':
                 write_tf(db_file, args.license, pdbName=indy_pdb, clone=None, dbSource="NONE", dbSourceId=None, sysSourceId=None)
                 terraform_run(['import', f'oci_database_pluggable_database.{db_name}_{indy_pdb}', cdb_pdbs[indy_pdb]])
         terraform_run(['apply', '-auto-approve', '-refresh-only'])

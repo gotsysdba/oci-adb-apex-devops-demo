@@ -45,7 +45,7 @@ Once the OCI [API Access](../README.md) has been configured, the [`oci_terraform
 The following commands will illustate using IaC for cloning operations
 
 ## Clone DBCS PDBs (1TB Allocated - 10GB in use)
-[Additional timings in regards to size/shape](doco/TIMINGS.md))
+[Additional timings in regards to size/shape](TIMINGS.md)
 | Step | Description                                   | Script Call                                               |       |
 | ---- | ----------------------------------------------| ----------------------------------------------------------| ----- |
 | 1.   | Create an intital DBCS called DEV with PDB1   | `./oci_terraform.py create -t dbcs -e DEV -p PDB1`        | 14:59 |
@@ -62,7 +62,7 @@ The following commands will illustate using IaC for cloning operations
 
 
 ## Clone DBCS to DBCS (1TB Allocated - 10GB in use)
-[Additional timings in regards to size/shape](doco/TIMINGS.md))
+[Additional timings in regards to size/shape](TIMINGS.md)
 > **_NOTE:_** This is more applicable to non-CDB databases; for CDBs; use Clone DBCS PDBs
 
 | Step | Description                                   | Script Call                                               |       |

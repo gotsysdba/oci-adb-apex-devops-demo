@@ -128,30 +128,30 @@ Terraform IaC code is provided to provision/clone ATP and DBCS databases to demo
 ### Backend - BEWARE!
 This code utilitises a local backend for the Terraform State files.  These files will contain **VERY SENSITIVE** data to enable specific cloning operations.  They *should not* be versioned.  Instead consider utilising a Remote Backed (such as OCI Object Storage) for maintain your Terraform state files.
 
-For more information: (Sensitive Data in State)[https://www.terraform.io/docs/language/state/sensitive-data.html]
+For more information: [Sensitive Data in State](https://www.terraform.io/docs/language/state/sensitive-data.html)
 
 ### Ignored IaC Code
-The [.gitignore] intentionally targets Terraform files used for demonstration purposes from being versioned.  If adopting this code, take this into account and review the [.gitignore] as you may want to version these files (but **NOT** the tfstate files!).
+The [.gitignore](.gitignore) intentionally targets Terraform files used for demonstration purposes from being versioned.  If adopting this code, take this into account and review the [.gitignore](.gitignore) as you may want to version these files (but **NOT** the tfstate files!).
 
 
 ## Example Use
 ### Create
-AATP: `./oci_terraform.py create -t atp  -e DEV`
-DBCS: `./oci_terraform.py create -t dbcs -e DEV`
-PDB:  `./oci_terraform.py create -t dbcs -e DEV_PDB1`
+* AATP: `./oci_terraform.py create -t atp  -e DEV`
+* DBCS: `./oci_terraform.py create -t dbcs -e DEV -p PDB1`
+* PDB:  `./oci_terraform.py create -t dbcs -e DEV -p PDB2`
 
 ### Clone
-AATP: `./oci_terraform.py clone -t atp  -e 1234 -s DEV`
-DBCS: `./oci_terraform.py clone -t dbcs -e 1234 -s DEV`
-PDB:  `./oci_terraform.py clone -t pdb  -e 1234_PDB1 -s DEV_PBB1`
+* AATP: `./oci_terraform.py clone -t atp  -e 123 -s DEV`
+* DBCS: `./oci_terraform.py clone -t dbcs -e 123 -s DEV`
+* PDB:  `./oci_terraform.py clone -t pdb  -e 123 -s DEV -p PDB1`
 
 ### Delete
-AATP: `./oci_terraform.py delete -t atp  -e DEV`
-DBCS: `./oci_terraform.py delete -t dbcs -e 1234`
-PDB:  `./oci_terraform.py delete -t pdb  -e 1234_PDB1`
+* AATP: `./oci_terraform.py delete -t atp  -e DEV`
+* DBCS: `./oci_terraform.py delete -t dbcs -e 123`
+* PDB:  `./oci_terraform.py delete -t pdb  -e 123 -p PDB1`
 
 
-## Clone DBCS PDBs (1TB Allocated - 10GB in use)
+## Clone DBCS PDBs (1TB Allocated - 10GB in use; [additional timings in regards to size/shape](TIMINGS.md))
 | Step | Description                                    | Script Call                                               |       |
 | ---- | -----------------------------------------------| ----------------------------------------------------------| ----- |
 | 1.   | Create an intital DBCS called DEV with PDB1    | `./oci_terraform.py create -t dbcs -e DEV -p PDB1`        | 14:59 |
@@ -167,7 +167,7 @@ PDB:  `./oci_terraform.py delete -t pdb  -e 1234_PDB1`
 | 11.  | Clean-Up DEV DBCS                              | `./oci_terraform.py delete -t dbcs -e DEV`                | 06:02 |
 
 
-## Clone DBCS to DBCS (1TB Allocated - 10GB in use)
+## Clone DBCS to DBCS (1TB Allocated - 10GB in use; [additional timings in regards to size/shape](TIMINGS.md))
 > **_NOTE:_** This is more applicable to non-CDB databases; for CDBs; use Clone DBCS PDBs
 
 | Step | Description                                    | Script Call                                               |       |

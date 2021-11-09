@@ -9,14 +9,14 @@ This repository stores code to:
 ## Assumptions
 * An existing OCI tenancy; either Paid or Always Free<sup>*</sup>
 * General proficiency with OCI
-* A **Linux** environment with sqlcl installed (_recommended_: an OCI Developer Image Compute Instance).  Other enviroments (MacOS, Windows) may work but are not documented here.
+* A **Linux** environment (_recommended_: an (OL Cloud Developer Image)[https://docs.oracle.com/en-us/iaas/oracle-linux/developer/index.htm#About-the-Oracle-Linux-Cloud-D] - Compute Instance).  Other enviroments (MacOS, Windows) may work but are not documented here.
 
 <sup>*Always Free - Only the APEX Demonstration Application; Use the pre-existing ATP method.</sup>
 
 ## Requirement - API Access
 For all demonstrations, it is required to generate a OCI API Signing Key as documemented [here](https://docs.oracle.com/en-us/iaas/Content/API/Concepts/apisigningkey.htm#apisigningkey_topic_How_to_Generate_an_API_Signing_Key_Console).
 
-The config file should be stored in your home directory's .oci directory (~/.oci/config) and the profile should be called [DEMO]; below is an example:
+The config file should be stored in your home directory's .oci directory (~/.oci/config) and the profile should be called `[DEMO]`; below is an example:
 ```
 [DEMO]
 user=ocid1.user.oc1.....

@@ -7,6 +7,8 @@ The [`terraform`](../terraform) directory contains all the configuration files t
 In addition to **OCI [API Access](../README.md)**:
 * **Terraform Binary** - Installation instructions can be found [on Terraforms website](https://learn.hashicorp.com/tutorials/terraform/install-cli?in=terraform/oci-get-started)
 
+If using the (OL Cloud Developer Image)[https://docs.oracle.com/en-us/iaas/oracle-linux/developer/index.htm#About-the-Oracle-Linux-Cloud-D] on a Compute Instance, this will already be installed.
+
 ## Caveats
 ### Backend - BEWARE!
 This code utilitises a [local backend](https://www.terraform.io/docs/language/settings/backends/index.html) for the Terraform State files.  These files will contain **VERY SENSITIVE** data to enable specific cloning operations.  They *should not* be versioned.  Instead consider utilising a Remote Backed such as [OCI Object Storage](https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/terraformUsingObjectStore.htm) for maintaining your Terraform state files.

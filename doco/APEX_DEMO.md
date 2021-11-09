@@ -2,10 +2,16 @@
 - [Pre-Existing Autonomous Database](#Pre--Existing-Autonomous-Database)
 - [Install from Scratch](#From-Scratch)
 
-## Pre-Existing Autonomous Database
+# SQLcl Requriement
+For both installation methods SQLcl is required.  
 
-### Ensure SQLcl is Installed
-You should be able to run `sql /nolog` from the command line.  If not, install sqlcl either using your linux package manager (i.e. `dnf install sqlcl.noarch`, `yum install sqlcl.noarch`).  Alternatively, SQLcl can be downloaded from [here](https://www.oracle.com/uk/tools/downloads/sqlcl-downloads.html).
+If using the (OL Cloud Developer Image)[https://docs.oracle.com/en-us/iaas/oracle-linux/developer/index.htm#About-the-Oracle-Linux-Cloud-D] on a Compute Instance, this will already be installed.
+
+You should be able to run `sql /nolog` from the command line.  If not, install SQLcl either using your linux package manager (i.e. `dnf install sqlcl.noarch`, `yum install sqlcl.noarch`).  Alternatively, SQLcl can be downloaded from [here](https://www.oracle.com/uk/tools/downloads/sqlcl-downloads.html).
+
+
+## Pre-Existing Autonomous Database
+Applicable for both Always Free and Paid Tenancies.
 
 ### Download the ATP Wallet
 From the OCI Console, download the wallet file for the Autonomous Database and stage in the [wallet](../wallet/) directory in its \<DBNAME\>_wallet.zip format
@@ -27,7 +33,7 @@ To install the demonstration application into your existing Autonomous Database,
 Post-Installation [Notes](#post-installation-notes)
 
 ## Install from Scratch
-Only applicable for Paid Tenancies
+Only applicable for Paid Tenancies.
 
 ### Python Environment
 On your linux machine, create an python virtual environment and install the OCI python module

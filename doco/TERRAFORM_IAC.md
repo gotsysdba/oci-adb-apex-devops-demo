@@ -1,7 +1,7 @@
 # Terraform 
 Terraform Infrastructure as Code (IaC) is provided here as an example of provisioning/cloning Autonomous Transaction Processing (ATP) databases, VM Database Cloud Service (DBCS) databases, and Pluggable databases (PDB in a DBCS Container Database (CDB)).
 
-The [`terraform`](./terraform) directory contains all the configuration files to explore this functionality.   
+The [`terraform`](../terraform) directory contains all the configuration files to explore this functionality.  All new resource configuration files created during the demonstration will also be created in the  [`terraform`](../terraform) directory  
 
 ## Requirements
 In addition to **OCI [API Access](../README.md)**:
@@ -42,7 +42,8 @@ Once the OCI [API Access](../README.md) has been configured, the [`oci_terraform
 # Demonstration
 The following commands will illustate using IaC for cloning operations
 
-## Clone DBCS PDBs (1TB Allocated - 10GB in use; [additional timings in regards to size/shape](doco/TIMINGS.md))
+## Clone DBCS PDBs (1TB Allocated - 10GB in use)
+[Additional timings in regards to size/shape](doco/TIMINGS.md))
 | Step | Description                                   | Script Call                                               |       |
 | ---- | ----------------------------------------------| ----------------------------------------------------------| ----- |
 | 1.   | Create an intital DBCS called DEV with PDB1   | `./oci_terraform.py create -t dbcs -e DEV -p PDB1`        | 14:59 |
@@ -58,7 +59,8 @@ The following commands will illustate using IaC for cloning operations
 | 11.  | Clean-Up DEV DBCS                             | `./oci_terraform.py delete -t dbcs -e DEV`                | 06:02 |
 
 
-## Clone DBCS to DBCS (1TB Allocated - 10GB in use; [additional timings in regards to size/shape](doco/TIMINGS.md))
+## Clone DBCS to DBCS (1TB Allocated - 10GB in use)
+[Additional timings in regards to size/shape](doco/TIMINGS.md))
 > **_NOTE:_** This is more applicable to non-CDB databases; for CDBs; use Clone DBCS PDBs
 
 | Step | Description                                   | Script Call                                               |       |

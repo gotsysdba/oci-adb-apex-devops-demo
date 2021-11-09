@@ -8,7 +8,7 @@
 You should be able to run `sql /nolog` from the command line.  If not, install sqlcl either using your linux package manager (i.e. `dnf install sqlcl.noarch`, `yum install sqlcl.noarch`).  Alternatively, SQLcl can be downloaded from [here](https://www.oracle.com/uk/tools/downloads/sqlcl-downloads.html).
 
 ### Download the ATP Wallet
-From the OCI Console, download the wallet file for the Autonomous Database and stage in the [wallet](wallet/) directory in its \<DBNAME\>_wallet.zip format
+From the OCI Console, download the wallet file for the Autonomous Database and stage in the [wallet](../wallet/) directory in its \<DBNAME\>_wallet.zip format
 
 ### ADMIN Password
 Create a file called `.secret` with the following text (replace \<ADMIN_PASS\> with unquoted, real password):
@@ -24,7 +24,7 @@ To install the demonstration application into your existing Autonomous Database,
 ```
 
 ### Review Post-Installation Notes
-Post-Installation [Notes](#Post--Installation-Notes)
+Post-Installation [Notes](#post-installation-notes)
 
 ## Install from Scratch
 Only applicable for Paid Tenancies
@@ -52,13 +52,14 @@ To install the demonstration application into the new Autonomous Database:
 ```
 
 ### Review Post-Installation Notes
-Post-Installation [Notes](#Post--Installation-Notes)
+Post-Installation [Notes](#post-installation-notes)
 
 # Post-Installation Notes
 ## Users and Passwords
 The database will have two database users: 
 * ADMIN 
 * DEMO
+
 Their passwords will be the same as found in the .secret file.
 
 The APEX Application will have a Developer Account called DEMO, which will also have the same password as found in the .secret file.

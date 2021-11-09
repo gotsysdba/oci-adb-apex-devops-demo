@@ -5,7 +5,7 @@
 # SQLcl Requriement
 For both installation methods SQLcl is required.  
 
-If using the (OL Cloud Developer Image)[https://docs.oracle.com/en-us/iaas/oracle-linux/developer/index.htm#About-the-Oracle-Linux-Cloud-D] on a Compute Instance, this will already be installed.
+If using the [OL Cloud Developer Image](https://docs.oracle.com/en-us/iaas/oracle-linux/developer/index.htm#About-the-Oracle-Linux-Cloud-D) on a Compute Instance, this will already be installed.
 
 You should be able to run `sql /nolog` from the command line.  If not, install SQLcl either using your linux package manager (i.e. `dnf install sqlcl.noarch`, `yum install sqlcl.noarch`).  Alternatively, SQLcl can be downloaded from [here](https://www.oracle.com/uk/tools/downloads/sqlcl-downloads.html).
 

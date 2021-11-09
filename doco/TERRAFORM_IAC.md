@@ -7,7 +7,7 @@ The [`terraform`](../terraform) directory contains all the configuration files t
 In addition to **OCI [API Access](../README.md)**:
 * **Terraform Binary** - Installation instructions can be found [on Terraforms website](https://learn.hashicorp.com/tutorials/terraform/install-cli?in=terraform/oci-get-started)
 
-If using the (OL Cloud Developer Image)[https://docs.oracle.com/en-us/iaas/oracle-linux/developer/index.htm#About-the-Oracle-Linux-Cloud-D] on a Compute Instance, this will already be installed.
+If using the [OL Cloud Developer Image](https://docs.oracle.com/en-us/iaas/oracle-linux/developer/index.htm#About-the-Oracle-Linux-Cloud-D) on a Compute Instance, this will already be installed.
 
 ## Caveats
 ### Backend - BEWARE!

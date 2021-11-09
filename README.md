@@ -9,7 +9,7 @@ This repository stores code to:
 ## Assumptions
 * An existing OCI tenancy; either Paid or Always Free<sup>*</sup>
 * General proficiency with OCI
-* A **Linux** environment (_recommended_: an (OL Cloud Developer Image)[https://docs.oracle.com/en-us/iaas/oracle-linux/developer/index.htm#About-the-Oracle-Linux-Cloud-D] - Compute Instance).  Other enviroments (MacOS, Windows) may work but are not documented here.
+* A **Linux** environment (_recommended_: an [OL Cloud Developer Image](https://docs.oracle.com/en-us/iaas/oracle-linux/developer/index.htm#About-the-Oracle-Linux-Cloud-D) - Compute Instance).  Other enviroments (MacOS, Windows) may work but are not documented here.
 
 <sup>*Always Free - Only the APEX Demonstration Application; Use the pre-existing ATP method.</sup>
 

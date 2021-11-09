@@ -151,32 +151,32 @@ DBCS: `./oci_terraform.py delete -t dbcs -e 1234`
 PDB:  `./oci_terraform.py delete -t pdb  -e 1234_PDB1`
 
 
-## Clone DBCS PDBs
+## Clone DBCS PDBs (1TB Allocated - 10GB in use)
 | Step | Description                                    | Script Call                                               |       |
 | ---- | -----------------------------------------------| ----------------------------------------------------------| ----- |
-| 1.   | Create an intital DBCS called DEV with PDB1    | `./oci_terraform.py create -t dbcs -e DEV -p PDB1`        | 17:05 |
+| 1.   | Create an intital DBCS called DEV with PDB1    | `./oci_terraform.py create -t dbcs -e DEV -p PDB1`        | 14:59 |
 | 2.   | Create an intital DBCS called 123 with PDB1    | `./oci_terraform.py create -t dbcs -e 123 -p PDB1`        | 15:31 |
-| 3.   | Delete PDB1 from the 123 CDB (Optional)        | `./oci_terraform.py delete -t pdb  -e 123 -p PDB1`        | 02:52 |
-| 3.   | Clone PDB1 from the DEV CDB to the 123 CDB     | `./oci_terraform.py clone  -t pdb  -e 123 -s DEV -p PDB1` | 03:19 |
-| 4.   | Re-Clone PDB1 from the DEV CDB to the 123 CDB  | `./oci_terraform.py clone  -t pdb  -e 123 -s DEV -p PDB1` | 05:41 |
-| 5.   | Create PDB2 in the 123 CDB                     | `./oci_terraform.py create -t pdb  -e 123 -p PDB2`        | 02:52 |
-| 6.   | Clone PDB2 from the 123 CDB to the DEV CDB     | `./oci_terraform.py clone  -t pdb  -e DEV -s 123 -p PDB2` |   |
-| 7.   | Clone PDB2 from the DEV CDB to the 123 CDB     | `./oci_terraform.py clone  -t pdb  -e 123 -s DEV -p PDB2` |   |
-| 8.   | Drop PDB2 from the DEV CDB                     | `./oci_terraform.py delete -t pdb  -e DEV -p PDB2`        |   |
-| 9.   | Clean-Up 123 DBCS                              | `./oci_terraform.py delete -t dbcs -e 123`                | 10:14 |
-| 10.  | Clean-Up DEV DBCS                              | `./oci_terraform.py delete -t dbcs -e DEV`                | 12:45 |
+| 3.   | Delete PDB1 from the 123 CDB (Optional)        | `./oci_terraform.py delete -t pdb  -e 123 -p PDB1`        | 02:49 |
+| 3.   | Clone PDB1 from the DEV CDB to the 123 CDB     | `./oci_terraform.py clone  -t pdb  -e 123 -s DEV -p PDB1` | 03:28 |
+| 4.   | Re-Clone PDB1 from the DEV CDB to the 123 CDB  | `./oci_terraform.py clone  -t pdb  -e 123 -s DEV -p PDB1` | 06:48 |
+| 5.   | Create PDB2 in the 123 CDB                     | `./oci_terraform.py create -t pdb  -e 123 -p PDB2`        | 04:24 |
+| 6.   | Clone PDB2 from the 123 CDB to the DEV CDB     | `./oci_terraform.py clone  -t pdb  -e DEV -s 123 -p PDB2` | 03:50 |
+| 7.   | Clone PDB2 from the DEV CDB to the 123 CDB     | `./oci_terraform.py clone  -t pdb  -e 123 -s DEV -p PDB2` | 06:04 |
+| 8.   | Drop PDB2 from the DEV CDB                     | `./oci_terraform.py delete -t pdb  -e DEV -p PDB2`        | 03:14 |
+| 9.   | Clean-Up 123 DBCS                              | `./oci_terraform.py delete -t dbcs -e 123`                | 05:21 |
+| 10.  | Clean-Up DEV DBCS                              | `./oci_terraform.py delete -t dbcs -e DEV`                | 06:02 |
 
 
-## Clone DBCS to DBCS
+## Clone DBCS to DBCS (1TB Allocated - 10GB in use)
 > **_NOTE:_** This is more applicable to non-CDB databases; for CDBs; use Clone DBCS PDBs
 
 | Step | Description                                    | Script Call                                               |       |
 | ---- | -----------------------------------------------| ----------------------------------------------------------| ----- |
-| 1.   | Create an intital DBCS called DEV              | `./oci_terraform.py create -t dbcs -e NONDEV`             |       |
-| 2.   | Clone the DEV DBCS to 123 DBCS                 | `./oci_terraform.py clone  -t dbcs -e NON123`             |       |
-| 3.   | Re-Clone the DEV DBCS to 123 DBCS              | `./oci_terraform.py clone  -t dbcs -e NON123`             |       |
-| 4.   | Clean-Up DEV DBCS                              | `./oci_terraform.py delete -t dbcs -e NONDEV`             |       |
-| 5.   | Clean-Up 123 DBCS                              | `./oci_terraform.py delete -t dbcs -e NON123`             |       |
+| 1.   | Create an intital DBCS called NONDEV           | `./oci_terraform.py create -t dbcs -e NONDEV -p 11g`      | 40:39 |
+| 2.   | Clone the NONDEV DBCS to NON123 DBCS           | `./oci_terraform.py clone  -t dbcs -e NON123 -p 11g`      | 42:32 |
+| 3.   | Re-Clone the NONDEV DBCS to NON123 DBCS        | `./oci_terraform.py clone  -t dbcs -e NON123 -p 11g`      | 58:16 |
+| 4.   | Clean-Up NONDEV DBCS                           | `./oci_terraform.py delete -t dbcs -e NONDEV`             | 09:04 |
+| 5.   | Clean-Up NON123 DBCS                           | `./oci_terraform.py delete -t dbcs -e NON123`             | 11:34 |
 
 
 ## Observations

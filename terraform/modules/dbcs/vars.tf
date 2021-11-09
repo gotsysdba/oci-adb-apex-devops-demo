@@ -32,9 +32,10 @@ variable "pdb_name" {
 
 // Dynamic for Module - Sizing/Version Specific
 variable "db_version" {}
+variable "storage_management" {}
 
 variable "shape" {
-    default = "VM.Standard2.4"
+    default = "VM.Standard2.8"
 }
 
 variable "data_storage_size_in_gb" {

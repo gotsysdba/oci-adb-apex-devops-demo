@@ -14,6 +14,10 @@ log = logging.getLogger(__name__)
 """
 res_prefix="DEMO" #OCI Resource Prefix
 os.environ['TF_VAR_res_prefix'] = res_prefix
+cdb_version = "19.12.0.0"
+leg_version = "11.2.0.4.210420"
+lvm_storage = "LVM"
+asm_storage = "ASM"
 
 config = oci.config.from_file("~/.oci/config", "DEMO")
 working_dir = 'terraform/'
@@ -78,7 +82,10 @@ def write_tf(output_file, license, pdbName=None, clone=None, dbSource="NONE", db
 
     replacements = {
       "<DB_NAME>" : db_details[2],
+      "<DB_VERSION>" : cdb_version,
+      "<DB_STORAGE>" : lvm_storage,
       "<PDB_NAME>" : pdbName or "null",
+
       "<NONE|DATABASE|CDB>" : dbSource,
       "<DB_SOURCE_ID>" : dbSourceId or "null",
       "<SYSTEM_SOURCE_ID>" : sysSourceId or "null",
@@ -243,7 +250,7 @@ if __name__ == "__main__":
         db_file = get_db_file(args.dbType, db_name=db_name, pdb_name=pdb_name)
         delete_db(args.dbType, db_file, db_name)
      
-
+terraform_run(['apply', '-auto-approve', '-refresh-only'])
 end = time.time()
 elapsed = str(timedelta(seconds=(end - start)))
 log.info(f'*** Total Elapsed Time: {elapsed}')

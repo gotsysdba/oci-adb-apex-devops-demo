@@ -39,6 +39,10 @@ variable "db_version" {
   default = "19c"
 }
 
+variable "storage_management" {
+  default = "LVM"
+}
+
 variable "environment" {
   default = "DEV"
 }

@@ -13,8 +13,9 @@ module "dbcs_<DB_NAME>" {
     subnet_nsg          = oci_core_network_security_group.private_nsg.id
 
     // Specific Static
-    db_version              = "19.12.0.0"
-    shape                   = "VM.Standard2.4"
+    db_version              = "<DB_VERSION>"
+    storage_management      = "<DB_STORAGE>"
+    shape                   = "VM.Standard2.8"
     data_storage_size_in_gb = "1024"
 
     // Specific Variable

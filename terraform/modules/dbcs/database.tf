@@ -30,7 +30,7 @@ resource "oci_database_db_system" "db_system" {
     display_name = format("dbhome%s", lower(var.display_name))
   }
   db_system_options {
-    storage_management = "LVM"
+    storage_management = var.storage_management
   }
   disk_redundancy = "NORMAL"
   display_name    = var.display_name

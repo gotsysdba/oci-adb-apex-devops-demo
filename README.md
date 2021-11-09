@@ -1,8 +1,8 @@
 # apex-devops-demo
-This code has used to:
+This repository stores code to:
 1. Create an APEX Application in [Oracle Cloud Infrastructure (OCI)](www.oracle.cloud) to demonstrate Oracle Application Express (APEX) functionality
 2. Demonstrate using [SQLcl](https://www.oracle.com/uk/database/technologies/appdev/sqlcl.html), integrated with [Liquibase](https://www.liquibase.org/), to do database version control<sup>*</sup>
-3. Illustrate OCI Database creation/cloning using Terraform Infrastructure as Code (IaC) often used for DevOps "feature branch" isolation.
+3. Illustrate OCI Database creation/cloning using Terraform Infrastructure as Code (IaC); often used for DevOps "feature branch" isolation.
 
 <sup>*Not yet documented here</sup>
 

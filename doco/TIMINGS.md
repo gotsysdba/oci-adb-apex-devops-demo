@@ -35,4 +35,4 @@ Note: `DBCS - PDB` indicates remote cloning of a PDB from one DBCS to another, n
 
 
 # References
-The specification of Compute Shapes can be found (here)[https://docs.oracle.com/en-us/iaas/Content/Compute/References/computeshapes.htm].
+The specification of Compute Shapes can be found [here](https://docs.oracle.com/en-us/iaas/Content/Compute/References/computeshapes.htm).

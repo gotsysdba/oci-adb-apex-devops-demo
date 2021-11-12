@@ -10,8 +10,6 @@ log = logging.getLogger(__name__)
 
 """ GLOBALS
 """
-config = oci.config.from_file("~/.oci/config", "DEMO")
-display_prefix = "DEMO"
 atp_status = "NONE"
 
 
@@ -193,8 +191,8 @@ if __name__ == "__main__":
     """
     # Argument Parser
     parent_parser = argparse.ArgumentParser(description='ATP Utility', add_help=False)
-    parent_parser.add_argument('--compartment', '-c', required=False, action='store', 
-        help='Tenancy Compartment')
+    parent_parser.add_argument('--config', '-c', required=False, action='store', 
+        help='Config file Profile', default='DEMO')
     parent_parser.add_argument('--environment', '-e', required=True, action='store', type = str.upper,
         help='ATP Environment (i.e. PRD, DEV, UAT, Ticket#)')
     parent_parser.add_argument('--debug',  '-d', required=False, action='store_true', help='Enable Debug')
@@ -231,11 +229,16 @@ if __name__ == "__main__":
 
     """ MAIN
     """
+    # Get the configuration
+    config = oci.config.from_file("~/.oci/config", args.config)
+    display_prefix = args.config
+    log.debug(config)
+
     # Initialize the OCI DatabaseClient witht the configuration file
     db_client = oci.database.DatabaseClient(config)
 
     # Set the Compartment, DisplayName, WalletFile
-    compartment_id = args.compartment or config["compartment"] or config["tenancy"]
+    compartment_id = config["compartment"] or config["tenancy"]
     display_name   = f'{display_prefix}-{args.environment}'
     db_name        = re.sub(r'\W+', '', display_name)
     walletFile     = f'{db_name}_wallet.zip'

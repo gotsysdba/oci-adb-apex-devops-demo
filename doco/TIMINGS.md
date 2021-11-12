@@ -13,6 +13,7 @@ Timings are taken directly from the Terraform output, for example:
 | DBCS        | 15m12s   | LVM      | 1 TB         | 1     | 8   | VM.Standard2.8 |
 | DBCS        | 14m16s   | LVM      | 2 TB         | 1     | 8   | VM.Standard2.8 |
 | DBCS - NCDB | 38m32s   | ASM      | 1 TB         | 1     | 4   | VM.Standard2.4 |
+| ATP         | 02m55s   | N/A      | 1 TB         | N/A   | 1   | Shared         |
 
 ## Cloning
 Note: `DBCS - PDB` indicates remote cloning of a PDB from one DBCS to another, not local cloning within the same CDB.
@@ -22,12 +23,14 @@ Note: `DBCS - PDB` indicates remote cloning of a PDB from one DBCS to another, n
 | DBCS        | 22m14s   | LVM      | 1 TB         | 1     | 4   | VM.Standard2.4 |
 | DBCS        | 25m55s   | LVM      | 2 TB         | 1     | 4   | VM.Standard2.4 |
 | DBCS        | 24m32s   | LVM      | 1 TB         | 1     | 8   | VM.Standard2.8 |
-| DBCS        | 25m4s    | LVM      | 2 TB         | 1     | 8   | VM.Standard2.8 |
-| DBCS - NCDB | 41m9s    | ASM      | 1 TB         | 1     | 4   | VM.Standard2.4 |
+| DBCS        | 25m04s   | LVM      | 2 TB         | 1     | 8   | VM.Standard2.8 |
+| DBCS - NCDB | 41m09s   | ASM      | 1 TB         | 1     | 4   | VM.Standard2.4 |
 | DBCS - PDB  | 35m18s   | LVM      | 1 TB         | 1     | 4   | VM.Standard2.4 |
-| DBCS - PDB  | 18m9s    | LVM      | 1 TB         | 1     | 8   | VM.Standard2.8 |
-| DBCS - PDB  | 2m9s     | LVM      | 10 GB        | 1     | 8   | VM.Standard2.8 |
-
+| DBCS - PDB  | 18m09s   | LVM      | 1 TB         | 1     | 8   | VM.Standard2.8 |
+| DBCS - PDB  | 02m09s   | LVM      | 10 GB        | 1     | 8   | VM.Standard2.8 |
+| ATP         | 11m22s   | N/A      | 1 TB         | N/A   | 1   | Shared         |
+| ATP         | 10m39s   | N/A      | 1 TB         | N/A   | 2   | Shared         |
+| ATP         | 08m19s   | N/A      | 1 TB         | N/A   | 4   | Shared         |
 
 ### Cloning Observations
 * Timings to clone a new DBCS are wholey dependant on the number of nodes and Storage Type (Oracle Grid Infrastructure (GI) vs Logical Volumn Manager (LVM)).  Shape and Storage Size have no impact on timings when doing a full DBCS clone.  PDB Clones, the more CPU the faster (due to dbca/CREATE PLUGGABLE DATABASE ... FROM ...)

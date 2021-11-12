@@ -22,14 +22,14 @@ resource "oci_database_autonomous_database" "autonomous_database" {
   is_free_tier             = var.is_always_free 
   is_auto_scaling_enabled  = var.is_always_free ? false : true
   license_model            = var.is_always_free ? "LICENSE_INCLUDED" : var.license_model
-  whitelisted_ips          = null
+  whitelisted_ips          = []
   nsg_ids                  = null
   private_endpoint_label   = null
   subnet_id                = null
-  source                   = var.adb_source
-  source_id                = var.adb_source_id
+  source                   = var.db_source
+  source_id                = var.db_source_id
   clone_type               = var.adb_clone_type
   lifecycle {
-    ignore_changes = all
+    ignore_changes = [ admin_password ]
   }
 }

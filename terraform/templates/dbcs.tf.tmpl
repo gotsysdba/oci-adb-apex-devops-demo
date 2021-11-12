@@ -4,7 +4,6 @@ module "dbcs_<DB_NAME>" {
     // Carry these through from root vars.tf
     tenancy_ocid        = "${var.tenancy_ocid}"
     compartment_ocid    = "${var.compartment_ocid}"
-    environment         = "${var.environment}"
 
     // Root Resrouces
     availability_domain = local.availability_domain

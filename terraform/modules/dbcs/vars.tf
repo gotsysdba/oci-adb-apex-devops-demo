@@ -5,7 +5,6 @@
 variable "tenancy_ocid" {}
 variable "compartment_ocid" {}
 variable "license_model" {}
-variable "environment" {}
 variable "availability_domain" {}
 variable "subnet_id" {}
 variable "subnet_domain" {}

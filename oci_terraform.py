@@ -115,16 +115,19 @@ def get_pdbs(cdb, pdb=None):
     log.info(f'Retrieving PDBs in {cdb}')
     pdbs = {}
     output = terraform_output()
-    for indy_pdb in output[f"dbcs_{cdb}_pdbs"]["value"]["pluggable_databases"]:
-        log.debug(f'Found PDB: {indy_pdb["pdb_name"]}: {indy_pdb["id"]} ({indy_pdb["state"]})')
-        try:
-            if pdb and indy_pdb["pdb_name"] != pdb:
+    try:
+        for indy_pdb in output[f"dbcs_{cdb}_pdbs"]["value"]["pluggable_databases"]:
+            log.debug(f'Found PDB: {indy_pdb["pdb_name"]}: {indy_pdb["id"]} ({indy_pdb["state"]})')
+            try:
+                if pdb and indy_pdb["pdb_name"] != pdb:
+                    continue
+                if indy_pdb["state"] != 'TERMINATED':
+                    log.debug(f'Adding {indy_pdb["pdb_name"]} to dictionary')
+                    pdbs[indy_pdb["pdb_name"]] = indy_pdb["id"]
+            except KeyError:
                 continue
-            if indy_pdb["state"] != 'TERMINATED':
-                log.debug(f'Adding {indy_pdb["pdb_name"]} to dictionary')
-                pdbs[indy_pdb["pdb_name"]] = indy_pdb["id"]
-        except KeyError:
-            continue
+    except KeyError:
+        pass # The DBCS resource doesn't exist
 
     log.debug(f'Dictionary: {pdbs}')
     return pdbs
@@ -136,6 +139,8 @@ def delete_db(db_type, db_file, cdb_name=None):
         for pdb_files in glob.glob(os.path.join(working_dir,f'pdb_{cdb_name}_*.tf')):
             remove_tf(pdb_files)
     terraform_run(['apply', '-auto-approve', '-input=false'])
+
+# def write_secrets():
 
 
 if __name__ == "__main__":
@@ -229,7 +234,13 @@ if __name__ == "__main__":
             source_cdb = f'{res_prefix}{args.source}'
             sleep_time = 60
             write_tf(db_file, args.license, pdbName=pdb_name, clone="PDB", dbSource=source_cdb)
+        elif args.dbType == 'atp':
+            db_ocid=f'module.{args.dbType}_{res_prefix}{args.source}.db_ocid'
+            source_pdb = f'module.{args.dbType}_{res_prefix}{args.source}.db_ocid'
+            sleep_time = 0
+            write_tf(db_file, args.license, pdbName=pdb_name, clone="FULL", dbSource="DATABASE", dbSourceId=db_ocid)
 
+        terraform_run(['init'])
         terraform_run(['apply', '-auto-approve', '-input=false'])
         log.info(f'Sleeping for {sleep_time}... please be patient.')
         time.sleep(sleep_time)    

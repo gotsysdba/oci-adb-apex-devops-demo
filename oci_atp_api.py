@@ -10,45 +10,48 @@ log = logging.getLogger(__name__)
 
 """ GLOBALS
 """
-atp_status = "NONE"
-
+atp_status     = "NONE"
+display_prefix = "APEX"
 
 """ Local Functions
 """
 def passGen(upper,lower,spec,num,min,max):
-    letters = string.ascii_letters
-    digits  = string.digits
-    special = "_#"
+    try:
+        f = open(".secret", "r")
+        password = f.readline().split()[-1]
+    except:
+        letters = string.ascii_letters
+        digits  = string.digits
+        special = "_#"
 
-    comp_chars = upper+lower+spec
-    if upper > 0 or lower > 0:
-        pass_chars = letters
-    if spec > 0:
-        pass_chars = pass_chars + special
-    if num > 0:
-        pass_chars = pass_chars + digits
-    init_password = "".join(choice(pass_chars) for t in range(randint(min-comp_chars,max-comp_chars)))
-    for i in range(upper):
-        init_password += choice(letters).upper()
-    for i in range(lower):
-        init_password += choice(letters).lower()
-    for x in range(spec):
-        init_password += choice(special)
-    for y in range(num):
-        init_password += choice(digits)
+        comp_chars = upper+lower+spec
+        if upper > 0 or lower > 0:
+            pass_chars = letters
+        if spec > 0:
+            pass_chars = pass_chars + special
+        if num > 0:
+            pass_chars = pass_chars + digits
+        init_password = "".join(choice(pass_chars) for t in range(randint(min-comp_chars,max-comp_chars)))
+        for i in range(upper):
+            init_password += choice(letters).upper()
+        for i in range(lower):
+            init_password += choice(letters).lower()
+        for x in range(spec):
+            init_password += choice(special)
+        for y in range(num):
+            init_password += choice(digits)
 
-    list_password = list(init_password)
-    shuffle(list_password)
-    list_password.insert(0,choice(letters))
-    password = "".join(list_password)
+        list_password = list(init_password)
+        shuffle(list_password)
+        list_password.insert(0,choice(letters))
+        password = "".join(list_password)
 
-    # Write password to .secret
-    f = open(".secret", "w")
-    f.write(f'password = {password}')
-    f.close()
+        # Write password to .secret
+        f = open(".secret", "w")
+        f.write(f'password = {password}')
+        f.close()
 
     return password
-
 
 def get_atp_ocid(db_client, compartment_id, display_name, order='DESC'):
     log.debug(f'Looking for {display_name} in {compartment_id}')
@@ -124,7 +127,7 @@ def get_wallet(db_client, atp_id, password, fileName):
 
 def popluate_model(model, compartment_id, display_name, db_name, license):
     # Generate a Password for ADMIN/WALLET
-    atp_password = passGen(1,1,1,1,8,26)
+    atp_password = passGen(1,1,1,1,12,26)
 
     # Populate the details used to create/clone the ATP Database
     model.compartment_id = compartment_id
@@ -192,7 +195,7 @@ if __name__ == "__main__":
     # Argument Parser
     parent_parser = argparse.ArgumentParser(description='ATP Utility', add_help=False)
     parent_parser.add_argument('--config', '-c', required=False, action='store', 
-        help='Config file Profile', default='DEMO')
+        help='Config file Profile', default='apex-devops-demo')
     parent_parser.add_argument('--environment', '-e', required=True, action='store', type = str.upper,
         help='ATP Environment (i.e. PRD, DEV, UAT, Ticket#)')
     parent_parser.add_argument('--debug',  '-d', required=False, action='store_true', help='Enable Debug')
@@ -231,7 +234,6 @@ if __name__ == "__main__":
     """
     # Get the configuration
     config = oci.config.from_file("~/.oci/config", args.config)
-    display_prefix = args.config
     log.debug(config)
 
     # Initialize the OCI DatabaseClient witht the configuration file
@@ -247,6 +249,7 @@ if __name__ == "__main__":
     try:
         atp_id, atp_lifecycle = get_atp_ocid(db_client, compartment_id, display_name, 'DESC')
     except:
+        atp_id = 0
         atp_lifecycle = 'NOT_PROVISIONED'
 
     if args.action == 'delete':

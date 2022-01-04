@@ -49,12 +49,12 @@ source .venv/bin/activate
 Run the [`oci_atp_api.py`](../oci_atp_api.py) script, as follows:
 `./oci_atp_api.py create -e DEV`
 
-The above will create an Autonomous Database called DEMODEV with an ADMIN password stored in the `.secret` file, and download the wallet.
+The above will create an Autonomous Database called APEXDEV with an ADMIN password stored in the `.secret` file, and download the wallet.
 
 ### Install Demonstration Application
 To install the demonstration application into the new Autonomous Database:
 ```
-./sqlcl_cicd.py deploy --dbName DEMODEV
+./sqlcl_cicd.py deploy --dbName APEXDEV
 ```
 
 ### Review Post-Installation Notes

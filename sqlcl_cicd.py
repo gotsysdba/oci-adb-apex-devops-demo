@@ -28,30 +28,34 @@ def run_sqlcl(schema, password, service, cmd):
 
 
 def lb_update(password, dbName):
+    log.info('Running controller.admin.xml')
     cmd = f'lb update -emit_schema -changelog controller.admin.xml;'
     run_sqlcl('ADMIN', password, dbName, cmd)
 
+    log.info('Running controller.demo.xml')
     cmd = f'lb update -emit_schema -changelog controller.demo.xml;'
     run_sqlcl('DEMO', password, dbName, cmd)
 
 
-def lb_rollback_destory(password, dbName):
+def lb_rollback_destroy(password, dbName):
     cmd = f'lb rollback -changelog controller.admin.xml -count 3;'
     run_sqlcl('ADMIN', password, dbName, cmd)
 
 
-def lb_genobject_apex(password, dbName):
+def lb_genobject_apex(password, dbName, appID):
     opt = '-expPubReports -expSavedReports -expIRNotif -expTranslations -expACLAssignments'
-    cmd = f'lb genobject -type apex -applicationid {args.appID} {opt} -expOriginalIds -skipExportDate -dir apex/apps;'	
+    cmd = f'lb genobject -type apex -applicationid {appID} {opt} -expOriginalIds -skipExportDate -dir apex/apps;'	
     run_sqlcl('DEMO', password, dbName, cmd)
-
 
 # CI/CD Actions
 def deploy(password, args):
     lb_update(password, args.dbName)
 
+def export(password, args):
+    lb_genobject_apex(password, args.dbName, args.appID)
+
 def destroy(password, args):
-    lb_rollback_destory(password, args.dbName)
+    lb_rollback_destroy(password, args.dbName)
 
 """ INIT
 """
@@ -67,6 +71,14 @@ if __name__ == "__main__":
         help='Deploy the APEX Application'
     )
     deploy_parser.set_defaults(func=deploy,action='deploy')
+
+    # Export the Application
+    export_parser = subparsers.add_parser('export', parents=[parent_parser], 
+        help='Export the APEX Application'
+    )
+    export_parser.add_argument('--appID', '-b', required=True, action='store', type = int,
+        help='APEX Application ID', default='103')
+    export_parser.set_defaults(func=export,action='export')
 
     # Destory the Application
     destroy_parser = subparsers.add_parser('destroy', parents=[parent_parser], 

@@ -1,9 +1,0 @@
-resource "oci_database_pluggable_database" "<DB_NAME>_<PDB_NAME>" {
-    container_database_id = module.dbcs_<DB_NAME>.db_ocid
-    pdb_admin_password    = module.dbcs_<DB_NAME>.db_admin_password
-    pdb_name              = "<PDB_NAME>"
-    tde_wallet_password   = module.dbcs_<DB_NAME>.db_tde_wallet_password
-    lifecycle {
-        ignore_changes = [ tde_wallet_password, pdb_admin_password ]
-    }
-}

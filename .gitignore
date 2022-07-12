@@ -2,12 +2,8 @@
 # Project Specific
 ##############################################################################
 wallet/*.zip
-terraform/dbcs_*.tf
-terraform/pdb_*.tf
-terraform/atp_*.tf
-.secret
+terraform/backend.tf
 controller.xml-ERRORS*.log
-env.sh
 
 ##############################################################################
 # Python Specific

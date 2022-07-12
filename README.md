@@ -1,19 +1,22 @@
-# apex-devops-demo
+# oci-adb-apex-devops-demo
+
 This repository stores code to:
+
 1. Create an APEX Application in [Oracle Cloud Infrastructure (OCI)](www.oracle.cloud) to demonstrate Oracle Application Express (APEX) functionality
-2. Demonstrate using [SQLcl](https://www.oracle.com/uk/database/technologies/appdev/sqlcl.html), integrated with [Liquibase](https://www.liquibase.org/), to do database version control<sup>*</sup>
+2. Demonstrate using [SQLcl](https://www.oracle.com/uk/database/technologies/appdev/sqlcl.html), integrated with [Liquibase](https://www.liquibase.org/), to do database version control
 3. Illustrate OCI Database creation/cloning using Terraform Infrastructure as Code (IaC); often used for DevOps "feature branch" isolation.
 
-<sup>*Not yet documented here</sup>
-
 ## Assumptions
-* An existing OCI tenancy; either Paid or Always Free<sup>*</sup>
+
+* An existing paid or free-tier OCI tenancy
 * General proficiency with OCI
-* A **Linux** environment (_recommended_: an [OL Cloud Developer Image](https://docs.oracle.com/en-us/iaas/oracle-linux/developer/index.htm#About-the-Oracle-Linux-Cloud-D) - Compute Instance).  Other enviroments (MacOS, Windows) may work but are not documented here.
 
-<sup>*Always Free - Only the APEX Demonstration Application; Use the pre-existing ATP method.</sup>
+## Prequisites
 
-## Requirement - API Access
+DevOps with Infrastructure as Code (IaC) requires the Terraform state file to be stored in a shared backend so that it is accessible to all developers.  While there are different backend options, this demo will use OCI Object Storage.  There is helper code in terraform/backend, which will create a bucket and write a backend.tf file to the terraform directory.  Note that this file will have secrets imbeded and should not be included in a public repository.
+
+
+
 For all demonstrations, it is required to generate a OCI API Signing Key as documemented [here](https://docs.oracle.com/en-us/iaas/Content/API/Concepts/apisigningkey.htm#apisigningkey_topic_How_to_Generate_an_API_Signing_Key_Console).
 
 The config file should be stored in your home directory's .oci directory (~/.oci/config) and the profile should be called `[DEMO]`; below is an example:

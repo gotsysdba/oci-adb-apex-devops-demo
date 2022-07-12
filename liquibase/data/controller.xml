@@ -4,9 +4,8 @@
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
-  <property name="password" file=".secret"/>
-  <include file="preconditions.xml"/>
-  <include file="database/schema/demo.xml"/>
-  <include file="database/schema/demo_grants.sql"/>
-  <include file="apex/workspace.sql"/>
+  <include file="uxi_authn_methods_lu.sql"/>
+  <include file="uxi_data_src_lu.sql"/>
+  <include file="uxi_orders_lu.sql"/>
+  <include file="uxi_feature_cards_lu.sql"/>
 </databaseChangeLog> 

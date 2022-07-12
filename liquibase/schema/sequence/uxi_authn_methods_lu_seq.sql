@@ -1,4 +1,0 @@
--- liquibase formatted sql
-
--- changeset john:Initial context:demo
-CREATE SEQUENCE UXI_AUTHN_METHODS_LU_SEQ START WITH 10 MAXVALUE 9999999999999999999999999999;

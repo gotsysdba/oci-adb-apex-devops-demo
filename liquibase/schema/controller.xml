@@ -4,19 +4,12 @@
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
-  <include file="sequence/uxi_authn_methods_lu_seq.sql"/>
-  <include file="sequence/uxi_data_src_lu_seq.sql"/>
-  <include file="table/uxi_authn_methods_lu.sql"/>
-  <!-- <include file="data/uxi_authn_methods_lu.sql"/> -->
-  <include file="table/uxi_data_src_lu.sql"/>
-  <!-- <include file="data/uxi_data_src_lu.sql"/> -->
-  <include file="table/uxi_orders_lu.sql"/>
-  <!-- <include file="data/uxi_orders_lu.sql"/> -->
-  <include file="table/uxi_feature_cards_lu.sql"/>
-  <!-- <include file="data/uxi_feature_cards_lu.sql"/> -->
-  <include file="trigger/uxi_bi_data_src_lu.sql"/>
-  <include file="trigger/uxi_bi_authn_methods_lu.sql"/>
-  <!-- <include file="apex/setup.sql"/>
-  <include file="apex/user.xml"/>
-  <include file="apex/apps/f103.xml"/> -->
+  <include file="sequence/uxi_authn_methods_lu_seq_sequence.xml"/> 
+  <include file="sequence/uxi_data_src_lu_seq_sequence.xml"/> 
+  <include file="table/uxi_authn_methods_lu_table.xml"/> 
+  <include file="table/uxi_data_src_lu_table.xml"/> 
+  <include file="table/uxi_orders_lu_table.xml"/> 
+  <include file="table/uxi_feature_cards_lu_table.xml"/> 
+  <include file="trigger/uxi_bi_data_src_lu_trigger.xml"/> 
+  <include file="trigger/uxi_bi_authn_methods_lu_trigger.xml"/> 
 </databaseChangeLog> 

@@ -76,7 +76,7 @@ def generate(password, resolution, conn_file, args):
 
     cmd = '''
       cd apex
-      lb genobject -type apex -applicationid 101 -skipExportDate -expPubReports -expSavedReports -expIRNotif -expTranslations -expACLAssignments -expOriginalIds -runonchange -fail
+      lb genobject -type apex -applicationid 103 -skipExportDate -expPubReports -expSavedReports -expIRNotif -expTranslations -expACLAssignments -expOriginalIds -runonchange -fail
     '''
     run_sqlcl(args.dbUser, password, args.dbName, cmd, resolution, conn_file, f'ADMIN[{args.dbUser}]')
 

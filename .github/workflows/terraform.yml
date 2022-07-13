@@ -39,7 +39,7 @@ jobs:
 
     steps:
     - name: Environment
-      run: env
+      run: env | sort
 
     - name: Dump GitHub context
       env:

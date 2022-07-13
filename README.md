@@ -13,27 +13,19 @@ This repository stores code to:
 
 ## Prequisites
 
-DevOps with Infrastructure as Code (IaC) requires the Terraform state file to be stored in a shared backend so that it is accessible to all developers.  While there are different backend options, this demo will use OCI Object Storage.  There is helper code in terraform/backend, which will create a bucket and write a backend.tf file to the terraform directory.  Note that this file will have secrets imbeded and should not be included in a public repository.
+### Terraform Backend for Remote State
 
+DevOps with Infrastructure as Code (IaC) requires the Terraform state file to be stored in a shared backend so that it is accessible to all developers (i.e. not a local backend).  While there are different backend options, this demo can use OCI Object Storage.  There is helper code in terraform/backend, which will create a bucket and write a backend.tf file to the terraform directory.  The state for the bucket IaC will contain access and secret keys which will be used later in the demo.
 
+If you have an existing backend, or want to use something different, manually create a backend.tf file in the terraform directory.
 
-For all demonstrations, it is required to generate a OCI API Signing Key as documemented [here](https://docs.oracle.com/en-us/iaas/Content/API/Concepts/apisigningkey.htm#apisigningkey_topic_How_to_Generate_an_API_Signing_Key_Console).
+### Git Remote Repository
 
-The config file should be stored in your home directory's .oci directory (~/.oci/config) and the profile should be called `[DEMO]`; below is an example:
-```
-[DEMO]
-user=ocid1.user.oc1.....
-fingerprint=<fingerprint:...>
-tenancy=ocid1.tenancy.oc1.....
-region=eu-frankfurt-1
-key_file=~/.oci/key.pem
-compartment=ocid1.compartment.oc1.....
-```
-
-If you would like the databases to be placed into a specific compartment, add `compartment=<compartment OCID>` into the ~/.oci/config file; If compartment is not specified, resources will be provisioned in the tenancies root compartment.
+You will need your own Git Repository, currently this demo only supports GitHub.  Support for additional repositories are in progress.
 
 # Instructions
-Download or Clone this repository to your Linux environment where you will run the code.  The Linux environment can be a desktop, OCI Compute Instance (CI) (_recommended_: CI with Oracle Development image).  It does not have to be associated with your tenancy.  Other OS environments can be used but are not documented here.
+
+Fork this repository to your own GitHub Repository.
 
 ## Terraform IaC
 The Terraform IaC demonstration documentation can be found [here](doco/TERRAFORM_IAC.md)

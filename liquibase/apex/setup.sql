@@ -15,7 +15,6 @@ BEGIN
     -- Clear Overrides
     apex_application_install.clear_all;
     
-    -- apex_util.set_workspace(p_workspace => '${schema}');
     -- Set the Workspace ID
     -- don't use apex_application_install.get_workspace_id; it returns nothing and breaks all
     select workspace_id into l_workspace_id

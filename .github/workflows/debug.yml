@@ -1,0 +1,29 @@
+name: 'Environment'
+
+# Disabled: This workflow is usually used
+on: 
+  push:
+    branches-ignore:
+      - '**'
+
+permissions:
+  contents: read
+
+jobs:
+  debug:
+    name: 'Debug'
+    runs-on: ubuntu-latest
+    environment: staging_environment
+
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+    - name: Environment
+      run: env
+
+    - name: Dump GitHub context
+      env:
+        GITHUB_CONTEXT: ${{ toJSON(github) }}
+      run: echo "$GITHUB_CONTEXT"

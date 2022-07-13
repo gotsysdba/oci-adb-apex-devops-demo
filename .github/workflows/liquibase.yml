@@ -1,0 +1,129 @@
+name: 'LiquiBase'
+on: push
+concurrency: staging_environment
+permissions:
+  contents: read
+env:    
+  # OCI API Access
+  TF_VAR_compartment_ocid: ${{ secrets.TF_VAR_COMPARTMENT_OCID }}
+  TF_VAR_region: ${{ secrets.TF_VAR_REGION }}
+  TF_VAR_private_key: ${{ secrets.TF_VAR_PRIVATE_KEY }}
+  TF_VAR_tenancy_ocid: ${{ secrets.TF_VAR_TENANCY_OCID }}
+  TF_VAR_user_ocid: ${{ secrets.TF_VAR_USER_OCID }}
+  TF_VAR_fingerprint: ${{ secrets.TF_VAR_FINGERPRINT }}
+
+  # Remote Backend Access
+  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+  AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+
+  BRANCH: ${{ github.ref_name }}
+  TF_WORKSPACE: ${{ github.ref_name }}
+
+jobs:
+  debug:
+    name: 'Debug'
+    runs-on: ubuntu-latest
+    environment: staging_environment
+
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+    - name: Environment
+      run: env
+
+    - name: Dump GitHub context
+      env:
+        GITHUB_CONTEXT: ${{ toJSON(github) }}
+      run: echo "$GITHUB_CONTEXT"
+
+  liquibase_generate:
+    name: 'LiquiBase Generate'
+    runs-on: ubuntu-latest
+    environment: staging_environment
+
+    # Use the Bash shell
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+    # Set the DB Suffix
+    - name: Set DB Suffix
+      if: ${{ github.ref_name != 'main' }}
+      run: echo "TF_VAR_db_suffix=dev${BRANCH%%-*}" >> $GITHUB_ENV
+
+  liquibase_deploy:
+    name: 'LiquiBase Deploy'
+    runs-on: ubuntu-latest
+    environment: staging_environment
+
+    # Use the Bash shell
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+    # Set the DB Suffix
+    - name: Set DB Suffix
+      if: ${{ github.ref_name != 'main' }}
+      run: echo "TF_VAR_db_suffix=dev${BRANCH%%-*}" >> $GITHUB_ENV
+
+    # Checkout the repository to the GitHub Actions runner
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    # Install the latest version of Terraform CLI
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v2
+
+    # Download SQLcl and Unzip
+    - name: Install SQLcl
+      run: |
+        wget -q https://download.oracle.com/otn_software/java/sqldeveloper/sqlcl-latest.zip
+        unzip -q -o sqlcl-latest.zip
+        echo "${GITHUB_WORKSPACE}/sqlcl/bin" >> $GITHUB_PATH
+
+    ###########################################################
+    # TERRAFORM Block
+    ###########################################################    
+    # Initialize a new or existing Terraform working directory
+    - name: Terraform Init
+      working-directory: ./terraform
+      run: terraform init
+
+    # Checks that all Terraform configuration files adhere to a canonical format
+    - name: Terraform Format
+      run: terraform fmt -check
+
+    # Regenerate random ADMIN password as it will be exposed
+    # This will also download the wallet for SQLcl
+    - name: Terraform Apply
+      working-directory: ./terraform
+      run: terraform apply -auto-approve -input=false
+
+    # Obtain lb_deploy command to stdout
+    - name: Terraform Get Commands
+      id: lb_deploy
+      working-directory: ./terraform
+      run: terraform output -no-color -raw lb_deploy_cmd
+
+    ###########################################################
+    # LIQUIBASE Block
+    ###########################################################
+    # Run SQLcl Deploy 
+    - name: Run SQLcl LiquiBase
+      working-directory: ./liquibase
+      env:
+        DEPLOY: "./${{ steps.lb_deploy.outputs.stdout }}"
+      run: |
+        ${DEPLOY[@]}
+
+    ###########################################################
+    # TERRAFORM Block - Randomise ADMIN password
+    ###########################################################
+    # Regenerate random ADMIN password as it was exposed
+    - name: Terraform Init
+      working-directory: ./terraform
+      run: terraform apply -auto-approve -input=false

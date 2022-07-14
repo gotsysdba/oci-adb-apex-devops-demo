@@ -5,15 +5,10 @@ from datetime import datetime
 # Logging Default
 level    = logging.INFO
 format   = '[%(asctime)s] %(levelname)8s: %(message)s'
-logfile  = datetime.now().strftime('log/cicd_%H_%M_%S_%d_%m_%Y.log')
-handlers = [logging.FileHandler(logfile), logging.StreamHandler()]
+handlers = [logging.StreamHandler()]
 datefmt  = '%Y-%b-%d %H:%M:%S'
 logging.basicConfig(level = level, format = format, handlers = handlers, datefmt=datefmt)
 log = logging.getLogger(__name__)
-
-""" Globals
-"""
-tns_admin = '/var/lib/jenkins'
 
 """ Functions
 """
@@ -138,10 +133,10 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     if args.debug:
-        logging.getLogger().setLevel(logging.DEBUG)
-        logging.debug("Debugging Enabled")
+        log.getLogger().setLevel(logging.DEBUG)
+        log.debug("Debugging Enabled")
 
-    logging.debug('Arguments: {}'.format(args))
+    log.debug('Arguments: {}'.format(args))
 
     """ MAIN
     """

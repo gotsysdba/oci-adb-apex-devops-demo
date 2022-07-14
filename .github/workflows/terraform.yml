@@ -28,24 +28,6 @@ env:
   CREATE_BRANCH: ${{ github.ref_name }}
 
 jobs:
-  debug:
-    name: 'Debug'
-    runs-on: ubuntu-latest
-    environment: staging_environment
-
-    defaults:
-      run:
-        shell: bash
-
-    steps:
-    - name: Environment
-      run: env | sort
-
-    - name: Dump GitHub context
-      env:
-        GITHUB_CONTEXT: ${{ toJSON(github) }}
-      run: echo "$GITHUB_CONTEXT"
-
   terraform:
     name: 'Terraform'
     runs-on: ubuntu-latest

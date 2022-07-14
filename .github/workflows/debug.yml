@@ -1,10 +1,7 @@
 name: 'Environment'
 
-# Disabled: This workflow is usually used
 on: 
-  push:
-    branches-ignore:
-      - '**'
+  push
 
 permissions:
   contents: read

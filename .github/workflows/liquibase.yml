@@ -52,7 +52,7 @@ jobs:
     # Set the Terraform Workspace
     - name: Set Terraform Workspace
       if: github.ref_name != 'main'
-      run: echo "TF_WORKSPACE=dev${CREATE_BRANCH%%-*}" >> "$GITHUB_ENV"
+      run: echo "TF_WORKSPACE=${CREATE_BRANCH}" >> "$GITHUB_ENV"
 
     # Initialize a new or existing Terraform working directory
     - name: Terraform Init

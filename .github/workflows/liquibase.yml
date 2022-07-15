@@ -1,6 +1,8 @@
 name: 'LiquiBase'
 on: push
-concurrency: staging_environment
+concurrency:
+  group: ${{ github.ref }}
+  cancel-in-progress: false
 permissions:
   contents: read
 env:    
@@ -17,13 +19,11 @@ env:
   AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
 
   BRANCH: ${{ github.ref_name }}
-  TF_WORKSPACE: ${{ github.ref_name }}
 
 jobs:
   liquibase_deploy:
     name: 'LiquiBase Deploy'
     runs-on: ubuntu-latest
-    environment: staging_environment
 
     # Use the Bash shell
     defaults:
@@ -49,6 +49,11 @@ jobs:
     ###########################################################
     # TERRAFORM Block
     ###########################################################    
+    # Set the Terraform Workspace
+    - name: Set Terraform Workspace
+      if: github.ref_name != 'main'
+      run: echo "TF_WORKSPACE=dev${CREATE_BRANCH%%-*}" >> "$GITHUB_ENV"
+
     # Initialize a new or existing Terraform working directory
     - name: Terraform Init
       working-directory: ./terraform

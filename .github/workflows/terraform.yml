@@ -58,13 +58,13 @@ jobs:
       continue-on-error: true
       if: github.event_name == 'create' and github.ref_name != 'main'
       run: |
-        terraform workspace new ${CREATE_BRANCH}
-        terraform workspace select ${CREATE_BRANCH}
+        terraform workspace new dev${CREATE_BRANCH%%-*}
+        terraform workspace select dev${CREATE_BRANCH%%-*}
 
     # Select to Delete Workspace
     - name: Terraform Select Workspace
       if: github.event_name == 'delete'
-      run: terraform workspace select ${DELETE_BRANCH}
+      run: terraform workspace select dev${DELETE_BRANCH%%-*}
 
     - name: Terraform Plan
       if: github.event_name == 'create'
@@ -86,4 +86,4 @@ jobs:
     # Destroy Workspace
     - name: Terraform Delete Workspace
       if: github.event_name == 'delete'
-      run: terraform workspace delete ${DELETE_BRANCH}
+      run: terraform workspace delete dev${DELETE_BRANCH%%-*}

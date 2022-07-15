@@ -68,16 +68,16 @@ jobs:
 
     - name: Terraform Plan
       if: github.event_name == 'create'
-      run: TF_VAR_branch="dev${CREATE_BRANCH%%-*}" terraform plan
+      run: terraform plan
 
     # Perform a Terraform apply/destroy
     - name: Terraform Apply
       if: github.event_name == 'create'
-      run: TF_VAR_branch="dev${CREATE_BRANCH%%-*}" terraform apply -auto-approve -input=false
+      run: terraform apply -auto-approve -input=false
 
     - name: Terraform Destroy
       if: github.event_name == 'delete'
-      run: TF_VAR_branch="dev${DELETE_BRANCH%%-*}" terraform destroy -auto-approve -input=false
+      run: terraform destroy -auto-approve -input=false
 
     # Switch to Workspace
     - name: Terraform Switch Workspace

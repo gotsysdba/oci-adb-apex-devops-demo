@@ -47,11 +47,6 @@ jobs:
         shell: bash
 
     steps:
-    # Set the DB Suffix
-    - name: Set DB Suffix
-      if: ${{ github.ref_name != 'main' }}
-      run: echo "TF_VAR_db_suffix=dev${BRANCH%%-*}" >> $GITHUB_ENV
-
     # Checkout the repository to the GitHub Actions runner
     - name: Checkout
       uses: actions/checkout@v3

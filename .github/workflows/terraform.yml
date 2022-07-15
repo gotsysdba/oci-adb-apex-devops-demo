@@ -53,9 +53,10 @@ jobs:
       run: terraform init
 
     # Create Workspace (new causes select, but do select for retries)
+    # main branch will use the default workspace
     - name: Terraform New Workspace
       continue-on-error: true
-      if: github.event_name == 'create'
+      if: github.event_name == 'create' and github.ref_name != 'main'
       run: |
         terraform workspace new ${CREATE_BRANCH}
         terraform workspace select ${CREATE_BRANCH}

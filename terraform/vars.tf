@@ -33,10 +33,6 @@ variable "proj_abrv" {
   default = "APEX"
 }
 
-variable "db_suffix" {
-  description = "DB Suffix generated from Branches"
-  default     = "prd"
-}
 variable "apex_user" {
   default = "DEMO"
 }

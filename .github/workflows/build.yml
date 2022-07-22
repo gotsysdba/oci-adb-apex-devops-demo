@@ -1,4 +1,4 @@
-name: 'Build and Deploy'
+name: 'Workflow'
 on: 
   delete:
     branches-ignore:
@@ -27,7 +27,7 @@ env:
 
 jobs:
   build_and_deploy:
-    name: "${{ github.event_name }} ${{ github.ref_name }}"
+    name: "${{ github.event_name }}"
     runs-on: ubuntu-latest
 
     # Use the Bash shell

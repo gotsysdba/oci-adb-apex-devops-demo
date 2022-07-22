@@ -1,5 +1,12 @@
-name: 'LiquiBase'
-on: push
+name: 'Build and Deploy'
+on: 
+  create:
+    branches-ignore:
+      - main
+  delete:
+    branches-ignore:
+      - main  
+  push:
 concurrency:
   group: ${{ github.ref }}
   cancel-in-progress: false
@@ -18,10 +25,11 @@ env:
   AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
   AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
 
-  BRANCH: ${{ github.ref_name }}
+  DELETE_BRANCH: ${{ github.event.ref }} 
+  CREATE_BRANCH: ${{ github.ref_name }}
 
 jobs:
-  liquibase_deploy:
+  build_and_deploy:
     name: 'LiquiBase Deploy'
     runs-on: ubuntu-latest
 
@@ -39,21 +47,9 @@ jobs:
     - name: HashiCorp - Setup Terraform
       uses: hashicorp/setup-terraform@v2.0.0
 
-    # Download SQLcl and Unzip
-    - name: Install SQLcl
-      run: |
-        wget -q https://download.oracle.com/otn_software/java/sqldeveloper/sqlcl-latest.zip
-        unzip -q -o sqlcl-latest.zip
-        echo "${GITHUB_WORKSPACE}/sqlcl/bin" >> $GITHUB_PATH
-
     ###########################################################
     # TERRAFORM Block
     ###########################################################    
-    # Set the Terraform Workspace
-    - name: Set Terraform Workspace
-      if: github.ref_name != 'main'
-      run: echo "TF_WORKSPACE=${BRANCH}" >> "$GITHUB_ENV"
-
     # Initialize a new or existing Terraform working directory
     - name: Terraform Init
       working-directory: ./terraform
@@ -61,25 +57,57 @@ jobs:
 
     # Checks that all Terraform configuration files adhere to a canonical format
     - name: Terraform Format
+      working-directory: ./terraform
       run: terraform fmt -check -recursive
 
-    # Regenerate random ADMIN password as it will be exposed
+    # main branch will use the default workspace
+    - name: Terraform Workspace
+      if: github.event_name != 'delete' && github.ref_name != 'main'
+      working-directory: ./terraform
+      continue-on-error: true
+      run: |
+        terraform workspace new ${CREATE_BRANCH}
+        terraform workspace select ${CREATE_BRANCH}
+
+    # Select to Delete Workspace
+    - name: Terraform Workspace (Delete)
+      if: github.event_name == 'delete'
+      working-directory: ./terraform
+      run: terraform workspace select ${DELETE_BRANCH}        
+
+    # Create Resources or regenerate random ADMIN password as it will be exposed
     # This will also download the wallet for SQLcl
     - name: Terraform Apply
+      if: github.event_name != 'delete'
       working-directory: ./terraform
       run: terraform apply -auto-approve -input=false
 
+    - name: Terraform Destroy
+      if: github.event_name == 'delete'
+      working-directory: ./terraform
+      run: terraform destroy -auto-approve -input=false
+
     # Obtain lb_deploy command to stdout
     - name: Terraform Get Commands
-      id: lb_deploy
+      if: github.event_name != 'delete'
       working-directory: ./terraform
+      id: lb_deploy
       run: terraform output -no-color -raw lb_deploy_cmd
 
     ###########################################################
     # LIQUIBASE Block
     ###########################################################
+    # Download SQLcl and Unzip
+    - name: Install SQLcl
+      if: github.event_name != 'delete'
+      run: |
+        wget -q https://download.oracle.com/otn_software/java/sqldeveloper/sqlcl-latest.zip
+        unzip -q -o sqlcl-latest.zip
+        echo "${GITHUB_WORKSPACE}/sqlcl/bin" >> $GITHUB_PATH
+
     # Run SQLcl Deploy 
     - name: Run SQLcl LiquiBase
+      if: github.event_name != 'delete'
       working-directory: ./liquibase
       env:
         DEPLOY: "./${{ steps.lb_deploy.outputs.stdout }}"
@@ -91,5 +119,6 @@ jobs:
     ###########################################################
     # Regenerate random ADMIN password as it was exposed
     - name: Terraform Init (Destroy Exposed Password)
+      if: github.event_name != 'delete'
       working-directory: ./terraform
       run: terraform apply -auto-approve -input=false

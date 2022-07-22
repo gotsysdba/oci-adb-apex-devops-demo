@@ -1,7 +1,8 @@
 name: 'Environment'
 
 on: 
-  push
+  push:
+  delete:
 
 permissions:
   contents: read

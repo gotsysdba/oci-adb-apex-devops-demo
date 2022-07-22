@@ -30,7 +30,7 @@ env:
 
 jobs:
   build_and_deploy:
-    name: 'LiquiBase Deploy'
+    name: 'Build and Deploy'
     runs-on: ubuntu-latest
 
     # Use the Bash shell
@@ -60,20 +60,17 @@ jobs:
       working-directory: ./terraform
       run: terraform fmt -check -recursive
 
+    ###########################################################
+    # TERRAFORM Block - Create/Push
+    ###########################################################
     # main branch will use the default workspace
-    - name: Terraform Workspace
+    - name: Terraform Workspace (Select)
       if: github.event_name != 'delete' && github.ref_name != 'main'
       working-directory: ./terraform
       continue-on-error: true
       run: |
         terraform workspace new ${CREATE_BRANCH}
         terraform workspace select ${CREATE_BRANCH}
-
-    # Select to Delete Workspace
-    - name: Terraform Workspace (Delete)
-      if: github.event_name == 'delete'
-      working-directory: ./terraform
-      run: terraform workspace select ${DELETE_BRANCH}        
 
     # Create Resources or regenerate random ADMIN password as it will be exposed
     # This will also download the wallet for SQLcl
@@ -82,17 +79,24 @@ jobs:
       working-directory: ./terraform
       run: terraform apply -auto-approve -input=false
 
-    - name: Terraform Destroy
-      if: github.event_name == 'delete'
-      working-directory: ./terraform
-      run: terraform destroy -auto-approve -input=false
-
     # Obtain lb_deploy command to stdout
     - name: Terraform Get Commands
       if: github.event_name != 'delete'
       working-directory: ./terraform
       id: lb_deploy
       run: terraform output -no-color -raw lb_deploy_cmd
+
+    ###########################################################
+    # TERRAFORM Block - Delete
+    ###########################################################
+    - name: Terraform Destroy
+      if: github.event_name == 'delete'
+      working-directory: ./terraform
+      run: |
+        terraform workspace select ${DELETE_BRANCH}
+        terraform destroy -auto-approve -input=false
+        terraform workspace select default
+        terraform workspace delete ${DELETE_BRANCH}
 
     ###########################################################
     # LIQUIBASE Block

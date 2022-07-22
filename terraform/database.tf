@@ -18,8 +18,8 @@ module "adb_dev" {
   is_always_free  = var.is_always_free
   license_model   = var.license_model
   adb_compartment = data.oci_identity_compartments.dev.compartments[0].id
-  adb_name        = format("%s%s", replace(data.terraform_remote_state.default.outputs.adbprd_name, "PRD", "DEV"), replace(terraform.workspace, "/-.*/", ""))
+  adb_name        = format("%s%s", replace(data.terraform_remote_state.default[0].outputs.adbprd_name, "PRD", "DEV"), replace(terraform.workspace, "/-.*/", ""))
   adb_source      = var.db_clone_source
-  adb_source_id   = data.terraform_remote_state.default.outputs.adbprd_id
+  adb_source_id   = data.terraform_remote_state.default[0].outputs.adbprd_id
   adb_clone_type  = "FULL"
 }

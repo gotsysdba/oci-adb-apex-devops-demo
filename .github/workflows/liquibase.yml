@@ -36,8 +36,8 @@ jobs:
       uses: actions/checkout@v3
 
     # Install the latest version of Terraform CLI
-    - name: Setup Terraform
-      uses: hashicorp/setup-terraform@v2
+    - name: HashiCorp - Setup Terraform
+      uses: hashicorp/setup-terraform@v2.0.0
 
     # Download SQLcl and Unzip
     - name: Install SQLcl

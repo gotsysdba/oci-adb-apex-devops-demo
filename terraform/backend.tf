@@ -11,7 +11,9 @@ terraform {
   }
 }
 
+// No need to get remote state data on production run, only dev
 data "terraform_remote_state" "default" {
+  count   = terraform.workspace == "default" ? 0 : 1
   backend = "s3"
   config = {
     endpoint                    = "https://fro8fl9kuqli.compat.objectstorage.eu-frankfurt-1.oraclecloud.com"
@@ -23,5 +25,4 @@ data "terraform_remote_state" "default" {
     skip_metadata_api_check     = true
     force_path_style            = true
   }
-  depends_on = [module.adb_prd.oci_database_autonomous_database]
 }

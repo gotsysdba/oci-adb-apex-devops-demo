@@ -23,4 +23,5 @@ data "terraform_remote_state" "default" {
     skip_metadata_api_check     = true
     force_path_style            = true
   }
+  depends_on = [module.adb_prd.oci_database_autonomous_database]
 }

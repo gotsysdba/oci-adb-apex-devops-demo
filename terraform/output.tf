@@ -1,5 +1,11 @@
+output "adbprd_name" {
+  description = "DB_NAME for Prod ADB used in cloning"
+  value       = join(", ", module.adb_prd[*].adb_name)
+}
+
 output "adbprd_id" {
-  value = oci_database_autonomous_database.adb.id
+  description = "OCID for Prod ADB used in cloning"
+  value       = join(", ", module.adb_prd[*].adb_id)
 }
 
 output "lb_deploy_cmd" {
@@ -10,8 +16,4 @@ output "lb_deploy_cmd" {
 output "lb_generate_cmd" {
   value     = local.lb_generate_cmd
   sensitive = true
-}
-
-output "APEX_URL" {
-  value = oci_database_autonomous_database.adb.connection_urls[0].apex_url
 }

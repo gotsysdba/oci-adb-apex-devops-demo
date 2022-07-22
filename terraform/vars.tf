@@ -29,8 +29,9 @@ variable "private_key" {
 }
 
 // General Configuration
-variable "proj_abrv" {
-  default = "APEX"
+variable "db_clone_source" {
+  // DATABASE | NONE
+  default = "NONE"
 }
 
 variable "apex_user" {
@@ -38,12 +39,6 @@ variable "apex_user" {
 }
 
 // ADB Configuration
-variable "cpu_core_count" {
-  default = "1"
-}
-variable "storage_size_in_tbs" {
-  default = "1"
-}
 variable "db_version" {
   default = "19c"
 }

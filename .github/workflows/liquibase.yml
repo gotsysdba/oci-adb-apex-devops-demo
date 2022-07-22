@@ -61,7 +61,7 @@ jobs:
 
     # Checks that all Terraform configuration files adhere to a canonical format
     - name: Terraform Format
-      run: terraform fmt -check
+      run: terraform fmt -check -recursive
 
     # Regenerate random ADMIN password as it will be exposed
     # This will also download the wallet for SQLcl

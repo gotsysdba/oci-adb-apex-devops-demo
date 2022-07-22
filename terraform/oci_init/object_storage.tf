@@ -9,3 +9,11 @@ resource "oci_objectstorage_bucket" "bucket" {
   access_type    = "NoPublicAccess"
   auto_tiering   = "Disabled"
 }
+
+resource "oci_objectstorage_object" "stub_state" {
+  bucket     = "terraform-backend"
+  content    = null
+  namespace  = data.oci_objectstorage_namespace.ns.namespace
+  object     = "terraform.tfstate"
+  depends_on = [oci_objectstorage_bucket.bucket]
+}

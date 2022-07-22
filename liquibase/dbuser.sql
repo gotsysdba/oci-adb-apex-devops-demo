@@ -1,6 +1,6 @@
 -- liquibase formatted sql
 
--- changeset john:Initial context:${schema} endDelimiter:/
+-- changeset gotsysdba:Initial endDelimiter:/
 DECLARE
   L_USER	VARCHAR2(255);
 BEGIN

@@ -1,6 +1,6 @@
 -- liquibase formatted sql
 
--- changeset john:Initial context:${schema} endDelimiter:/ rollbackEndDelimiter:/
+-- changeset gotsysdba:Initial endDelimiter:/ rollbackEndDelimiter:/
 DECLARE
   l_sg_id number;
 BEGIN

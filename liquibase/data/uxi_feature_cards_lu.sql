@@ -1,6 +1,6 @@
 -- liquibase formatted sql
 
--- changeset john:Initial context:demo runAlways:true
+-- changeset gotsysdba:Initial runAlways:true
 truncate table UXI_FEATURE_CARDS_LU;
 insert into UXI_FEATURE_CARDS_LU (CARD_TEXT,CARD_IMAGE,CARD_CATEGORY,CARD_SUBTEXT,CARD_ORDER) values ('App definitions are stored in the database as meta data.','appdef.png','Features','Declarative - No code generation',5);
 insert into UXI_FEATURE_CARDS_LU (CARD_TEXT,CARD_IMAGE,CARD_CATEGORY,CARD_SUBTEXT,CARD_ORDER) values ('Develop desktop and mobile web apps','develop.png','Features',null,1);

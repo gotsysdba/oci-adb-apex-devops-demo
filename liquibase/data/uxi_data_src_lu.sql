@@ -1,6 +1,6 @@
 -- liquibase formatted sql
 
--- changeset john:Initial context:demo runAlways:true
+-- changeset gotsysdba:Initial runAlways:true
 truncate table UXI_DATA_SRC_LU;
 insert into UXI_DATA_SRC_LU (ID,SOURCE,POSSIBLE) values (1,'Database Links (SQL*Net)','Y');
 insert into UXI_DATA_SRC_LU (ID,SOURCE,POSSIBLE) values (2,'Local Data Sources (SQL, PL/SQL)','Y');

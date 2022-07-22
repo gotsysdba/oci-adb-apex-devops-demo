@@ -1,6 +1,6 @@
 -- liquibase formatted sql
 
--- changeset john:Initial context:demo runAlways:true
+-- changeset gotsysdba:Initial runAlways:true
 truncate table UXI_AUTHN_METHODS_LU;
 insert into UXI_AUTHN_METHODS_LU (ID,METHOD,DESCRIPTION) values (1,'Application Express Accounts','Application Express Accounts are user accounts that are created within and managed in the Oracle Application Express user repository. When you use this method, your application is authenticated against these accounts.');
 insert into UXI_AUTHN_METHODS_LU (ID,METHOD,DESCRIPTION) values (2,'Custom Authentication','Creating a Custom Authentication scheme from scratch to have complete control over your authentication interface.');

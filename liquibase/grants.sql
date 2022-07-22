@@ -1,6 +1,6 @@
 -- liquibase formatted sql
 
--- changeset john:Initial context:admin
+-- changeset gotsysdba:Initial
 ALTER USER "${schema}" GRANT CONNECT THROUGH ADMIN;
 ALTER USER "${schema}" QUOTA UNLIMITED ON "DATA";
 GRANT CREATE SESSION TO "${schema}";

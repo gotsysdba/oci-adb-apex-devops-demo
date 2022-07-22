@@ -1,6 +1,6 @@
 -- liquibase formatted sql
 
--- changeset john:Initial context:${schema} runAlways:true endDelimiter:/
+-- changeset gotsysdba:Initial runAlways:true endDelimiter:/
 DECLARE
     l_workspace_id number;
     l_sg_id number;

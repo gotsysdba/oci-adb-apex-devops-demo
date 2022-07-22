@@ -1,6 +1,6 @@
 -- liquibase formatted sql
 
--- changeset john:Initial context:${schema} endDelimiter:/ rollbackEndDelimiter:/
+-- changeset gotsysdba:Initial endDelimiter:/ rollbackEndDelimiter:/
 BEGIN
   APEX_INSTANCE_ADMIN.ADD_WORKSPACE (
      P_WORKSPACE          => '${schema}'

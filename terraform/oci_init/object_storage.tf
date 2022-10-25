@@ -1,4 +1,7 @@
-data "oci_objectstorage_namespace" "ns" {
+# Copyright © 2022, Oracle and/or its affiliates. 
+# All rights reserved. The Universal Permissive License (UPL), Version 1.0 as shown at http://oss.oracle.com/licenses/upl
+
+ata "oci_objectstorage_namespace" "ns" {
   compartment_id = var.compartment_ocid
 }
 

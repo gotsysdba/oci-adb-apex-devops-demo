@@ -42,7 +42,7 @@ jobs:
 
     # Install the latest version of Terraform CLI
     - name: HashiCorp - Setup Terraform
-      uses: hashicorp/setup-terraform@v2.0.0
+      uses: hashicorp/setup-terraform@v2.0.2
 
     ###########################################################
     # TERRAFORM Block
@@ -96,14 +96,14 @@ jobs:
         terraform workspace delete ${DELETE_BRANCH}
 
     ###########################################################
-    # LIQUIBASE Block
+    # LIQUIBASE Block - Using 21.4 for stability
     ###########################################################
     # Download SQLcl and Unzip
     - name: Install SQLcl
       if: github.event_name != 'delete'
       run: |
-        wget -q https://download.oracle.com/otn_software/java/sqldeveloper/sqlcl-latest.zip
-        unzip -q -o sqlcl-latest.zip
+        wget -q https://download.oracle.com/otn_software/java/sqldeveloper/sqlcl-21.4.1.17.1458.zip
+        unzip -q -o sqlcl-21.4.1.17.1458.zip
         echo "${GITHUB_WORKSPACE}/sqlcl/bin" >> $GITHUB_PATH
 
     # Run SQLcl Deploy 

@@ -43,7 +43,7 @@ variable "db_version" {
   default = "19c"
 }
 variable "is_always_free" {
-  default = false
+  default = true
 }
 variable "license_model" {
   default = "BRING_YOUR_OWN_LICENSE"

@@ -101,8 +101,8 @@ jobs:
     - name: Install SQLcl
       if: github.event_name != 'delete'
       run: |
-        wget -q https://download.oracle.com/otn_software/java/sqldeveloper/sqlcl-21.4.1.17.1458.zip
-        unzip -q -o sqlcl-21.4.1.17.1458.zip
+        wget -q https://download.oracle.com/otn_software/java/sqldeveloper/sqlcl-latest.zip
+        unzip -q -o sqlcl-latest.zip
         echo "${GITHUB_WORKSPACE}/sqlcl/bin" >> $GITHUB_PATH
 
     # Run SQLcl Deploy 

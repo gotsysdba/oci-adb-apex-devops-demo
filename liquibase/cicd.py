@@ -12,13 +12,14 @@ log = logging.getLogger(__name__)
 
 """ Functions
 """
-def run_sqlcl(schema, password, service, cmd, resolution, conn_file, run_as):
+def run_sqlcl(schema, password, service, path, cmd, resolution, conn_file, run_as):
     lb_env = os.environ.copy()
     lb_env['password']  = password
 
     if resolution == 'wallet':
         wallet = f'set cloudconfig {conn_file}'
     else:
+        wallet = '-- Using tnsnames.ora'
         lb_env['TNS_ADMIN'] = tns_admin #<-Global
 
     # Keep password off the command line/shell history
@@ -29,7 +30,7 @@ def run_sqlcl(schema, password, service, cmd, resolution, conn_file, run_as):
     '''
 
     log.debug(f'Running: {sql_cmd}')
-    result = subprocess.run(['sql', '/nolog'], universal_newlines=True, input=f'{sql_cmd}', env=lb_env,
+    result = subprocess.run(['sql', '/nolog'], universal_newlines=True, cwd=f'./{path}', input=f'{sql_cmd}', env=lb_env,
                             stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
     exit_status = 0
@@ -49,30 +50,21 @@ def run_sqlcl(schema, password, service, cmd, resolution, conn_file, run_as):
 def deploy_call(path, user, password, resolution, conn_file, args):
     if os.path.exists(os.path.join(path, 'controller.xml')):
         log.info(f'Running {path}/controller.xml as {user}')
-        cmd = f'''
-          cd {path}
-          lb update -changelog-file controller.xml;
-        '''
-        run_sqlcl(args.dbUser, password, args.dbName, cmd, resolution, conn_file, user)
+        cmd = f'lb update -changelog-file controller.xml;'
+        run_sqlcl(args.dbUser, password, args.dbName, path, cmd, resolution, conn_file, user)
         
 def deploy(password, resolution, conn_file, args):
-    deploy_call('.', 'ADMIN', password, resolution, conn_file, args)
+    deploy_call('admin', 'ADMIN', password, resolution, conn_file, args)
     deploy_call('schema', f'ADMIN[{args.dbUser}]', password, resolution, conn_file, args)
     deploy_call('data', f'ADMIN[{args.dbUser}]', password, resolution, conn_file, args)
     deploy_call('apex', f'ADMIN[{args.dbUser}]', password, resolution, conn_file, args)   
 
 def generate(password, resolution, conn_file, args):
-    cmd = '''
-      cd schema
-      lb generate-schema -grants -split -runonchange -fail-on-error
-    '''
-    run_sqlcl(args.dbUser, password, args.dbName, cmd, resolution, conn_file, f'ADMIN[{args.dbUser}]')
+    cmd = 'lb generate-schema -grants -split -runonchange -fail-on-error'  
+    run_sqlcl(args.dbUser, password, args.dbName, 'schema', cmd, resolution, conn_file, f'ADMIN[{args.dbUser}]')
 
-    cmd = '''
-      cd apex
-      lb genobject -type apex -applicationid 103 -skipExportDate -expPubReports -expSavedReports -expIRNotif -expTranslations -expACLAssignments -expOriginalIds -runonchange -fail
-    '''
-    run_sqlcl(args.dbUser, password, args.dbName, cmd, resolution, conn_file, f'ADMIN[{args.dbUser}]')
+    cmd = 'apex export -applicationid 103 -skipExportDate -expOriginalIds -expSupportingObjects Y'
+    run_sqlcl(args.dbUser, password, args.dbName, 'apex', cmd, resolution, conn_file, f'ADMIN[{args.dbUser}]')
 
     # To avoid false changes impacting version control, replace schema names
     # You do you, here:
@@ -88,7 +80,7 @@ def generate(password, resolution, conn_file, args):
 
 def destroy(password, resolution, conn_file, args):
     cmd = 'lb rollback -changelog controller.xml -count 999;'
-    run_sqlcl(args.dbUser, password, args.dbName, cmd, resolution, conn_file, 'ADMIN')
+    run_sqlcl(args.dbUser, password, args.dbName, 'admin', cmd, resolution, conn_file, 'ADMIN')
     
 """ INIT
 """
@@ -149,11 +141,12 @@ if __name__ == "__main__":
     if args.dbWallet:
         conn_file     = args.dbWallet
     else:
-        if os.path.exists(f'{tns_admin}/{args.dbName}_wallet.zip'):
-            conn_file = f'{tns_admin}/{args.dbName}_wallet.zip'
-        elif os.path.exists(f'{tns_admin}/tnsnames.ora'):
+        tns_admin = os.environ['TNS_ADMIN']
+        if os.path.exists(f'{tns_admin}/tnsnames.ora'):
             resolution   = 'tnsnames'
             conn_file    = '{tns_admin}/tnsnames.ora'
+        elif os.path.exists(f'{tns_admin}/{args.dbName}_wallet.zip'):
+            conn_file = f'{tns_admin}/{args.dbName}_wallet.zip'
 
     args.func(password, resolution, conn_file,  args)
     sys.exit(0)

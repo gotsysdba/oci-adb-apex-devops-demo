@@ -7,7 +7,7 @@ BEGIN
     l_sg_id := apex_util.find_security_group_id(p_workspace => '${schema}');
     apex_util.set_security_group_id(p_security_group_id => l_sg_id);
     apex_util.create_user (
-       p_user_name                    => '${schema}'
+       p_user_name                    => 'ADMIN'
       ,p_web_password                 => '${password}'
       ,p_email_address                => 'noreply@oracle.com'
       ,p_developer_privs              => 'ADMIN:CREATE:DATA_LOADER:EDIT:HELP:MONITOR:SQL'
@@ -33,6 +33,6 @@ END;
 -- rollback BEGIN
 -- rollback     l_sg_id := apex_util.find_security_group_id(p_workspace => '${schema}');
 -- rollback     apex_util.set_security_group_id(p_security_group_id => l_sg_id);
--- rollback     apex_util.remove_user(p_user_name =>'${schema}');
+-- rollback     apex_util.remove_user(p_user_name =>'ADMIN');
 -- rollback END;
 -- rollback /

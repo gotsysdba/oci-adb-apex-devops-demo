@@ -14,7 +14,6 @@ log = logging.getLogger(__name__)
 """
 def run_sqlcl(schema, password, service, cmd, resolution, conn_file, run_as):
     lb_env = os.environ.copy()
-    lb_env['schema']    = schema
     lb_env['password']  = password
 
     if resolution == 'wallet':
@@ -52,7 +51,7 @@ def deploy_call(path, user, password, resolution, conn_file, args):
         log.info(f'Running {path}/controller.xml as {user}')
         cmd = f'''
           cd {path}
-          lb update -emit_schema -changelog controller.xml;
+          lb update -changelog-file controller.xml;
         '''
         run_sqlcl(args.dbUser, password, args.dbName, cmd, resolution, conn_file, user)
         
@@ -79,11 +78,6 @@ def generate(password, resolution, conn_file, args):
     # You do you, here:
     log.info('Cleaning up genschema...')
     for filepath in glob.iglob('./**/*.xml', recursive=True):
-    #     log.info(f'Processing {filepath}')
-    #     with open(filepath) as file:
-    #         s = file.read()
-    #     s = s.replace(args.dbUser, '${schema}')
-
         # I don't know when runInTransaction started showing up, but it's bad for this
         # and there doesn't seem to be a way to turn it off
         if filepath.startswith('./apex/f'):

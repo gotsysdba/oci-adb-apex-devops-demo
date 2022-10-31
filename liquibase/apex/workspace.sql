@@ -3,11 +3,11 @@
 -- changeset gotsysdba:Initial endDelimiter:/ rollbackEndDelimiter:/
 BEGIN
   APEX_INSTANCE_ADMIN.ADD_WORKSPACE (
-     P_WORKSPACE          => '${schema}'
-    ,P_SOURCE_IDENTIFIER  => '${schema}'
-    ,P_PRIMARY_SCHEMA     => '${schema}'
+     P_WORKSPACE          => 'DEMO'
+    ,P_SOURCE_IDENTIFIER  => 'DEMO'
+    ,P_PRIMARY_SCHEMA     => 'DEMO'
   );
 END;
 /
--- rollback BEGIN APEX_INSTANCE_ADMIN.REMOVE_WORKSPACE(P_WORKSPACE => '${schema}'); END;
+-- rollback BEGIN APEX_INSTANCE_ADMIN.REMOVE_WORKSPACE(P_WORKSPACE => 'DEMO'); END;
 -- rollback /

@@ -4,12 +4,12 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
 	xmlns:n0="http://www.oracle.com/xml/ns/dbchangelog-ext" 
 	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
-	http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
-	<changeSet id="df9e67fa902957ad673666b4e63c5a83143da8ae" author="(${schema})-Generated" failOnError="true"   runOnChange="true"  >
-		<n0:createSxmlObject objectName="UXI_ORDERS_LU" objectType="TABLE" ownerName="${schema}"   >
+	http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+	<changeSet id="df9e67fa902957ad673666b4e63c5a83143da8ae" author="(DEMO)-Generated" failOnError="true"   runOnChange="true"  >
+		<n0:createSxmlObject objectName="UXI_ORDERS_LU" objectType="TABLE" ownerName="DEMO"   >
 			<n0:source><![CDATA[
   <TABLE xmlns="http://xmlns.oracle.com/ku" version="1.0">
-   <SCHEMA>${schema}</SCHEMA>
+   <SCHEMA>DEMO</SCHEMA>
    <NAME>UXI_ORDERS_LU</NAME>
    <RELATIONAL_TABLE>
       <COL_LIST>

@@ -65,7 +65,7 @@ def deploy(password, resolution, conn_file, args):
 def generate(password, resolution, conn_file, args):
     cmd = '''
       cd schema
-      lb genschema -grants -split -runonchange -fail
+      lb generate-schema -grants -split -runonchange -fail-on-error
     '''
     run_sqlcl(args.dbUser, password, args.dbName, cmd, resolution, conn_file, f'ADMIN[{args.dbUser}]')
 
@@ -79,10 +79,10 @@ def generate(password, resolution, conn_file, args):
     # You do you, here:
     log.info('Cleaning up genschema...')
     for filepath in glob.iglob('./**/*.xml', recursive=True):
-        log.info(f'Processing {filepath}')
-        with open(filepath) as file:
-            s = file.read()
-        s = s.replace(args.dbUser, '${schema}')
+    #     log.info(f'Processing {filepath}')
+    #     with open(filepath) as file:
+    #         s = file.read()
+    #     s = s.replace(args.dbUser, '${schema}')
 
         # I don't know when runInTransaction started showing up, but it's bad for this
         # and there doesn't seem to be a way to turn it off

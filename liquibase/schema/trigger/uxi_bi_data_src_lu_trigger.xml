@@ -4,11 +4,11 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
 	xmlns:n0="http://www.oracle.com/xml/ns/dbchangelog-ext" 
 	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
-	http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
-	<changeSet id="6d49bbe6698a5c4a3a5bc247b9767912d403c6aa" author="(${schema})-Generated" failOnError="true"   runOnChange="true"  >
-		<n0:createOracleTrigger objectName="UXI_BI_DATA_SRC_LU" objectType="TRIGGER" ownerName="${schema}"   >
+	http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+	<changeSet id="6d49bbe6698a5c4a3a5bc247b9767912d403c6aa" author="(DEMO)-Generated" failOnError="true"   runOnChange="true"  >
+		<n0:createOracleTrigger objectName="UXI_BI_DATA_SRC_LU" objectType="TRIGGER" ownerName="DEMO"   >
 			<n0:source><![CDATA[
-  CREATE OR REPLACE EDITIONABLE TRIGGER "${schema}"."UXI_BI_DATA_SRC_LU" 
+  CREATE OR REPLACE EDITIONABLE TRIGGER "DEMO"."UXI_BI_DATA_SRC_LU" 
   before insert on "UXI_DATA_SRC_LU"               
   for each row  
 begin   
@@ -17,7 +17,7 @@ begin
   end if; 
 end;
 /
-ALTER TRIGGER "${schema}"."UXI_BI_DATA_SRC_LU" ENABLE]]></n0:source>
+ALTER TRIGGER "DEMO"."UXI_BI_DATA_SRC_LU" ENABLE]]></n0:source>
 		</n0:createOracleTrigger>
 	</changeSet>
 </databaseChangeLog>

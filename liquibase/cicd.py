@@ -69,14 +69,14 @@ def generate(password, resolution, conn_file, args):
     # To avoid false changes impacting version control, replace schema names
     # You do you, here:
     log.info('Cleaning up genschema...')
-    for filepath in glob.iglob('./**/*.xml', recursive=True):
-        # I don't know when runInTransaction started showing up, but it's bad for this
-        # and there doesn't seem to be a way to turn it off
-        if filepath.startswith('./apex/f'):
-          log.info(f'Extra Processing of APEX Application File {filepath}')
-          s = s.replace('runInTransaction="false"', '')
-        with open(filepath, "w") as file:
-            file.write(s)
+    # for filepath in glob.iglob('./**/*.xml', recursive=True):
+    #     # I don't know when runInTransaction started showing up, but it's bad for this
+    #     # and there doesn't seem to be a way to turn it off
+    #     if filepath.startswith('./apex/f'):
+    #       log.info(f'Extra Processing of APEX Application File {filepath}')
+    #       s = s.replace('runInTransaction="false"', '')
+    #     with open(filepath, "w") as file:
+    #         file.write(s)
 
 def destroy(password, resolution, conn_file, args):
     cmd = 'lb rollback -changelog controller.xml -count 999;'

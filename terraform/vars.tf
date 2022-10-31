@@ -3,7 +3,9 @@
 
 // Basic Hidden
 variable "tenancy_ocid" {}
-variable "compartment_ocid" {}
+variable "compartment_ocid" {
+  default = ""
+}
 
 variable "region" {
   default = ""

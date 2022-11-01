@@ -4,3 +4,5 @@ The standard name is `\<DBNAME\>_wallet.zip` and the file **must** match that st
 
 Example:
 * `APEXDEMODEV_wallet.zip`
+
+Due to a bug in SQLcl, the wallet will be unzip and sqlnet.ora modified.  This also aligns with non-wallet setups.

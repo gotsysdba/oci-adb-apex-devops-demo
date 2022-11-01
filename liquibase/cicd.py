@@ -1,5 +1,5 @@
 #!/bin/env python3
-import argparse, logging, subprocess, os, sys, glob 
+import argparse, logging, subprocess, os, sys, glob, zipfile 
 from datetime import datetime
 
 # Logging Default
@@ -12,19 +12,27 @@ log = logging.getLogger(__name__)
 
 """ Functions
 """
-def run_sqlcl(schema, password, service, path, cmd, resolution, conn_file, run_as):
+def upd_sqlnet(wallet):
+    """ This processes an ADB wallet and updates the sqlnet.ora file
+        Normally could use 'set cloudconfig' but a bug in 22.3 put a stop to that
+    """
+    tns_admin = os.path.dirname(os.path.abspath(wallet))
+    with zipfile.ZipFile(wallet, 'r') as zip_ref:
+        zip_ref.extractall(tns_admin)
+
+    with open(os.path.join(tns_admin,'sqlnet.ora')) as file:
+        s = file.read()
+        s = s.replace('DIRECTORY="?/network/admin"', 'DIRECTORY="'+tns_admin+'"')
+    with open(os.path.join(tns_admin,'sqlnet.ora'), "w") as file:
+        file.write(s)        
+
+def run_sqlcl(schema, password, service, path, cmd, tns_admin, run_as):
     lb_env = os.environ.copy()
     lb_env['password']  = password
-
-    if resolution == 'wallet':
-        wallet = f'set cloudconfig {conn_file}'
-    else:
-        wallet = '-- Using tnsnames.ora'
-        lb_env['TNS_ADMIN'] = tns_admin #<-Global
+    lb_env['TNS_ADMIN'] = tns_admin
 
     # Keep password off the command line/shell history
     sql_cmd = f'''
-        {wallet}
         conn {run_as}/{password}@{service}_high
         {cmd}
     '''
@@ -47,40 +55,43 @@ def run_sqlcl(schema, password, service, path, cmd, resolution, conn_file, run_a
     log.info('SQLcl command successful')
 
 
-def deploy_call(path, user, password, resolution, conn_file, args):
+def deploy_call(path, user, password, tns_admin, args):
     if os.path.exists(os.path.join(path, 'controller.xml')):
         log.info(f'Running {path}/controller.xml as {user}')
         cmd = f'lb update -changelog-file controller.xml;'
-        run_sqlcl(args.dbUser, password, args.dbName, path, cmd, resolution, conn_file, user)
+        run_sqlcl(args.dbUser, password, args.dbName, path, cmd, tns_admin, user)
         
-def deploy(password, resolution, conn_file, args):
-    deploy_call('admin', 'ADMIN', password, resolution, conn_file, args)
-    deploy_call('schema', f'ADMIN[{args.dbUser}]', password, resolution, conn_file, args)
-    deploy_call('data', f'ADMIN[{args.dbUser}]', password, resolution, conn_file, args)
-    deploy_call('apex', f'ADMIN[{args.dbUser}]', password, resolution, conn_file, args)   
+def deploy(password, tns_admin, args):
+    deploy_call('admin', 'ADMIN', password, tns_admin, args)
+    deploy_call('schema', f'ADMIN[{args.dbUser}]', password, tns_admin, args)
+    deploy_call('data', f'ADMIN[{args.dbUser}]', password, tns_admin, args)
+    deploy_call('apex', f'ADMIN[{args.dbUser}]', password, tns_admin, args)   
 
-def generate(password, resolution, conn_file, args):
+def generate(password, tns_admin, args):
     cmd = 'lb generate-schema -grants -split -runonchange -fail-on-error'  
-    run_sqlcl(args.dbUser, password, args.dbName, 'schema', cmd, resolution, conn_file, f'ADMIN[{args.dbUser}]')
+    run_sqlcl(args.dbUser, password, args.dbName, 'schema', cmd, tns_admin, f'ADMIN[{args.dbUser}]')
 
-    cmd = 'apex export -applicationid 103 -skipExportDate -expOriginalIds -expSupportingObjects Y'
-    run_sqlcl(args.dbUser, password, args.dbName, 'apex', cmd, resolution, conn_file, f'ADMIN[{args.dbUser}]')
+    cmd = 'lb genobject -type apex -applicationid 103 -skipExportDate -expPubReports -expSavedReports -expIRNotif -expTranslations -expACLAssignments -expOriginalIds -runonchange -fail'
+    run_sqlcl(args.dbUser, password, args.dbName, 'apex', cmd, tns_admin, f'ADMIN[{args.dbUser}]')
 
     # To avoid false changes impacting version control, replace schema names
     # You do you, here:
     log.info('Cleaning up genschema...')
-    # for filepath in glob.iglob('./**/*.xml', recursive=True):
-    #     # I don't know when runInTransaction started showing up, but it's bad for this
-    #     # and there doesn't seem to be a way to turn it off
-    #     if filepath.startswith('./apex/f'):
-    #       log.info(f'Extra Processing of APEX Application File {filepath}')
-    #       s = s.replace('runInTransaction="false"', '')
-    #     with open(filepath, "w") as file:
-    #         file.write(s)
+    for filepath in glob.iglob('./**/*.xml', recursive=True):
+        log.info(f'Processing {filepath}')
+        with open(filepath) as file:
+            s = file.read()
+        # I don't know when runInTransaction started showing up, but it's bad for this
+        # and there doesn't seem to be a way to turn it off
+        if filepath.startswith('./apex/f'):
+          log.info(f'Extra Processing of APEX Application File {filepath}')
+          s = s.replace('runInTransaction="false"', '')
+        with open(filepath, "w") as file:
+            file.write(s)
 
-def destroy(password, resolution, conn_file, args):
+def destroy(password, tns_admin, args):
     cmd = 'lb rollback -changelog controller.xml -count 999;'
-    run_sqlcl(args.dbUser, password, args.dbName, 'admin', cmd, resolution, conn_file, 'ADMIN')
+    run_sqlcl(args.dbUser, password, args.dbName, 'admin', cmd, tns_admin, 'ADMIN')
     
 """ INIT
 """
@@ -136,17 +147,15 @@ if __name__ == "__main__":
             log.fatal('Database password required')
             sys.exit(1)
             
-    resolution = 'wallet' # Default
-    conn_file  = None
+    # If a wallet was provided, extract and use, otherwise we expect TNS_ADMIN to be set
     if args.dbWallet:
-        conn_file     = args.dbWallet
+        upd_sqlnet(args.dbWallet)
+        tns_admin = os.path.dirname(os.path.abspath(args.dbWallet))
     else:
         tns_admin = os.environ['TNS_ADMIN']
-        if os.path.exists(f'{tns_admin}/tnsnames.ora'):
-            resolution   = 'tnsnames'
-            conn_file    = '{tns_admin}/tnsnames.ora'
-        elif os.path.exists(f'{tns_admin}/{args.dbName}_wallet.zip'):
-            conn_file = f'{tns_admin}/{args.dbName}_wallet.zip'
+        if not os.path.exists(f'{tns_admin}/tnsnames.ora'):
+            log.fatal('Wallet not specified and TNS_ADMIN not set, unable to proceed with DB resolution')
+            sys.exit(1)
 
-    args.func(password, resolution, conn_file,  args)
+    args.func(password, tns_admin, args)
     sys.exit(0)

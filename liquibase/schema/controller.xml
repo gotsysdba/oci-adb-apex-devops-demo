@@ -12,5 +12,9 @@
   <include file="table/uxi_orders_lu_table.xml"/> 
   <include file="table/uxi_feature_cards_lu_table.xml"/> 
   <include file="trigger/uxi_bi_data_src_lu_trigger.xml"/> 
-  <include file="trigger/uxi_bi_authn_methods_lu_trigger.xml"/> 
+  <include file="trigger/uxi_bi_authn_methods_lu_trigger.xml"/>
+  <include file="data/uxi_authn_methods_lu.sql"/>
+  <include file="data/uxi_data_src_lu.sql"/>
+  <include file="data/uxi_orders_lu.sql"/>
+  <include file="data/uxi_feature_cards_lu.sql"/>
 </databaseChangeLog> 

@@ -64,7 +64,6 @@ def deploy_call(path, user, password, tns_admin, args):
 def deploy(password, tns_admin, args):
     deploy_call('admin', 'ADMIN', password, tns_admin, args)
     deploy_call('schema', f'ADMIN[{args.dbUser}]', password, tns_admin, args)
-    deploy_call('data', f'ADMIN[{args.dbUser}]', password, tns_admin, args)
     deploy_call('apex', f'ADMIN[{args.dbUser}]', password, tns_admin, args)   
 
 def generate(password, tns_admin, args):

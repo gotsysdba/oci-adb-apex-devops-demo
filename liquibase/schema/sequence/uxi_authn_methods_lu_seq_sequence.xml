@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <databaseChangeLog 
-	xmlns="http://www.liquibase.org/xml/ns/dbchangelog" 
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-	xmlns:n0="http://www.oracle.com/xml/ns/dbchangelog-ext" 
-	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
-	http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
-	<changeSet id="8aec959221fc67b1a90707b55c32479a8030b689" author="(DEMO)-Generated" failOnError="true"   runOnChange="true"  >
-		<n0:createSxmlObject objectName="UXI_AUTHN_METHODS_LU_SEQ" objectType="SEQUENCE" ownerName="DEMO"   >
-			<n0:source><![CDATA[
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog" 
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xmlns:n0="http://www.oracle.com/xml/ns/dbchangelog-ext" 
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+        <changeSet id="Initial" author="(DEMO)-Generated" failOnError="true"   runOnChange="true"  >
+                <n0:createSxmlObject objectName="UXI_AUTHN_METHODS_LU_SEQ" objectType="SEQUENCE" ownerName="DEMO"   >
+                        <n0:source><![CDATA[
   <SEQUENCE xmlns="http://xmlns.oracle.com/ku" version="1.0">
    <SCHEMA>DEMO</SCHEMA>
    <NAME>UXI_AUTHN_METHODS_LU_SEQ</NAME>
@@ -18,6 +18,6 @@
    <CACHE>20</CACHE>
    <SCALE>NOSCALE</SCALE>
 </SEQUENCE>]]></n0:source>
-		</n0:createSxmlObject>
-	</changeSet>
+                </n0:createSxmlObject>
+        </changeSet>
 </databaseChangeLog>

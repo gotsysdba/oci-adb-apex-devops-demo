@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <databaseChangeLog 
-	xmlns="http://www.liquibase.org/xml/ns/dbchangelog" 
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-	xmlns:n0="http://www.oracle.com/xml/ns/dbchangelog-ext" 
-	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
-	http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
-	<changeSet id="4c509a014fd57d2e4c1c6b7d525b95577c2a4bf6" author="(DEMO)-Generated" failOnError="true"   runOnChange="true"  >
-		<n0:createSxmlObject objectName="UXI_DATA_SRC_LU" objectType="TABLE" ownerName="DEMO"   >
-			<n0:source><![CDATA[
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog" 
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xmlns:n0="http://www.oracle.com/xml/ns/dbchangelog-ext" 
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+        <changeSet id="Initial" author="(DEMO)-Generated" failOnError="true"   runOnChange="true"  >
+                <n0:createSxmlObject objectName="UXI_DATA_SRC_LU" objectType="TABLE" ownerName="DEMO"   >
+                        <n0:source><![CDATA[
   <TABLE xmlns="http://xmlns.oracle.com/ku" version="1.0">
    <SCHEMA>DEMO</SCHEMA>
    <NAME>UXI_DATA_SRC_LU</NAME>
@@ -94,6 +94,6 @@
       </PHYSICAL_PROPERTIES>
    </RELATIONAL_TABLE>
 </TABLE>]]></n0:source>
-		</n0:createSxmlObject>
-	</changeSet>
+                </n0:createSxmlObject>
+        </changeSet>
 </databaseChangeLog>

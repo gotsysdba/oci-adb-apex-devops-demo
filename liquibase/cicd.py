@@ -152,9 +152,13 @@ if __name__ == "__main__":
         upd_sqlnet(args.dbWallet)
         tns_admin = os.path.dirname(os.path.abspath(args.dbWallet))
     else:
-        tns_admin = os.environ['TNS_ADMIN']
-        if not os.path.exists(f'{tns_admin}/tnsnames.ora'):
+        try:
+            tns_admin = os.environ['TNS_ADMIN']
+        except:
             log.fatal('Wallet not specified and TNS_ADMIN not set, unable to proceed with DB resolution')
+            sys.exit(1)
+        if not os.path.exists(f'{tns_admin}/tnsnames.ora'):
+            log.fatal('{tns_admin}/tnsnames.ora not found, unable to proceed with DB resolution')
             sys.exit(1)
 
     args.func(password, tns_admin, args)

@@ -35,7 +35,7 @@ def pre_generate(directory):
     """
     log.info(f'Cleaning up {directory}...')
     for file in glob.iglob(f'{directory}/**/*.xml', recursive=True):
-      log.info(f'Processing {file}')
+      log.debug(f'Processing {file}')
       for line in open(file, "r"):
         if re.search("\<changeSet.*author=\"\(.*\)-Generated\".*?", line):
           log.info(f'Removing {file} for regeneration')
@@ -87,11 +87,13 @@ def deploy(password, tns_admin, args):
 def generate(password, tns_admin, args):
     ## Generate Schema
     pre_generate('schema')
+    log.info('Starting schema export...')
     cmd = 'lb generate-schema -grants -split -runonchange -fail-on-error'  
     run_sqlcl(args.dbUser, password, args.dbName, 'schema', cmd, tns_admin, f'ADMIN[{args.dbUser}]')
 
     ## Generate APEX
     pre_generate('apex')
+    log.info('Starting apex export...')
     cmd = 'lb genobject -type apex -applicationid 103 -skipExportDate -expPubReports -expSavedReports -expIRNotif -expTranslations -expACLAssignments -expOriginalIds -runonchange -fail'
     run_sqlcl(args.dbUser, password, args.dbName, 'apex', cmd, tns_admin, f'ADMIN[{args.dbUser}]')
 

@@ -36,6 +36,9 @@ def pre_generate(directory):
     log.info(f'Cleaning up {directory}...')
     for file in glob.iglob(f'{directory}/**/*.xml', recursive=True):
       log.debug(f'Processing {file}')
+      if file.startswith('controller'):
+        os.remove(file)
+        continue
       for line in open(file, "r"):
         if re.search("\<changeSet.*author=\"\(.*\)-Generated\".*?", line):
           log.info(f'Removing {file} for regeneration')

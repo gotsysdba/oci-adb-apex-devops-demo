@@ -90,13 +90,13 @@ def deploy(password, tns_admin, args):
 
 def generate(password, tns_admin, args):
     ## Generate Schema
-    pre_generate('schema', true)
+    pre_generate('schema', True)
     log.info('Starting schema export...')
     cmd = 'lb generate-schema -grants -split -runonchange -fail-on-error'  
     run_sqlcl(args.dbUser, password, args.dbName, 'schema', cmd, tns_admin, f'ADMIN[{args.dbUser}]')
 
     ## Generate APEX
-    pre_generate('apex', false)
+    pre_generate('apex', False)
     log.info('Starting apex export...')
     cmd = 'lb generate-apex-object -applicationid 103 -expaclassignments true -expirnotif true -exporiginalids true -exppubreports true -expsavedreports true -exptranslations true -skipexportdate true'
     run_sqlcl(args.dbUser, password, args.dbName, 'apex', cmd, tns_admin, f'ADMIN[{args.dbUser}]')

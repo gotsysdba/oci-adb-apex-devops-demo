@@ -36,7 +36,8 @@ def pre_generate(directory):
     log.info(f'Cleaning up {directory}...')
     for file in glob.iglob(f'{directory}/**/*.xml', recursive=True):
       log.debug(f'Processing {file}')
-      if file.startswith('controller'):
+      if file.startswith(f'{directory}/controller'):
+        log.info(f'Removing {file} for regeneration')
         os.remove(file)
         continue
       for line in open(file, "r"):
@@ -97,7 +98,7 @@ def generate(password, tns_admin, args):
     ## Generate APEX
     pre_generate('apex')
     log.info('Starting apex export...')
-    cmd = 'lb genobject -type apex -applicationid 103 -skipExportDate -expPubReports -expSavedReports -expIRNotif -expTranslations -expACLAssignments -expOriginalIds -runonchange -fail'
+    cmd = 'lb genobject -type apex -applicationid 103 -skipExportDate -expPubReports -expSavedReports -expIRNotif -expTranslations -expACLAssignments -expOriginalIds -fail'
     run_sqlcl(args.dbUser, password, args.dbName, 'apex', cmd, tns_admin, f'ADMIN[{args.dbUser}]')
 
 def destroy(password, tns_admin, args):

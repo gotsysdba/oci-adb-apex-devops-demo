@@ -26,7 +26,7 @@ def upd_sqlnet(wallet):
     with open(os.path.join(tns_admin,'sqlnet.ora'), "w") as file:
         file.write(s)
 
-def pre_generate(directory):
+def pre_generate(directory, remove_controller=False):
     """ In sqlcl 22+ the naming of files was changed to support using the generate extension in core liquibase. 
         In core liquibase there is currently no way to inject a ChangeLogSyncListener and since they mandated 
         the sqlcl extension work in core liquibase it can not overwrite the files like it did in pre-22. 
@@ -36,7 +36,7 @@ def pre_generate(directory):
     log.info(f'Cleaning up {directory}...')
     for file in glob.iglob(f'{directory}/**/*.xml', recursive=True):
       log.debug(f'Processing {file}')
-      if file.startswith(f'{directory}/controller'):
+      if file.startswith(f'{directory}/controller') and remove_controller:
         log.info(f'Removing {file} for regeneration')
         os.remove(file)
         continue
@@ -90,15 +90,15 @@ def deploy(password, tns_admin, args):
 
 def generate(password, tns_admin, args):
     ## Generate Schema
-    pre_generate('schema')
+    pre_generate('schema', true)
     log.info('Starting schema export...')
     cmd = 'lb generate-schema -grants -split -runonchange -fail-on-error'  
     run_sqlcl(args.dbUser, password, args.dbName, 'schema', cmd, tns_admin, f'ADMIN[{args.dbUser}]')
 
     ## Generate APEX
-    pre_generate('apex')
+    pre_generate('apex', false)
     log.info('Starting apex export...')
-    cmd = 'lb genobject -type apex -applicationid 103 -skipExportDate -expPubReports -expSavedReports -expIRNotif -expTranslations -expACLAssignments -expOriginalIds -fail'
+    cmd = 'lb generate-apex-object -applicationid 103 -expaclassignments true -expirnotif true -exporiginalids true -exppubreports true -expsavedreports true -exptranslations true -skipexportdate true'
     run_sqlcl(args.dbUser, password, args.dbName, 'apex', cmd, tns_admin, f'ADMIN[{args.dbUser}]')
 
 def destroy(password, tns_admin, args):

@@ -109,13 +109,28 @@ def generate(password, tns_admin, args):
     run_sqlcl(f'ADMIN[{args.dbUser}]', password, args.dbName, 'schema', cmd, tns_admin)
     post_generate('schema')
 
-
     ## Generate APEX
-    pre_generate('apex', False)
-    log.info('Starting apex export...')
-    cmd = 'lb generate-apex-object -applicationid 103 -expaclassignments true -expirnotif true -exporiginalids true -exppubreports true -expsavedreports true -exptranslations true -skipexportdate true'
+    #  Get the SH256 Checksum of the last export
+    sh256_file = os.path.join('apex', 'f103-sh256.xml')
+    try:
+        old_checksum = re.search(r'SH256:(.*)]]', open(sh256_file,'r').read()).group(1)
+        os.remove(sh256_file)
+    except:
+        checksum = 'No_Checksum_Found'
+
+    # Compare Checksums
+    cmd = 'lb generate-apex-object -applicationid 103 -exporiginalids true -skipexportdate true -exptype CHECKSUM-SH256' 
     run_sqlcl(f'ADMIN[{args.dbUser}]', password, args.dbName, 'apex', cmd, tns_admin)
-    post_generate('apex')
+    new_checksum = re.search(r'SH256:(.*)]]', open(sh256_file,'r').read()).group(1)
+
+    if old_checksum != new_checksum:
+        pre_generate('apex', False)
+        log.info('Starting apex export...')
+        cmd = 'lb generate-apex-object -applicationid 103 -exporiginalids true -skipexportdate true -exptype APPLICATION_SOURCE -nochecksum'
+        run_sqlcl(f'ADMIN[{args.dbUser}]', password, args.dbName, 'apex', cmd, tns_admin)
+        post_generate('apex')
+    else:
+        log.info('No APEX changes found')
 
 def destroy(password, tns_admin, args):
     cmd = 'lb rollback-count -changelog controller.xml -count 999;'

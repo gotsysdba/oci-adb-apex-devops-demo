@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog 
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:n0="http://www.oracle.com/xml/ns/dbchangelog-ext" 
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
+	http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+	<changeSet id="f48f3db2da2d8e29988b6806891d112640bcad47" author="(DEMO)-Generated"    runInTransaction="true"  >
+		<n0:runOracleScript objectName="SCRIPT" objectType="APEX" ownerName="DEMO" sourceType="STRING"  >
+			<n0:source><![CDATA[SH256:isqX8XRnI2O3rWnj5hC3dmQzGnRUJPoO7ja/HUhtKgU=]]></n0:source>
+		</n0:runOracleScript>
+	</changeSet>
+</databaseChangeLog>

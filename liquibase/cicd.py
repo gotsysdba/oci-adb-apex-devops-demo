@@ -62,7 +62,7 @@ def run_sqlcl(schema, password, service, path, cmd, tns_admin, run_as):
                             stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
     exit_status = 0
-    error_matches = ['Error Message','ORA-','SQL Error','Validation Failed']
+    error_matches = ['Error Message','ORA-','SQL Error','Validation Failed','Unexpected internal error']
     result_list = result.stdout.splitlines();
     for line in filter(None, result_list):
         log.info(line)

@@ -92,7 +92,7 @@ def generate(password, tns_admin, args):
     ## Generate Schema
     pre_generate('schema', True)
     log.info('Starting schema export...')
-    cmd = 'lb generate-schema -split'  
+    cmd = 'lb generate-schema -split -grants -runonchange -fail-on-error'  
     run_sqlcl(f'ADMIN[{args.dbUser}]', password, args.dbName, 'schema', cmd, tns_admin)
 
     ## Generate APEX

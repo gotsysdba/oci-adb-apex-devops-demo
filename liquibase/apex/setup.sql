@@ -23,7 +23,7 @@ BEGIN
     apex_application_install.set_workspace_id(p_workspace_id => l_workspace_id);
 
     -- Set Additional Overrides
-    apex_application_install.generate_offset();
+    --apex_application_install.generate_offset();
     apex_application_install.set_build_status(p_build_status => 'RUN_AND_BUILD');
     apex_application_install.set_auto_install_sup_obj(p_auto_install_sup_obj => true);
 END;

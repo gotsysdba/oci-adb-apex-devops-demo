@@ -102,7 +102,7 @@ def generate(password, tns_admin, args):
     run_sqlcl(args.dbUser, password, args.dbName, 'apex', cmd, tns_admin, f'ADMIN[{args.dbUser}]')
 
 def destroy(password, tns_admin, args):
-    cmd = 'lb rollback -changelog controller.xml -count 999;'
+    cmd = 'lb rollback-count -changelog controller.xml -count 999;'
     run_sqlcl(args.dbUser, password, args.dbName, 'admin', cmd, tns_admin, 'ADMIN')
     
 """ INIT

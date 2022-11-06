@@ -9,7 +9,6 @@
                 <n0:createSxmlObject objectName="UXI_DATA_SRC_LU_SEQ" objectType="SEQUENCE" ownerName="DEMO"   >
                         <n0:source><![CDATA[
   <SEQUENCE xmlns="http://xmlns.oracle.com/ku" version="1.0">
-   <SCHEMA>DEMO</SCHEMA>
    <NAME>UXI_DATA_SRC_LU_SEQ</NAME>
    <START_WITH>7</START_WITH>
    <INCREMENT>1</INCREMENT>

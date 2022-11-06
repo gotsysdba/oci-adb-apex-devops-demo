@@ -16,8 +16,6 @@ begin
     select "UXI_AUTHN_METHODS_LU_SEQ".nextval into :NEW."ID" from sys.dual; 
   end if; 
 end;
-
-/
 /
 ALTER TRIGGER "DEMO"."UXI_BI_AUTHN_METHODS_LU" ENABLE;]]></n0:source>
                 </n0:createOracleTrigger>

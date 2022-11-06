@@ -122,7 +122,7 @@ def generate(password, tns_admin, args):
 
     log.info(f'Old Checksum: {old_checksum}')
     # Compare Checksums
-    cmd = 'lb generate-apex-object -applicationid 103 -exporiginalids true -skipexportdate true -exptype CHECKSUM-SH256' 
+    cmd = 'lb generate-apex-object -api 103 -exca true -exirn true -exns true -exoi true -expr true -exsr true -exso Y -ext true -sked true -exty CHECKSUM-SH256' 
     run_sqlcl(f'ADMIN[{args.dbUser}]', password, args.dbName, 'apex', cmd, tns_admin)
     new_checksum = re.search(r'SH256:(.*)]]', open(sh256_file,'r').read()).group(1)
 
@@ -130,7 +130,7 @@ def generate(password, tns_admin, args):
     if old_checksum != new_checksum:
         pre_generate('apex', False)
         log.info('Starting apex export...')
-        cmd = 'lb generate-apex-object -applicationid 103 -exporiginalids true -skipexportdate true -exptype APPLICATION_SOURCE -nochecksum'
+        cmd = 'lb generate-apex-object -api 103 -exca true -exirn true -exns true -exoi true -expr true -exsr true -exso Y -ext true -sked true -exty APPLICATION_SOURCE'
         run_sqlcl(f'ADMIN[{args.dbUser}]', password, args.dbName, 'apex', cmd, tns_admin)
         post_generate('apex')
     else:

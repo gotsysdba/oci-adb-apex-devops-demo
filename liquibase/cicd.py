@@ -36,6 +36,8 @@ def pre_generate(directory, remove_controller=False):
     log.info(f'Cleaning up {directory}...')
     for file in glob.iglob(f'{directory}/**/*.xml', recursive=True):
         log.debug(f'Processing {file}')
+        if file.endswith('sh256.xml'):
+            continue
         if file.startswith(f'{directory}/controller') and remove_controller:
             log.info(f'Removing {file} for regeneration')
             os.remove(file)
@@ -116,13 +118,15 @@ def generate(password, tns_admin, args):
         old_checksum = re.search(r'SH256:(.*)]]', open(sh256_file,'r').read()).group(1)
         os.remove(sh256_file)
     except:
-        checksum = 'No_Checksum_Found'
+        old_checksum = 'No_Checksum_Found'
 
+    log.info(f'Old Checksum: {old_checksum}')
     # Compare Checksums
     cmd = 'lb generate-apex-object -applicationid 103 -exporiginalids true -skipexportdate true -exptype CHECKSUM-SH256' 
     run_sqlcl(f'ADMIN[{args.dbUser}]', password, args.dbName, 'apex', cmd, tns_admin)
     new_checksum = re.search(r'SH256:(.*)]]', open(sh256_file,'r').read()).group(1)
 
+    log.info(f'New Checksum: {new_checksum}')
     if old_checksum != new_checksum:
         pre_generate('apex', False)
         log.info('Starting apex export...')

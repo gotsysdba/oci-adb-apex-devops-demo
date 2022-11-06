@@ -46,7 +46,7 @@ def pre_generate(directory, remove_controller=False):
           os.remove(file)
           continue
 
-def run_sqlcl(schema, password, service, path, cmd, tns_admin, run_as):
+def run_sqlcl(run_as, password, service, path, cmd, tns_admin):
     lb_env = os.environ.copy()
     lb_env['password']  = password
     lb_env['TNS_ADMIN'] = tns_admin
@@ -78,7 +78,7 @@ def deploy_call(path, user, password, tns_admin, args):
     if os.path.exists(os.path.join(path, 'controller.xml')):
         log.info(f'Running {path}/controller.xml as {user}')
         cmd = f'lb update -changelog-file controller.xml;'
-        run_sqlcl(args.dbUser, password, args.dbName, path, cmd, tns_admin, user)
+        run_sqlcl(user, password, args.dbName, path, cmd, tns_admin)
 
 """ Action Functions
 """
@@ -92,18 +92,18 @@ def generate(password, tns_admin, args):
     ## Generate Schema
     pre_generate('schema', True)
     log.info('Starting schema export...')
-    cmd = 'lb generate-schema -grants -split -runonchange -fail-on-error'  
-    run_sqlcl(args.dbUser, password, args.dbName, 'schema', cmd, tns_admin, f'ADMIN[{args.dbUser}]')
+    cmd = 'lb generate-schema -split'  
+    run_sqlcl(f'ADMIN[{args.dbUser}]', password, args.dbName, 'schema', cmd, tns_admin)
 
     ## Generate APEX
     pre_generate('apex', False)
     log.info('Starting apex export...')
     cmd = 'lb generate-apex-object -applicationid 103 -expaclassignments true -expirnotif true -exporiginalids true -exppubreports true -expsavedreports true -exptranslations true -skipexportdate true'
-    run_sqlcl(args.dbUser, password, args.dbName, 'apex', cmd, tns_admin, f'ADMIN[{args.dbUser}]')
+    run_sqlcl(f'ADMIN[{args.dbUser}]', password, args.dbName, 'apex', cmd, tns_admin)
 
 def destroy(password, tns_admin, args):
     cmd = 'lb rollback-count -changelog controller.xml -count 999;'
-    run_sqlcl(args.dbUser, password, args.dbName, 'admin', cmd, tns_admin, 'ADMIN')
+    run_sqlcl('ADMIN', password, args.dbName, 'admin', cmd, tns_admin)
     
 """ INIT
 """

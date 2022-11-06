@@ -137,7 +137,7 @@ def generate(password, tns_admin, args):
         log.info('No APEX changes found')
 
 def destroy(password, tns_admin, args):
-    cmd = 'lb rollback-count -changelog controller.xml -count 999;'
+    cmd = 'lb rollback-count -changelog-file controller.xml -count 999;'
     run_sqlcl('ADMIN', password, args.dbName, 'admin', cmd, tns_admin)
     
 """ INIT

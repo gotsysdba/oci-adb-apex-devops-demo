@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?> 
-<databaseChangeLog 
-	xmlns="http://www.liquibase.org/xml/ns/dbchangelog" 
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-	xmlns:n0="http://www.oracle.com/xml/ns/dbchangelog-ext" 
-	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
-	http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+<databaseChangeLog
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
   <include file="sequence/uxi_authn_methods_lu_seq_sequence.xml"/> 
   <include file="sequence/uxi_data_src_lu_seq_sequence.xml"/> 
   <include file="table/uxi_authn_methods_lu_table.xml"/> 
@@ -12,5 +11,5 @@
   <include file="table/uxi_orders_lu_table.xml"/> 
   <include file="table/uxi_feature_cards_lu_table.xml"/> 
   <include file="trigger/uxi_bi_data_src_lu_trigger.xml"/> 
-  <include file="trigger/uxi_bi_authn_methods_lu_trigger.xml"/>
+  <include file="trigger/uxi_bi_authn_methods_lu_trigger.xml"/> 
 </databaseChangeLog> 

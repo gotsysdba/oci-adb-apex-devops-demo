@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <databaseChangeLog 
-        xmlns="http://www.liquibase.org/xml/ns/dbchangelog" 
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-        xmlns:n0="http://www.oracle.com/xml/ns/dbchangelog-ext" 
-        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
-        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
-        <changeSet id="Initial" author="(DEMO)-Generated" failOnError="true"   runOnChange="true"  >
-                <n0:createSxmlObject objectName="UXI_FEATURE_CARDS_LU" objectType="TABLE" ownerName="DEMO"   >
-                        <n0:source><![CDATA[
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:n0="http://www.oracle.com/xml/ns/dbchangelog-ext" 
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
+	http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+	<changeSet id="5529afc7d4f58ede6bbb2f87331ab653f081e7be" author="(DEMO)-Generated" failOnError="true"   runOnChange="true"  >
+		<n0:createSxmlObject objectName="UXI_FEATURE_CARDS_LU" objectType="TABLE" ownerName="DEMO"   >
+			<n0:source><![CDATA[
   <TABLE xmlns="http://xmlns.oracle.com/ku" version="1.0">
    <SCHEMA>DEMO</SCHEMA>
    <NAME>UXI_FEATURE_CARDS_LU</NAME>
@@ -71,6 +71,6 @@
       </PHYSICAL_PROPERTIES>
    </RELATIONAL_TABLE>
 </TABLE>]]></n0:source>
-                </n0:createSxmlObject>
-        </changeSet>
+		</n0:createSxmlObject>
+	</changeSet>
 </databaseChangeLog>

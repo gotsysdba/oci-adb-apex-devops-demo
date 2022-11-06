@@ -35,16 +35,29 @@ def pre_generate(directory, remove_controller=False):
     """
     log.info(f'Cleaning up {directory}...')
     for file in glob.iglob(f'{directory}/**/*.xml', recursive=True):
-      log.debug(f'Processing {file}')
-      if file.startswith(f'{directory}/controller') and remove_controller:
-        log.info(f'Removing {file} for regeneration')
-        os.remove(file)
-        continue
-      for line in open(file, "r"):
-        if re.search("\<changeSet.*author=\"\(.*\)-Generated\".*?", line):
-          log.info(f'Removing {file} for regeneration')
-          os.remove(file)
-          continue
+        log.debug(f'Processing {file}')
+        if file.startswith(f'{directory}/controller') and remove_controller:
+            log.info(f'Removing {file} for regeneration')
+            os.remove(file)
+            continue
+        for line in open(file, "r"):
+            if re.search("\<changeSet.*author=\"\(.*\)-Generated\".*?", line):
+                log.info(f'Removing {file} for regeneration')
+                os.remove(file)
+                continue
+
+def post_generate(directory):
+    """ sqlcl may create modifications where they don't exist; specifically blank lines
+        this function is to clean those to keep git happy
+    """
+    log.info(f'Cleaning up {directory}...')
+    for file in glob.iglob(f'{directory}/**/*.xml', recursive=True):
+        log.debug(f'Processing {file}')
+        with open(file) as reader, open(file, 'r+') as writer:
+            for line in reader:
+                if line.strip():
+                    writer.write(line)
+            writer.truncate()
 
 def run_sqlcl(run_as, password, service, path, cmd, tns_admin):
     lb_env = os.environ.copy()
@@ -94,12 +107,15 @@ def generate(password, tns_admin, args):
     log.info('Starting schema export...')
     cmd = 'lb generate-schema -split -grants -runonchange -fail-on-error'  
     run_sqlcl(f'ADMIN[{args.dbUser}]', password, args.dbName, 'schema', cmd, tns_admin)
+    post_generate('schema')
+
 
     ## Generate APEX
     pre_generate('apex', False)
     log.info('Starting apex export...')
     cmd = 'lb generate-apex-object -applicationid 103 -expaclassignments true -expirnotif true -exporiginalids true -exppubreports true -expsavedreports true -exptranslations true -skipexportdate true'
     run_sqlcl(f'ADMIN[{args.dbUser}]', password, args.dbName, 'apex', cmd, tns_admin)
+    post_generate('apex')
 
 def destroy(password, tns_admin, args):
     cmd = 'lb rollback-count -changelog controller.xml -count 999;'

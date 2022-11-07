@@ -1,5 +1,5 @@
 #!/bin/env python3
-import argparse, logging, subprocess, os, sys, glob, zipfile, re, tempfile
+import argparse, logging, subprocess, os, sys, glob, re
 from datetime import datetime
 
 # Logging Default
@@ -10,22 +10,10 @@ datefmt  = '%Y-%b-%d %H:%M:%S'
 logging.basicConfig(level = level, format = format, handlers = handlers, datefmt=datefmt)
 log = logging.getLogger(__name__)
 
+# Script Path
+script_dir = os.path.dirname(os.path.abspath(__file__))
 """ Helpler Functions
 """
-def upd_sqlnet(wallet):
-    """ This processes an ADB wallet and updates the sqlnet.ora file
-        Normally could use 'set cloudconfig' but a bug in 22.3 put a stop to that
-    """
-    tns_admin = os.path.dirname(os.path.abspath(wallet))
-    with zipfile.ZipFile(wallet, 'r') as zip_ref:
-        zip_ref.extractall(tns_admin)
-
-    with open(os.path.join(tns_admin,'sqlnet.ora')) as file:
-        s = file.read()
-        s = s.replace('DIRECTORY="?/network/admin"', 'DIRECTORY="'+tns_admin+'"')
-    with open(os.path.join(tns_admin,'sqlnet.ora'), "w") as file:
-        file.write(s)
-
 def pre_generate(directory, remove_controller=False):
     """ In sqlcl 22+ the naming of files was changed to support using the generate extension in core liquibase. 
         In core liquibase there is currently no way to inject a ChangeLogSyncListener and since they mandated 
@@ -48,7 +36,7 @@ def pre_generate(directory, remove_controller=False):
                 os.remove(file)
                 continue
 
-def post_generate(directory):
+def post_generate(directory, args):
     """ sqlcl may create modifications where they don't exist; specifically blank lines
         this function is to clean those to keep git happy
     """
@@ -58,7 +46,7 @@ def post_generate(directory):
         with open(file) as reader, open(file, 'r+') as writer:
             for line in reader:
                 if line.strip():
-                    writer.write(line)
+                    writer.write(line.replace(args.dbUser, "${schema}"))
             writer.truncate()
 
 def apex_checksum(checksum_file=None):
@@ -68,7 +56,7 @@ def apex_checksum(checksum_file=None):
             rtn_checksum = re.search(r'SH256:(.*)]]', open(checksum_file,'r').read()).group(1)
         else:
             cmd = f'lb generate-apex-object -api 103 -exca true -exirn true -exns true -exoi true -expr true -exsr true -exso Y -ext true -sked true -exty CHECKSUM-SH256' 
-            run_sqlcl(f'ADMIN[{args.dbUser}]', password, args.dbName, 'apex', cmd, tns_admin)
+            run_sqlcl(f'ADMIN[{args.dbUser}]', password, 'apex', cmd, tns_admin, args)
             rtn_checksum = re.search(r'SH256:(.*)]]', open('apex/f103-sh2561.xml','r').read()).group(1)
             os.remove('apex/f103-sh2561.xml')
     except:
@@ -77,15 +65,22 @@ def apex_checksum(checksum_file=None):
     log.info(f'Checksum: {rtn_checksum}')
     return rtn_checksum
 
-def run_sqlcl(run_as, password, service, path, cmd, tns_admin):
+def run_sqlcl(run_as, password, path, cmd, tns_admin, args):
     lb_env = os.environ.copy()
     lb_env['password']  = password
-    lb_env['TNS_ADMIN'] = tns_admin
+
+    service   = args.dbName
+    cloud_cfg = ''
+    if tns_admin == 'wallet':
+      cloud_cfg = f'set cloudconfig {os.path.abspath(args.dbWallet)}'
+    else:
+      lb_env['TNS_ADMIN'] = tns_admin
 
     # Keep password off the command line/shell history
     sql_cmd = f'''
+        {cloud_cfg}
         conn {run_as}/{password}@{service}_high
-        {cmd}
+        {cmd} 
     '''
 
     log.debug(f'Running: {sql_cmd}')
@@ -108,8 +103,8 @@ def run_sqlcl(run_as, password, service, path, cmd, tns_admin):
 def deploy_call(path, user, password, tns_admin, args):
     if os.path.exists(os.path.join(path, 'controller.xml')):
         log.info(f'Running {path}/controller.xml as {user}')
-        cmd = f'lb update -changelog-file controller.xml;'
-        run_sqlcl(user, password, args.dbName, path, cmd, tns_admin)
+        cmd = f'lb update -changelog-file controller.xml -defaults-file {script_dir}/default.properties;'
+        run_sqlcl(user, password, path, cmd, tns_admin, args)
 
 """ Action Functions
 """
@@ -127,8 +122,8 @@ def generate(password, tns_admin, args):
     pre_generate('schema', True)
     log.info('Starting schema export...')
     cmd = 'lb generate-schema -split -grants -runonchange -fail-on-error'  
-    run_sqlcl(f'ADMIN[{args.dbUser}]', password, args.dbName, 'schema', cmd, tns_admin)
-    post_generate('schema')
+    run_sqlcl(f'ADMIN[{args.dbUser}]', password, 'schema', cmd, tns_admin, args)
+    post_generate('schema',args)
 
     ## Generate APEX
     #  Get the SH256 Checksum of the last export
@@ -139,14 +134,14 @@ def generate(password, tns_admin, args):
         os.remove(sh256_file)
         for export_type in ['APPLICATION_SOURCE', 'CHECKSUM-SH256']:
             cmd = f'lb generate-apex-object -api 103 -exca true -exirn true -exns true -exoi true -expr true -exsr true -exso Y -ext true -sked true -exty {export_type}'
-            run_sqlcl(f'ADMIN[{args.dbUser}]', password, args.dbName, 'apex', cmd, tns_admin)
-        post_generate('apex')
+            run_sqlcl(f'ADMIN[{args.dbUser}]', password, 'apex', cmd, tns_admin, args)
+        post_generate('apex',args)
     else:
         log.info('No APEX changes found')
 
 def destroy(password, tns_admin, args):
     cmd = 'lb rollback-count -changelog-file controller.xml -count 999;'
-    run_sqlcl('ADMIN', password, args.dbName, 'admin', cmd, tns_admin)
+    run_sqlcl('ADMIN', password, 'admin', cmd, tns_admin, args)
     
 """ INIT
 """
@@ -158,24 +153,16 @@ if __name__ == "__main__":
     parent_parser.add_argument('--dbPass',   required=False, action='store',      help='ADMIN Password')
     parent_parser.add_argument('--dbWallet', required=False, action='store',      help='Database Wallet')
     parent_parser.add_argument('--debug',    required=False, action='store_true', help='Enable Debug')
-
+    ## Subparser
     subparsers = parser.add_subparsers(help='Actions')
     # Deploy
-    deploy_parser = subparsers.add_parser('deploy', parents=[parent_parser], 
-        help='Deploy'
-    )
+    deploy_parser = subparsers.add_parser('deploy', parents=[parent_parser], help='Deploy')
     deploy_parser.set_defaults(func=deploy,action='deploy')
-
     # Generate 
-    generate_parser = subparsers.add_parser('generate', parents=[parent_parser], 
-        help='Generate Changelogs'
-    )
+    generate_parser = subparsers.add_parser('generate', parents=[parent_parser], help='Generate Changelogs')
     generate_parser.set_defaults(func=generate,action='generate')
-
     # Destroy
-    destroy_parser = subparsers.add_parser('destroy', parents=[parent_parser], 
-        help='Destroy'
-    )
+    destroy_parser = subparsers.add_parser('destroy', parents=[parent_parser], help='Destroy')
     destroy_parser.set_defaults(func=destroy,action='destroy')    
 
     if len(sys.argv[1:])==0:
@@ -185,7 +172,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     if args.debug:
-        log.getLogger().setLevel(logging.DEBUG)
+        log.setLevel(logging.DEBUG)
         log.debug("Debugging Enabled")
 
     log.debug('Arguments: {}'.format(args))
@@ -202,10 +189,8 @@ if __name__ == "__main__":
             log.fatal('Database password required')
             sys.exit(1)
             
-    # If a wallet was provided, extract and use, otherwise we expect TNS_ADMIN to be set
     if args.dbWallet:
-        upd_sqlnet(args.dbWallet)
-        tns_admin = os.path.dirname(os.path.abspath(args.dbWallet))
+        tns_admin = "wallet"
     else:
         try:
             tns_admin = os.environ['TNS_ADMIN']

@@ -5,6 +5,6 @@
     xmlns:n0="http://www.oracle.com/xml/ns/dbchangelog-ext" 
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
     http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
-    <include file="setup.sql"/>
-    <include file="f103.xml"/>
+      <include file="setup.sql"/>
+      <include file="f103.xml"/>
 </databaseChangeLog>

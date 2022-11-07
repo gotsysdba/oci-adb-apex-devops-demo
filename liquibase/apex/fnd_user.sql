@@ -11,7 +11,7 @@ BEGIN
       ,p_web_password                 => '${password}'
       ,p_email_address                => 'noreply@oracle.com'
       ,p_developer_privs              => 'ADMIN:CREATE:DATA_LOADER:EDIT:HELP:MONITOR:SQL'
-      ,p_default_schema               => 'DEMO'
+      ,p_default_schema               => '${schema}'
       ,p_account_locked               => 'N'
       ,p_change_password_on_first_use => 'Y'
       ,p_first_password_use_occurred  => 'N'

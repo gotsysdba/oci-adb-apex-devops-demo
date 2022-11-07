@@ -1,5 +1,5 @@
 #!/bin/env python3
-import argparse, logging, subprocess, os, sys, glob, zipfile, re
+import argparse, logging, subprocess, os, sys, glob, zipfile, re, tempfile
 from datetime import datetime
 
 # Logging Default
@@ -61,6 +61,22 @@ def post_generate(directory):
                     writer.write(line)
             writer.truncate()
 
+def apex_checksum(checksum_file=None):
+    rtn_checksum = 'No_Checksum_Found'
+    try:
+        if checksum_file:
+            rtn_checksum = re.search(r'SH256:(.*)]]', open(checksum_file,'r').read()).group(1)
+        else:
+            cmd = f'lb generate-apex-object -api 103 -exca true -exirn true -exns true -exoi true -expr true -exsr true -exso Y -ext true -sked true -exty CHECKSUM-SH256' 
+            run_sqlcl(f'ADMIN[{args.dbUser}]', password, args.dbName, 'apex', cmd, tns_admin)
+            rtn_checksum = re.search(r'SH256:(.*)]]', open('apex/f103-sh2561.xml','r').read()).group(1)
+            os.remove('apex/f103-sh2561.xml')
+    except:
+        pass
+    
+    log.info(f'Checksum: {rtn_checksum}')
+    return rtn_checksum
+
 def run_sqlcl(run_as, password, service, path, cmd, tns_admin):
     lb_env = os.environ.copy()
     lb_env['password']  = password
@@ -101,7 +117,10 @@ def deploy(password, tns_admin, args):
     deploy_call('admin', 'ADMIN', password, tns_admin, args)
     deploy_call('schema', f'ADMIN[{args.dbUser}]', password, tns_admin, args)
     deploy_call('data', f'ADMIN[{args.dbUser}]', password, tns_admin, args)
-    deploy_call('apex', f'ADMIN[{args.dbUser}]', password, tns_admin, args)   
+
+    sh256_file = os.path.join('apex', 'f103-sh256.xml')
+    if apex_checksum(sh256_file) != apex_checksum():
+        deploy_call('apex', f'ADMIN[{args.dbUser}]', password, tns_admin, args)   
 
 def generate(password, tns_admin, args):
     ## Generate Schema
@@ -114,24 +133,13 @@ def generate(password, tns_admin, args):
     ## Generate APEX
     #  Get the SH256 Checksum of the last export
     sh256_file = os.path.join('apex', 'f103-sh256.xml')
-    try:
-        old_checksum = re.search(r'SH256:(.*)]]', open(sh256_file,'r').read()).group(1)
-        os.remove(sh256_file)
-    except:
-        old_checksum = 'No_Checksum_Found'
-
-    log.info(f'Old Checksum: {old_checksum}')
-    # Compare Checksums
-    cmd = 'lb generate-apex-object -api 103 -exca true -exirn true -exns true -exoi true -expr true -exsr true -exso Y -ext true -sked true -exty CHECKSUM-SH256' 
-    run_sqlcl(f'ADMIN[{args.dbUser}]', password, args.dbName, 'apex', cmd, tns_admin)
-    new_checksum = re.search(r'SH256:(.*)]]', open(sh256_file,'r').read()).group(1)
-
-    log.info(f'New Checksum: {new_checksum}')
-    if old_checksum != new_checksum:
+    if apex_checksum(sh256_file) != apex_checksum():
         pre_generate('apex', False)
         log.info('Starting apex export...')
-        cmd = 'lb generate-apex-object -api 103 -exca true -exirn true -exns true -exoi true -expr true -exsr true -exso Y -ext true -sked true -exty APPLICATION_SOURCE'
-        run_sqlcl(f'ADMIN[{args.dbUser}]', password, args.dbName, 'apex', cmd, tns_admin)
+        os.remove(sh256_file)
+        for export_type in ['APPLICATION_SOURCE', 'CHECKSUM-SH256']:
+            cmd = f'lb generate-apex-object -api 103 -exca true -exirn true -exns true -exoi true -expr true -exsr true -exso Y -ext true -sked true -exty {export_type}'
+            run_sqlcl(f'ADMIN[{args.dbUser}]', password, args.dbName, 'apex', cmd, tns_admin)
         post_generate('apex')
     else:
         log.info('No APEX changes found')

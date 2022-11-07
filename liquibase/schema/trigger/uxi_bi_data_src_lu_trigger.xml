@@ -17,7 +17,7 @@ begin
   end if; 
 end;
 /
-/
+
 ALTER TRIGGER "DEMO"."UXI_BI_DATA_SRC_LU" ENABLE;]]></n0:source>
 		</n0:createOracleTrigger>
 	</changeSet>

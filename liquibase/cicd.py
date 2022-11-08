@@ -1,5 +1,5 @@
 #!/bin/env python3
-import argparse, logging, subprocess, os, sys, glob, re
+import argparse, logging, subprocess, os, sys, glob, re, zipfile
 from datetime import datetime
 
 # Logging Default
@@ -16,6 +16,20 @@ script_dir = os.path.dirname(os.path.abspath(__file__))
 ##############################################################
 ## Helper Functions
 ##############################################################
+def upd_sqlnet(wallet):
+    """ This processes an ADB wallet and updates the sqlnet.ora file
+        Normally could use 'set cloudconfig' but a bug in 22.3 put a stop to that
+    """
+    tns_admin = os.path.dirname(os.path.abspath(wallet))
+    with zipfile.ZipFile(wallet, 'r') as zip_ref:
+        zip_ref.extractall(tns_admin)
+
+    with open(os.path.join(tns_admin,'sqlnet.ora')) as file:
+        s = file.read()
+        s = s.replace('DIRECTORY="?/network/admin"', 'DIRECTORY="'+tns_admin+'"')
+    with open(os.path.join(tns_admin,'sqlnet.ora'), "w") as file:
+        file.write(s)
+
 def pre_generate(directory, remove_controller=False):
     """ In sqlcl 22+ the naming of files was changed to support using the generate extension in core liquibase. 
         In core liquibase there is currently no way to inject a ChangeLogSyncListener and since they mandated 
@@ -204,7 +218,10 @@ if __name__ == "__main__":
             sys.exit(1)
             
     if args.dbWallet:
-        tns_admin = "wallet"
+        upd_sqlnet(args.dbWallet)
+        tns_admin = os.path.dirname(os.path.abspath(args.dbWallet))
+        ## Wait until bugs fixed, then delete above 2, uncomment below
+        #tns_admin = "wallet"
     else:
         try:
             tns_admin = os.environ['TNS_ADMIN']

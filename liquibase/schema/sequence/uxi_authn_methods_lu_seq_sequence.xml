@@ -5,11 +5,11 @@
 	xmlns:n0="http://www.oracle.com/xml/ns/dbchangelog-ext" 
 	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
 	http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
-	<changeSet id="8aec959221fc67b1a90707b55c32479a8030b689" author="(${schema})-Generated" failOnError="true"   runOnChange="true"  >
-		<n0:createSxmlObject objectName="UXI_AUTHN_METHODS_LU_SEQ" objectType="SEQUENCE" ownerName="${schema}"   >
+	<changeSet id="8aec959221fc67b1a90707b55c32479a8030b689" author="(DEMO)-Generated" failOnError="true"   runOnChange="true"  >
+		<n0:createSxmlObject objectName="UXI_AUTHN_METHODS_LU_SEQ" objectType="SEQUENCE" ownerName="DEMO"   >
 			<n0:source><![CDATA[
   <SEQUENCE xmlns="http://xmlns.oracle.com/ku" version="1.0">
-   <SCHEMA>${schema}</SCHEMA>
+   <SCHEMA>DEMO</SCHEMA>
    <NAME>UXI_AUTHN_METHODS_LU_SEQ</NAME>
    <START_WITH>10</START_WITH>
    <INCREMENT>1</INCREMENT>

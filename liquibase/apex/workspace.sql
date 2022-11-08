@@ -5,7 +5,7 @@ BEGIN
   APEX_INSTANCE_ADMIN.ADD_WORKSPACE (
      P_WORKSPACE          => 'DEMO'
     ,P_SOURCE_IDENTIFIER  => 'DEMO'
-    ,P_PRIMARY_SCHEMA     => '${schema}'
+    ,P_PRIMARY_SCHEMA     => 'DEMO'
   );
 END;
 /

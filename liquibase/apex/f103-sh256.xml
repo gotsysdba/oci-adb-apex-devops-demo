@@ -5,8 +5,8 @@
 	xmlns:n0="http://www.oracle.com/xml/ns/dbchangelog-ext" 
 	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
 	http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
-	<changeSet id="d87bf241a68d8636a06e6948273469ad0fc7c686" author="(${schema})-Generated"    runInTransaction="true"  >
-		<n0:runOracleScript objectName="SCRIPT" objectType="APEX" ownerName="${schema}" sourceType="STRING"  >
+	<changeSet id="d87bf241a68d8636a06e6948273469ad0fc7c686" author="(DEMO)-Generated"    runInTransaction="true"  >
+		<n0:runOracleScript objectName="SCRIPT" objectType="APEX" ownerName="DEMO" sourceType="STRING"  >
 			<n0:source><![CDATA[SH256:71ge0KTs6h22JH+JbJ31O5M1nvqlM8qaVfLWNP2bxLQ=]]></n0:source>
 		</n0:runOracleScript>
 	</changeSet>

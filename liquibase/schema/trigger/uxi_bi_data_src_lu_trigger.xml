@@ -5,10 +5,10 @@
 	xmlns:n0="http://www.oracle.com/xml/ns/dbchangelog-ext" 
 	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
 	http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
-	<changeSet id="fc0b39bf18045f308cffe22f23dadbb0d62cf474" author="(${schema})-Generated" failOnError="true"   runOnChange="true"  >
-		<n0:createOracleTrigger objectName="UXI_BI_DATA_SRC_LU" objectType="TRIGGER" ownerName="${schema}"   >
+	<changeSet id="fc0b39bf18045f308cffe22f23dadbb0d62cf474" author="(DEMO)-Generated" failOnError="true"   runOnChange="true"  >
+		<n0:createOracleTrigger objectName="UXI_BI_DATA_SRC_LU" objectType="TRIGGER" ownerName="DEMO"   >
 			<n0:source><![CDATA[
-  CREATE OR REPLACE EDITIONABLE TRIGGER "${schema}"."UXI_BI_DATA_SRC_LU" 
+  CREATE OR REPLACE EDITIONABLE TRIGGER "DEMO"."UXI_BI_DATA_SRC_LU" 
   before insert on "UXI_DATA_SRC_LU"               
   for each row  
 begin   
@@ -18,7 +18,7 @@ begin
 end;
 /
 /
-ALTER TRIGGER "${schema}"."UXI_BI_DATA_SRC_LU" ENABLE;]]></n0:source>
+ALTER TRIGGER "DEMO"."UXI_BI_DATA_SRC_LU" ENABLE;]]></n0:source>
 		</n0:createOracleTrigger>
 	</changeSet>
 </databaseChangeLog>

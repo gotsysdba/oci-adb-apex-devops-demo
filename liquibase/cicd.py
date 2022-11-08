@@ -103,7 +103,7 @@ def run_sqlcl(run_as, password, path, cmd, tns_admin, args):
 def deploy_call(path, user, password, tns_admin, args):
     if os.path.exists(os.path.join(path, 'controller.xml')):
         log.info(f'Running {path}/controller.xml as {user}')
-        cmd = f'lb update -changelog-file controller.xml -defaults-file {script_dir}/default.properties;'
+        cmd = f'lb update -changelog-file controller.xml;'
         run_sqlcl(user, password, path, cmd, tns_admin, args)
 
 """ Action Functions
@@ -140,7 +140,7 @@ def generate(password, tns_admin, args):
         log.info('No APEX changes found')
 
 def destroy(password, tns_admin, args):
-    cmd = 'lb rollback-count -changelog-file controller.xml -count 999;'
+    cmd = f'lb rollback-count -changelog-file controller.xml -count 999 -defaults-file {script_dir}/default.properties;'
     run_sqlcl('ADMIN', password, 'admin', cmd, tns_admin, args)
     
 """ INIT

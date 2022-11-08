@@ -12,8 +12,10 @@ log = logging.getLogger(__name__)
 
 # Script Path
 script_dir = os.path.dirname(os.path.abspath(__file__))
-""" Helpler Functions
-"""
+
+##############################################################
+## Helper Functions
+##############################################################
 def pre_generate(directory, remove_controller=False):
     """ In sqlcl 22+ the naming of files was changed to support using the generate extension in core liquibase. 
         In core liquibase there is currently no way to inject a ChangeLogSyncListener and since they mandated 
@@ -50,6 +52,9 @@ def post_generate(directory, args):
             writer.truncate()
 
 def apex_checksum(checksum_file=None):
+    """ determine if the APEX app checksum has changed driving import/export activities
+        cannot rely on the actual code as it may show changes (export order) that don't exist
+    """
     rtn_checksum = 'No_Checksum_Found'
     try:
         if checksum_file:
@@ -62,10 +67,12 @@ def apex_checksum(checksum_file=None):
     except:
         pass
     
-    log.info(f'Checksum: {rtn_checksum}')
+    log.debug(f'Checksum: {rtn_checksum}')
     return rtn_checksum
 
 def run_sqlcl(run_as, password, path, cmd, tns_admin, args):
+    """ run the sqlcl command
+    """
     lb_env = os.environ.copy()
     lb_env['password']  = password
 
@@ -103,13 +110,17 @@ def run_sqlcl(run_as, password, path, cmd, tns_admin, args):
     log.info('SQLcl command successful')
 
 def deploy_call(path, user, password, tns_admin, args):
+    """ deploy helper, can adapt the deploy function without impacting the core of 
+        what it does
+    """
     if os.path.exists(os.path.join(path, 'controller.xml')):
         log.info(f'Running {path}/controller.xml as {user}')
         cmd = f'lb update -changelog-file controller.xml -defaults-file {script_dir}/default.properties;'
         run_sqlcl(user, password, path, cmd, tns_admin, args)
 
-""" Action Functions
-"""
+##############################################################
+## Action Functions
+##############################################################
 def deploy(password, tns_admin, args):
     deploy_call('admin', 'ADMIN', password, tns_admin, args)
     deploy_call('schema', f'ADMIN[{args.dbUser}]', password, tns_admin, args)
@@ -145,8 +156,9 @@ def destroy(password, tns_admin, args):
     cmd = f'lb rollback-count -changelog-file controller.xml -count 999 -defaults-file {script_dir}/default.properties;'
     run_sqlcl('ADMIN', password, 'admin', cmd, tns_admin, args)
     
-""" INIT
-"""
+##############################################################
+## INIT
+##############################################################
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='CI/CD Liquibase Helper')
     parent_parser = argparse.ArgumentParser(add_help=False)

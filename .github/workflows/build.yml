@@ -60,12 +60,17 @@ jobs:
     # TERRAFORM Block - Create/Push
     ###########################################################
     # main branch will use the default workspace
-    - name: Terraform Workspace (Select)
+    - name: Terraform Workspace (Create)
       if: github.event_name != 'delete' && github.ref_name != 'main'
       working-directory: ./terraform
       continue-on-error: true
       run: |
         terraform workspace new ${CREATE_BRANCH}
+
+    - name: Terraform Workspace (Select)
+      if: github.event_name != 'delete' && github.ref_name != 'main'
+      working-directory: ./terraform
+      run: |
         terraform workspace select ${CREATE_BRANCH}
 
     # Create Resources or regenerate random ADMIN password as it will be exposed

@@ -92,6 +92,8 @@ def run_sqlcl(run_as, password, path, cmd, tns_admin, args):
     result_list = result.stdout.splitlines();
     for line in filter(None, result_list):
         log.info(line)
+        if 'ORA-20987' in line: #Application doesn't exist
+            break
         if any(x in line for x in error_matches):
             exit_status = 1
     if result.returncode or exit_status:
@@ -103,7 +105,7 @@ def run_sqlcl(run_as, password, path, cmd, tns_admin, args):
 def deploy_call(path, user, password, tns_admin, args):
     if os.path.exists(os.path.join(path, 'controller.xml')):
         log.info(f'Running {path}/controller.xml as {user}')
-        cmd = f'lb update -changelog-file controller.xml;'
+        cmd = f'lb update -changelog-file controller.xml -defaults-file {script_dir}/default.properties;'
         run_sqlcl(user, password, path, cmd, tns_admin, args)
 
 """ Action Functions

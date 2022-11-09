@@ -95,7 +95,7 @@ jobs:
       working-directory: ./terraform
       run: |
         terraform workspace select ${DELETE_BRANCH}
-        terraform destroy -auto-approve -input=false
+        terraform destroy -auto-approve -input=false -refresh=false
         terraform workspace select default
         terraform workspace delete ${DELETE_BRANCH}
 
